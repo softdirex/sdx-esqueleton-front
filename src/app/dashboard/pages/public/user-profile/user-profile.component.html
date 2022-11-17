@@ -1,0 +1,370 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+  style="min-height: 600px; background-image: url(assets/img/theme/customers-cover.jpg); background-size: cover; background-position: center top;">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-8"></span>
+  <!-- Header container -->
+  <div class="container-fluid d-flex align-items-center">
+    <div class="row">
+      <div class="col-lg-7 col-md-10">
+        <h1 class="display-2 text-white">{{ 'label.my-profile' | transloco }}</h1>
+        <p class="text-white mt-0 mb-5">{{ 'label.my-profile-desc' | transloco }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+      <div class="card card-profile shadow">
+        <div class="row justify-content-center">
+          <div class="col-lg-3 order-lg-2">
+            <div class="card-profile-image">
+              <a href="javascript:void(0)">
+                <img [src]="avatarUrl" class="rounded-circle">
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                <div>
+                  <div class="container" appDnd (fileDropped)="onFileDropped($event)">
+                    <input type="file" #fileDropRef id="fileDropRef" multiple
+                      (change)="fileBrowseHandler($event.target.files)" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="63" height="64" viewBox="0 0 63 64">
+                      <g fill="#3B454F" fill-rule="nonzero">
+                        <path
+                          d="M42.656 15.135a1.953 1.953 0 0 1-1.391-.578L31.5 4.795l-9.765 9.762a1.97 1.97 0 1 1-2.785-2.785L30.106.616a1.97 1.97 0 0 1 2.785 0l11.157 11.156a1.97 1.97 0 0 1-1.392 3.363z" />
+                        <path
+                          d="M31.5 36.791a1.97 1.97 0 0 1-1.969-1.969V2.01a1.97 1.97 0 0 1 3.938 0v32.812a1.97 1.97 0 0 1-1.969 1.969z" />
+                        <path
+                          d="M55.781 63.041H7.22A7.225 7.225 0 0 1 0 55.822V41.385a4.599 4.599 0 0 1 4.594-4.594h7.234a4.567 4.567 0 0 1 4.402 3.276l2.814 9.382a.658.658 0 0 0 .628.467h23.656a.658.658 0 0 0 .628-.467l2.814-9.385a4.572 4.572 0 0 1 4.402-3.273h7.234A4.599 4.599 0 0 1 63 41.385v14.437a7.225 7.225 0 0 1-7.219 7.219zM4.594 40.729a.656.656 0 0 0-.657.656v14.437a3.286 3.286 0 0 0 3.282 3.282H55.78a3.286 3.286 0 0 0 3.282-3.282V41.385a.656.656 0 0 0-.657-.656h-7.234a.65.65 0 0 0-.628.467L47.73 50.58a4.628 4.628 0 0 1-4.402 3.274H19.672a4.567 4.567 0 0 1-4.402-3.276l-2.814-9.382a.65.65 0 0 0-.628-.467H4.594z" />
+                      </g>
+                    </svg>
+
+                    <h3>{{ 'label.drag-and-drop' | transloco }}</h3>
+                    <h3>{{ 'label.or' | transloco }}</h3>
+                    <label for="fileDropRef">{{ 'label.browse-for-avatar' | transloco }}</label>
+                  </div>
+                  <br><br>
+                  <div class="files-list">
+                    <div class="single-file" *ngFor="let file of files; let i = index">
+                      <div class="file-icon" style="width: 50px">
+                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 58 58"
+                          style="enable-background:new 0 0 58 58;" xml:space="preserve">
+                          <polygon style="fill:#EDEADA;" points="51.5,14 37.5,0 6.5,0 6.5,58 51.5,58 " />
+                          <g>
+                            <path style="fill:#CEC9AE;"
+                              d="M16.5,23h25c0.552,0,1-0.447,1-1s-0.448-1-1-1h-25c-0.552,0-1,0.447-1,1S15.948,23,16.5,23z" />
+                            <path style="fill:#CEC9AE;"
+                              d="M16.5,15h10c0.552,0,1-0.447,1-1s-0.448-1-1-1h-10c-0.552,0-1,0.447-1,1S15.948,15,16.5,15z" />
+                            <path style="fill:#CEC9AE;"
+                              d="M41.5,29h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S42.052,29,41.5,29z" />
+                            <path style="fill:#CEC9AE;"
+                              d="M41.5,37h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S42.052,37,41.5,37z" />
+                            <path style="fill:#CEC9AE;"
+                              d="M41.5,45h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S42.052,45,41.5,45z" />
+                          </g>
+                          <polygon style="fill:#CEC9AE;" points="37.5,0 37.5,14 51.5,14 " />
+                        </svg>
+                      </div>
+                      <div class="info">
+                        <h4 class="name">
+                          {{ file?.name }}
+                        </h4>
+                        <p class="size">
+                          {{ formatBytes(file?.size) }}
+                        </p>
+                        <app-progress [progress]="file?.progress"></app-progress>
+                      </div>
+
+                      <div class="delete" (click)="deleteFile(i)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" viewBox="0 0 14 18">
+                          <path fill="#B1B1B1" fill-rule="nonzero"
+                            d="M1 16c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v10zm3.17-7.83a.996.996 0 0 1 1.41 0L7 9.59l1.42-1.42a.996.996 0 1 1 1.41 1.41L8.41 11l1.42 1.42a.996.996 0 1 1-1.41 1.41L7 12.41l-1.42 1.42a.996.996 0 1 1-1.41-1.41L5.59 11 4.17 9.58a.996.996 0 0 1 0-1.41zM10.5 1L9.79.29C9.61.11 9.35 0 9.09 0H4.91c-.26 0-.52.11-.7.29L3.5 1H1c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1h-2.5z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body pt-0 pt-md-4">
+          <div class="text-center">
+            <h3>
+              {{ personalData.first_name + ' ' + personalData.last_name}}<span class="font-weight-light"></span>
+            </h3>
+            <div class="h5 font-weight-300">
+              <i class="ni location_pin mr-2"></i>{{ personalData.city + ', ' + personalData.country}}
+            </div>
+            <div class="h5 mt-4">
+              <i class="ni business_briefcase-24 mr-2"></i>{{ cusType | transloco }} - {{ cusRol | transloco }}
+            </div>
+            <div>
+              <i class="ni education_hat mr-2"></i>{{ companyName }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-8 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">{{ 'label.customer-detail' | transloco }}</h3>
+            </div>
+            <div class="col-4 text-right">
+              <button class="btn btn-sm btn-warning" (click)="goBack()">{{ 'label.go-back' | transloco }}</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="form">
+            <h6 class="heading-small text-muted mb-4">{{ 'label.user-information' | transloco }}</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-8">
+                  <div class="form-group">
+                    <label class="form-control-label">{{ 'label.email' | transloco }}</label>
+                    <input type="email" class="form-control form-control-alternative" formControlName="email" readonly>
+                    <span *ngIf="email.errors" class="badge badge-danger">
+                      {{ getErrorMessage(email) | transloco }}</span>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label class="form-control-label">
+                      {{ 'language.title' | transloco }}
+                    </label>
+                    <select type="text" class="form-control form-control-alternative" formControlName="lang">
+                      <option value="{{ lang.value }}" selected disabled>
+                        {{ 'label.select' | transloco }}
+                      </option>
+                      <option *ngFor="let item of langItems" value="{{ item.code }}">
+                        {{ item.label | transloco }}
+                      </option>
+                    </select>
+                    <span class="badge badge-danger">{{ getErrorMessage(lang) | transloco }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4" />
+            <!-- PErsonal Information -->
+            <h6 class="heading-small text-muted mb-4">{{ 'label.personal-information' | transloco }}</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label">{{ 'personal-data.name' | transloco }}</label>
+                    <input type="text" class="form-control form-control-alternative" formControlName="first_name"
+                      [value]="first_name.value | nameformat">
+                    <span *ngIf="first_name.errors" class="badge badge-danger">
+                      {{ getErrorMessage(first_name) | transloco }}</span>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label">{{ 'personal-data.last-name' | transloco }}</label>
+                    <input type="text" class="form-control form-control-alternative" formControlName="last_name"
+                      [value]="last_name.value | nameformat">
+                    <span *ngIf="last_name.errors" class="badge badge-danger">
+                      {{ getErrorMessage(last_name) | transloco }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label">{{ 'personal-data.sex' | transloco }}</label>
+                    <select type="text" class="form-control form-control-alternative" formControlName="gender">
+                      <option value="" selected disabled>{{ 'personal-data.sex' | transloco }}</option>
+                      <option *ngFor="let item of genderTypes" value="{{ item.value }}">
+                        {{ item.name | transloco }}
+                      </option>
+                    </select>
+                    <span *ngIf="gender.errors" class="badge badge-danger">
+                      {{ getErrorMessage(gender) | transloco }}</span>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label">{{ 'personal-data.birthday' | transloco }}</label>
+                    <div class="input-group input-group-alternative">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                      </div>
+                      <input class="form-control datepicker" formControlName="birthday"
+                        placeholder="{{ 'personal-data.birthday' | transloco }}" name="dp2" [(ngModel)]="model"
+                        ngbDatepicker #d="ngbDatepicker" [startDate]="startYear" [minDate]="minYear" [maxDate]="maxYear"
+                        (click)="d.toggle()" type="text" />
+                    </div>
+                    <div *ngIf="birthday.errors">
+                      <span class="badge badge-danger">{{ getErrorMessage(birthday) | transloco }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="form-control-label">{{ 'personal-data.address' | transloco }}</label>
+                    <input class="form-control form-control-alternative" formControlName="address" type="text"
+                      [value]="address.value | nameformat">
+                    <span *ngIf="address.errors" class="badge badge-danger">
+                      {{ getErrorMessage(address) | transloco }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-country">{{ 'personal-data.province' | transloco
+                      }}</label>
+                    <select class="form-control form-control-alternative" formControlName="provinceType">
+                      <option value="" selected disabled>{{ 'personal-data.province' | transloco }}</option>
+                      <option *ngFor="let item of provinceTypes" value="{{ item.value }}">
+                        {{ item.name | transloco }}
+                      </option>
+                    </select>
+                    <span class="badge badge-danger">{{ getErrorMessage(provinceType) | transloco }}</span>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-country">{{ provinceTypeSelected | transloco
+                      }}</label>
+                    <input type="text" class="form-control form-control-alternative" formControlName="provinceValue"
+                      [value]="provinceValue.value | nameformat">
+                    <span class="badge badge-danger">{{ getErrorMessage(provinceValue) | transloco }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label">{{ 'personal-data.city' | transloco }}</label>
+                    <input class="form-control form-control-alternative" formControlName="city" type="text"
+                      [value]="city.value | nameformat">
+                    <span *ngIf="city.errors" class="badge badge-danger">
+                      {{ getErrorMessage(city) | transloco }}</span>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label">{{ 'personal-data.country' | transloco }}</label>
+                    <input type="text" class="form-control form-control-alternative" formControlName="country"
+                      [matAutocomplete]="auto" (blur)="onKeyValidatorCountry()" (keyup)="onKeyValidatorCountry()"
+                      required>
+                    <span *ngIf="country.errors" class="badge badge-danger">
+                      {{ getErrorMessage(country) | transloco }}</span>
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option *ngFor="let optCountry of filteredCountriesPersonalData | async"
+                        [value]="optCountry.name">
+                        {{optCountry.name}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h6 class="heading-small text-muted mb-4">{{ 'label.contact-information' | transloco }}</h6>
+            <!-- BEGIN - Contact data -->
+            <div class="card-header border-0">
+              <form [formGroup]="cdForm">
+                <div class="row">
+                  <div *ngIf="getScreenWidth >= mobileWidth" class="col-12 text-center">
+                    <div class="row">
+                      <div class="col-4">
+                        <select class="form-control-sm" formControlName="cdField">
+                          <option value="" selected disabled>{{ 'label.select-contact-data' | transloco
+                            }}...</option>
+                          <option *ngFor="let item of contactTypeInSelect" value="{{ item.field }}">
+                            {{ item.label | transloco}}
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col-4">
+                        <input type="text" formControlName="cdValue" class="form-control-sm form-control-alternative">
+                      </div>
+                      <div class="col-4">
+                        <button class="btn btn-sm btn-default" (click)="applyCDForm()" [disabled]="cdForm.invalid">{{
+                          'label.add' |
+                          transloco }}</button>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div *ngIf="getScreenWidth < mobileWidth" class="col-12 text-center">
+                    <div class="row">
+                      <div class="col-12">
+                        <select class="form-control-sm" formControlName="cdField">
+                          <option value="" selected disabled>{{ 'label.select-contact-data' | transloco
+                            }}...</option>
+                          <option *ngFor="let item of contactTypeInSelect" value="{{ item.field }}">
+                            {{ item.label | transloco}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <input type="text" formControlName="cdValue" class="form-control-sm form-control-alternative">
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-12">
+                        <button class="btn btn-sm btn-default" (click)="applyCDForm()" [disabled]="cdForm.invalid">{{
+                          'label.add' |
+                          transloco }}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div *ngFor="let item of contactTypeInSelect">
+                    <div *ngIf="item.enabled" class="col-12">
+                      <div class="alert alert-default alert-dismissible fade show" role="alert">
+                        <span class="alert-inner--text"><strong><small>{{ item.label | transloco
+                              }}</small></strong> {{ item.value }}</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                          (click)="removeCDFormField(item.field)">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- END - Contact data -->
+            <hr class="my-4" />
+            <!-- Button -->
+
+            <div class="pl-lg-4">
+              <div class="form-group">
+                <button class="btn btn-xl btn-info" [disabled]="form.invalid" (click)="submit()">
+                  {{ 'label.save' | transloco }}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

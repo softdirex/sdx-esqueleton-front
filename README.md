@@ -20,7 +20,7 @@ Complete description here...
 * To clone this project use the following command:
 
 ```
-git clone git@github.com:softdirex/sdx-publinex-front.git
+git clone git@github.com:softdirex/sdx-<project_name>-front.git
 ```
 
 * To install dependencies run:

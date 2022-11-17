@@ -1,0 +1,56 @@
+<nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+  <div class="container-fluid">
+    <!-- Brand -->
+    <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" routerLinkActive="active"
+    [routerLink]="['/'+mainPath]">
+      {{ getTitle() | transloco }}
+    </a>
+
+    <!-- User -->
+    <ul class="navbar-nav align-items-center d-none d-md-flex">
+      <li class="nav-item" ngbDropdown placement="bottom-right">
+        <a class="nav-link pr-0" role="button" ngbDropdownToggle>
+          <div class="media align-items-center">
+            <span class="avatar avatar-sm rounded-circle">
+              <img *ngIf="!sessionIsOpen" alt="Image placeholder" src="./assets/img/theme/softdirex.jpg">
+              <img *ngIf="sessionIsOpen" alt="Image placeholder" [src]="avatarUrl">
+            </span>
+            <div *ngIf="!sessionIsOpen" class="media-body ml-2 d-none d-lg-block">
+              <!-- SET NAME IN SESSION-->
+              <span class="mb-0 text-sm  font-weight-bold">{{ 'label.login-invite' | transloco }}</span>
+            </div>
+            <div *ngIf="sessionIsOpen" class="media-body ml-2 d-none d-lg-block">
+              <!-- SET NAME IN SESSION-->
+              <span class="mb-0 text-sm  font-weight-bold">{{ getCustomerName() }}</span>
+            </div>
+          </div>
+        </a>
+        <div class="dropdown-menu-arrow dropdown-menu-right" ngbDropdownMenu>
+          <a *ngIf="sessionIsOpen" routerLinkActive="active" [routerLink]="['/'+profilePath]" class="dropdown-item">
+            <i class="ni ni-single-02"></i>
+            <span>{{ 'label.profile' | transloco }}</span>
+          </a>
+          <button class="dropdown-item" (click)="openLanguageModal()">
+            <span class="avatar avatar-xs rounded-circle">
+              <img alt="Image Lang" src="{{ langIcon }}">
+            </span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;{{ 'language.title' | transloco }}</span>
+          </button>
+          <a routerLinkActive="active" [routerLink]="['/'+supportPath]" class="dropdown-item">
+            <i class="ni ni-support-16"></i>
+            <span>{{ 'label.support' | transloco }}</span>
+          </a>
+          <div class="dropdown-divider"></div>
+          <button *ngIf="sessionIsOpen" href="#!" class="dropdown-item" (click)="closeSession()">
+            <i class="ni ni-user-run"></i>
+            <span>{{ 'label.close' | transloco }}</span>
+          </button>
+          <a *ngIf="!sessionIsOpen" [routerLink]="['/'+loginPath]" class="dropdown-item">
+            <i class="fa fa-door-open"></i>
+            <span>{{ 'login.button' | transloco }}</span>
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

@@ -8,7 +8,10 @@ export const environment = {
   coreTransactionKey: '2wR14ikRE9BadFkpfRb6',
   appName: 'APP_NAME',
   orgName: 'Softdirex',
-  backendEndpoint: 'http://127.0.0.1:3334/v1'
+  productId: 1,
+  productBackendEndpoint: 'http://127.0.0.1:3334/v1',
+  coreBackendEndpoint: 'http://127.0.0.1:3333/v1',
+  coreFrontendEndpoint: 'http://localhost:4401/'
 };
 
 /*

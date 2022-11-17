@@ -1,0 +1,19 @@
+<div class="grid-container">
+    <div class="modal-body">
+        <img class="icon-alert" src="../../../../assets/img/png/{{icon}}.png">
+        <mat-grid-list cols="2">
+            <h2 class="mat-header-cell">{{ title | transloco }}</h2>
+            <h3>{{ message | transloco }}</h3>
+
+        </mat-grid-list>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="goTo()">
+            {{ linkName | transloco }}
+        </button>
+        <button type="button" class="btn btn-danger" (click)="modalRef.close()">
+            {{ 'label.close' | transloco }}
+        </button>
+    </div>
+</div>
