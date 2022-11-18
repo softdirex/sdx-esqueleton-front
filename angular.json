@@ -32,7 +32,7 @@
             "styles": [
               "src/styles.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/assets/css/style-blue.css",
+              "src/assets/css/style-red.css",
               "src/assets/fonts/style.css",
               "node_modules/slick-carousel/slick/slick.scss",
               "node_modules/slick-carousel/slick/slick-theme.scss"

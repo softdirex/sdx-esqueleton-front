@@ -5,7 +5,7 @@ import { Company } from '../../interfaces/core/company';
 @Component({
   selector: 'app-select-company',
   templateUrl: './select-company.component.html',
-  styleUrls: ['./select-company.component.scss']
+  styleUrls: ['./select-company.component.css']
 })
 export class SelectCompanyComponent implements OnInit {
 

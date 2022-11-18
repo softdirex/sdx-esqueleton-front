@@ -1,0 +1,88 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100 navigation" id="navbar">
+  <div class="container">
+    <a class="navbar-brand font-weight-bold text-white" routerLink="/">sdxFront</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar"
+      aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse " id="main-navbar">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item active">
+          <a class="nav-link text-white" routerLink="{{PATH_PRODUCT}}">Product name</a>
+        </li>
+
+        <li *ngIf="getScreenWidth < mobileWidth" class="nav-item active">
+          <a class="nav-link text-white" routerLink="{{PATH_MY_COMPANY}}">My Organization</a>
+        </li>
+
+        <li *ngIf="getScreenWidth < mobileWidth" class="nav-item active">
+          <a class="nav-link text-white" routerLink="{{PATH_MY_PURCHASES}}">Payment history</a>
+        </li>
+
+        <li *ngIf="getScreenWidth < mobileWidth" class="nav-item active">
+          <a class="nav-link text-white" routerLink="{{PATH_MY_LICENCES}}">My subscription</a>
+        </li>
+
+        <li *ngIf="getScreenWidth >= mobileWidth" class="nav-item dropdown dropdown-slide">
+          <a *ngIf="sessionIsOpen" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown4" role="button"
+            data-delay="350" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            My company Name
+          </a>
+          <a *ngIf="!sessionIsOpen" class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button"
+            data-delay="350" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ 'label.login-invite' | transloco }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown4">
+            <li><a href="{{PATH_MY_COMPANY}}">My Organization</a></li>
+            <li><a href="{{PATH_MY_PURCHASES}}">Payment history</a></li>
+            <li><a href="{{PATH_MY_LICENCES}}">My subscription</a></li>
+          </ul>
+        </li>
+
+        <li *ngIf="getScreenWidth < mobileWidth" class="nav-item dropdown dropdown-slide">
+          <a *ngIf="sessionIsOpen" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown4" role="button"
+            data-delay="350" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{getCustomerName()}}
+          </a>
+          <a *ngIf="!sessionIsOpen" class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button"
+            data-delay="350" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ 'label.login-invite' | transloco }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown4">
+            <li><a href="user/profile">Profile detail</a></li>
+            <li><a href="home">Home</a></li>
+            <li><a href="path/to/EEsupport">Support</a></li>
+            <li *ngIf="!sessionIsOpen"><a href="login">Login</a></li>
+            <li *ngIf="sessionIsOpen"><a (click)="closeSession()">Logout</a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </div>
+    <!-- Navbar-collapse -->
+
+    <ul class="top-menu list-inline mb-0 d-none d-lg-block" id="top-menu">
+
+      <li class="list-inline-item"><a href="#"></a></li>
+      <li class="dropdown cart-nav dropdown-slide list-inline-item">
+        <a href="#" class="dropdown-toggle cart-icon" data-toggle="dropdown" data-hover="dropdown">
+          <i class="tf-ion-ios-person mr-3"></i>
+        </a>
+        <div class="dropdown-menu cart-dropdown">
+      <li *ngIf="sessionIsOpen"><h3>{{getCustomerName()}}</h3></li>
+      <li><a href="user/profile">Profile Details</a></li>
+      <li><a href="path/to/EEsupport">Support</a></li>
+      <li><a href="home">Home</a></li>
+      <div *ngIf="!sessionIsOpen" class="text-center cart-buttons mt-3">
+        <a routerLink="/login" class="btn btn-small btn-main btn-block">Login</a>
+      </div>
+      <div *ngIf="sessionIsOpen" class="text-center cart-buttons mt-3">
+        <a (click)="closeSession()" class="btn btn-small btn-main btn-block">Logout</a>
+      </div>
+  </div>
+  </li>
+  </ul>
+  </div>
+</nav>

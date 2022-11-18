@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { Product } from 'src/app/public/models/core/interfaces/Product';
 import { ProductsService } from 'src/app/services/products.service';
@@ -12,12 +12,13 @@ import { ConfirmModalComponent } from 'src/app/shared/modals/confirm-modal/confi
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-public-product',
-  templateUrl: './public-product.component.html',
-  styleUrls: ['./public-product.component.scss']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
-export class PublicProductComponent implements OnInit {
+export class HomeComponent implements OnInit {
 
+  
   resource: Product = {
     id: null,
     name: '',
@@ -45,7 +46,6 @@ export class PublicProductComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private service: ProductsService,
     private storageService: StorageService,
     private sanitizer: DomSanitizer,
@@ -55,9 +55,7 @@ export class PublicProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.sessionIsOpen = Commons.sessionIsOpen()
-    this.route.params.subscribe(params => {
-      this.loadProduct(environment.productId)
-    })
+    this.loadProduct(environment.productId)
   }
 
   apply(planId: number) {

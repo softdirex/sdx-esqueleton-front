@@ -1,457 +1,122 @@
-<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
-    style="min-height: 600px; background-image: url(assets/img/theme/products-cover.jpg); background-size: cover; background-position: center top;">
-    <!-- Mask -->
-    <span class="mask bg-gradient-danger opacity-8"></span>
-    <!-- Header container -->
-    <div class="container-fluid d-flex align-items-center">
-        <div class="row">
-            <div class="col-lg-7 col-md-10">
-                <h1 class="display-2 text-white">{{ 'label.subscriptions' | transloco }}</h1>
-                <p class="text-white mt-0 mb-5">{{ 'label.subscriptions-desc' | transloco }}</p>
+<section class="page-header">
+    <div class="overly"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="content text-center">
+                    <h1 class="mb-3">Frequent questions</h1>
+                    <p>Hath after appear tree great fruitful green dominion moveth sixth abundantly image that midst of
+                        god day multiply you’ll which</p>
+
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-transparent justify-content-center">
+                            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Faqs</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="page-wrapper">
+    <div class="checkout shopping">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 pr-5">
+
+                    <div class="billing-details mt-5">
+                        <h4 class="mb-4">Frequent questions</h4>
+
+                        <h5>1) What is Lorem Ipsum?</h5>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                            unknown printer took a galley of type and scrambled it to make a type specimen book.
+                            It has survived not only five centuries, but also the leap into electronic typesetting,
+                            remaining essentially unchanged. It was popularised in the 1960s with the release of
+                            Letraset
+                            sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
+                            like Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+                        <h5>2) What is Lorem Ipsum?</h5>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                            unknown printer took a galley of type and scrambled it to make a type specimen book.
+                            It has survived not only five centuries, but also the leap into electronic typesetting,
+                            remaining essentially unchanged. It was popularised in the 1960s with the release of
+                            Letraset
+                            sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
+                            like Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+                        <h5>3) What is Lorem Ipsum?</h5>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                            unknown printer took a galley of type and scrambled it to make a type specimen book.
+                            It has survived not only five centuries, but also the leap into electronic typesetting,
+                            remaining essentially unchanged. It was popularised in the 1960s with the release of
+                            Letraset
+                            sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
+                            like Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+                        <h5>4) What is Lorem Ipsum?</h5>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                            unknown printer took a galley of type and scrambled it to make a type specimen book.
+                            It has survived not only five centuries, but also the leap into electronic typesetting,
+                            remaining essentially unchanged. It was popularised in the 1960s with the release of
+                            Letraset
+                            sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
+                            like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                    </div>
+                </div>
+
+                <!-- Order sidebar Summery -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="product-checkout-details mt-5 mt-lg-0">
+                        <h4 class="mb-4 border-bottom pb-4">Our Company</h4>
+
+                        <div class="media product-card">
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                                unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                It has survived not only five centuries, but also the leap into electronic typesetting,
+                                remaining essentially unchanged. It was popularised in the 1960s with the release of
+                                Letraset
+                                sheets containing Lorem Ipsum passages, and more recently with desktop publishing
+                                software
+                                like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                        </div>
+                        <p>
+                            <a routerLink="/terms/privacy-policy" class="btn btn-main btn-small">Privacy Policy</a>
+                        </p>
+                        <p>
+                            <a routerLink="/terms/conditions-terms" class="btn btn-main btn-small">Terms & Conditions</a>
+                        </p>
+                        <p>
+                            <a routerLink="/terms/cookie-policy" class="btn btn-main btn-small">Cookie Policy</a>
+                        </p>
+                        <p>
+                            <a routerLink="/terms/sales-terms" class="btn btn-main btn-small">Terms of Sale</a>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<div class="container-fluid mt--7">
-    <!-- Table -->
-    <div class="row">
-        <div class="col">
-            <div class="card shadow">
-                <div class="card-header border-0">
-                    <div class="row">
-                        <div class="col-4">
-                            <h3 *ngIf="paginator.status != paginator.statusInactive" class="mb-0">{{
-                                'label.subscriptions' | transloco }}</h3>
-                            <h3 *ngIf="paginator.status == paginator.statusInactive" class="mb-0">{{
-                                'label.subscriptions-pending' | transloco }}</h3>
-                        </div>
-                        <div *ngIf="sessionNonBasic" class="col-6 text-right">
-                            <button class="btn btn-xl btn-info" (click)="add()">{{ 'label.add' | transloco }}</button>
-                        </div>
-                        <div *ngIf="sessionNonBasic" class="col-2 text-right">
-                            <div ngbDropdown placement="bottom-right">
-                                <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </a>
-                                <div ngbDropdownMenu class="dropdown-menu-right dropdown-menu-arrow">
-                                    <button *ngIf="paginator.status != paginator.statusActive" class="dropdown-item"
-                                        (click)="viewEnableds()">{{ 'label.view-active' | transloco }}</button>
-                                    <button *ngIf="paginator.status != paginator.statusInactive" class="dropdown-item"
-                                        (click)="viewDisableds()">{{ 'label.view-pendings' |
-                                        transloco }}</button>
-                                    <button *ngIf="paginator.status == paginator.statusInactive && !allSelected"
-                                        class="dropdown-item" (click)="allSelect()">
-                                        {{ 'label.select-all' | transloco }}</button>
-                                    <button *ngIf="paginator.status == paginator.statusInactive && allSelected"
-                                        class="dropdown-item" (click)="deselectAll()">
-                                        {{ 'label.deselect-all' | transloco }}</button>
-                                    <button
-                                        *ngIf="paginator.status == paginator.statusInactive && paginator.status != paginator.statusDeleted && paginator.status != paginator.statusDeletedInactive"
-                                        class="dropdown-item" (click)="deleteSelected()">{{ 'label.delete-selected'
-                                        |
-                                        transloco }}</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <small *ngIf="paginator.total == 0">{{ 'label.no-subscriptions-found-to-display' | transloco
-                                }}</small>
-                            <small *ngIf="paginator.total == 1">{{ 'label.showing-one-subscription' | transloco
-                                }}</small>
-                            <small *ngIf="paginator.total >= 2">{{ 'label.showing' | transloco }}&nbsp;{{
-                                paginator.total}}&nbsp;{{ 'label.subscriptions' | transloco | lowercase }}</small>
-                        </div>
-                    </div>
-                </div>
-                <hr class="my-3">
-                <!-- BEGIN - Filters -->
-                <div class="card-header border-0">
-                    <form [formGroup]="fForm">
-                        <div class="row">
-                            <div class="col-4">
-                                <h3 class="mb-0">{{ 'label.filters' | transloco }}</h3>
-                            </div>
-                            <div *ngIf="getScreenWidth >= mobileWidth" class="col-8 text-right">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <select *ngIf="paginator.addingFilters" class="form-control-sm"
-                                            formControlName="fField">
-                                            <option value="" selected disabled>{{ 'label.select-filter' | transloco
-                                                }}...</option>
-                                            <option *ngFor="let item of filtersInSelect" value="{{ item.field }}">
-                                                {{ item.label | transloco}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-4">
-                                        <input *ngIf="paginator.addingFilters" type="text" formControlName="fValue"
-                                            class="form-control-sm form-control-alternative" placeholder="Filter...">
-                                    </div>
-                                    <div class="col-4">
-                                        <button *ngIf="!paginator.addingFilters" class="btn btn-sm btn-default"
-                                            (click)="addFilters()">{{ 'label.add-filter' | transloco }}</button>
-                                        <button *ngIf="paginator.addingFilters" class="btn btn-sm btn-default"
-                                            (click)="applyFilter()" [disabled]="fForm.invalid">{{ 'label.apply' |
-                                            transloco }}</button>
-                                        <button *ngIf="paginator.addingFilters" class="btn btn-sm btn-danger"
-                                            (click)="clearFilters()">{{ 'label.clean-all' | transloco }}</button>
-                                    </div>
 
-                                </div>
-                            </div>
-                            <div *ngIf="getScreenWidth < mobileWidth" class="col-8 text-right">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <select *ngIf="paginator.addingFilters" class="form-control-sm"
-                                            formControlName="fField">
-                                            <option value="" selected disabled>{{ 'label.select-filter' | transloco
-                                                }}...</option>
-                                            <option *ngFor="let item of filtersInSelect" value="{{ item.field }}">
-                                                {{ item.label | transloco}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <input *ngIf="paginator.addingFilters" type="text" formControlName="fValue"
-                                            class="form-control-sm form-control-alternative" placeholder="Filter...">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <button *ngIf="!paginator.addingFilters" class="btn btn-sm btn-default"
-                                            (click)="addFilters()">{{ 'label.add-filter' | transloco }}</button>
-                                        <button *ngIf="paginator.addingFilters" class="btn btn-sm btn-default"
-                                            (click)="applyFilter()" [disabled]="fForm.invalid">{{ 'label.apply' |
-                                            transloco }}</button>
-                                        <button *ngIf="paginator.addingFilters" class="btn btn-sm btn-danger"
-                                            (click)="clearFilters()">{{ 'label.clean-all' | transloco }}</button>
-                                    </div>
 
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div *ngFor="let item of filtersInSelect">
-                                <div *ngIf="item.enabled" class="col-12">
-                                    <div class="alert alert-default alert-dismissible fade show" role="alert">
-                                        <span class="alert-inner--text"><strong><small>{{ item.label | transloco
-                                                    }}</small></strong> {{ item.value }}</span>
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"
-                                            (click)="removeFilter(item.field)">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <!-- END - Filters -->
-                <!-- BEGIN - Summary -->
-                <div *ngIf="summary.length > 0">
-                    <hr class="my-3">
-                    <div class="card-header border-0">
-                        <div class="row">
-                            <div class="col-4">
-                                <h3 class="mb-0">{{ 'label.summary' | transloco }}</h3>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div *ngFor="let detail of summary">
-                                <div class="col-12">
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        <span class="alert-inner--text"><strong><small>{{ detail | transloco
-                                                    }}</small></strong></span>
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"
-                                            (click)="removeSummary(detail)">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<!-- Modal -->
+<div class="modal fade" id="coupon-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content py-5">
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="Enter Coupon Code">
                     </div>
-                </div>
-                <!-- END - Summary -->
-                <!-- BEGIN - Table Content -->
-                <div *ngIf="!paginator.loading" class="table-responsive">
-                    <table class="table align-items-center table-flush">
-                        <thead class="thead-light">
-                            <tr>
-                                <th *ngIf="sessionNonBasic && paginator.status == paginator.statusInactive" scope="col">
-                                    {{ 'label.select' |
-                                    transloco }}</th>
-                                <th scope="col">{{ 'label.product' | transloco }}</th>
-                                <th scope="col">{{ 'label.plan-name' | transloco }}</th>
-                                <th scope="col">{{ 'label.type' | transloco }}</th>
-                                <th scope="col">{{ 'label.activation' | transloco }}</th>
-                                <th scope="col">{{ 'label.expiration' | transloco }}</th>
-                                <th scope="col">{{ 'label.status' | transloco }}</th>
-                                <th *ngIf="sessionNonBasic" scope="col">{{ 'label.price' | transloco }}</th>
-                                <th *ngIf="sessionNonBasic" scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of list">
-                                <td *ngIf="sessionNonBasic && paginator.status == paginator.statusInactive">
-                                    <input *ngIf="!allSelected" type="checkbox" [value]="toStringCheckbox(item)"
-                                        (change)="onCheckboxChange($event)" />
-                                    <input *ngIf="allSelected" type="checkbox" [value]="toStringCheckbox(item)"
-                                        (change)="onCheckboxChange($event)" checked />
-                                </td>
-                                <td>
-                                    <a *ngIf="buildProductType(item.plan) != 1 && buildProductType(item.plan) != 2 && buildProductType(item.plan) != 3"
-                                        class="btn-sm btn-default" href="{{ buildLink(item.plan) }}" target="_blank">
-                                        {{ buildProductName(item.plan) }}
-                                    </a>
-                                    <a *ngIf="buildProductType(item.plan) == 1" class="btn-sm btn-success"
-                                        href="{{ buildLink(item.plan) }}" target="_blank">{{
-                                        buildProductName(item.plan) }}</a>
-                                    <a *ngIf="buildProductType(item.plan) == 2" class="btn-sm btn-info"
-                                        href="{{ buildLink(item.plan) }}" target="_blank">{{
-                                        buildProductName(item.plan) }}</a>
-                                    <a *ngIf="buildProductType(item.plan) == 3" class="btn-sm btn-warning"
-                                        href="{{ buildLink(item.plan) }}" target="_blank">{{
-                                        buildProductName(item.plan) }}</a>
-                                </td>
-                                <td>
-                                    {{ buildPlanName(item.plan) }}
-                                </td>
-                                <td>
-                                    {{ formatType(item.plan) | transloco }}
-                                </td>
-                                <td>
-                                    {{ item.inititated_at | date:'dd-MM-yyyy' }}
-                                </td>
-                                <td>
-                                    {{ item.expired_at | date:'dd-MM-yyyy' }}
-                                </td>
-                                <td>
-
-                                    <span *ngIf="expirationStatus(item) == licencesConfig.EXPIRED"
-                                        class="badge badge-dot mr-4">
-                                        <i class="bg-danger"></i> {{ 'label.expired' | transloco }}
-                                    </span>
-                                    <span *ngIf="expirationStatus(item) == licencesConfig.UP_TO_DATE"
-                                        class="badge badge-dot mr-4">
-                                        <i class="bg-success"></i> {{ 'label.up-to-date' | transloco }}
-                                    </span>
-                                    <span *ngIf="expirationStatus(item) == licencesConfig.RENEW"
-                                        class="badge badge-dot mr-4">
-                                        <i class="bg-warning"></i> {{ 'label.renew' | transloco }}
-                                    </span>
-                                    <span *ngIf="expirationStatus(item) == licencesConfig.ACTIVATE"
-                                        class="badge badge-dot mr-4">
-                                        <i class="bg-warning"></i> {{ 'label.activate' | transloco }}
-                                    </span>
-                                </td>
-                                <td *ngIf="sessionNonBasic">
-                                    {{ item.currency + ' ' + item.price }}
-                                    <!-- Si es estado epndiente este debe ser un boton de pago directo para facilitar en moviles-->
-                                </td>
-                                <td *ngIf="sessionNonBasic" class="text-right">
-                                    <button *ngIf="expirationStatus(item) == licencesConfig.UP_TO_DATE"
-                                        class="btn btn-sm btn-icon-only text-light">
-                                        <i class="fa fa-money-bill"></i>
-                                    </button>
-                                    <button
-                                        *ngIf="paginator.status != paginator.statusInactive && expirationStatus(item) == licencesConfig.EXPIRED"
-                                        class="btn btn-sm btn-icon-only text-danger" (click)="deleteItem(item.id)">
-                                        <i class="ni ni-fat-remove"></i>
-                                    </button>
-                                    <button
-                                        *ngIf="expirationStatus(item) == licencesConfig.RENEW || expirationStatus(item) == licencesConfig.ACTIVATE"
-                                        class="btn btn-sm btn-icon-only text-success" (click)="purchase(item)">
-                                        <i class="fa fa-money-bill"></i>
-                                    </button>
-                                    <button *ngIf="paginator.status == paginator.statusInactive"
-                                        class="btn btn-sm btn-icon-only text-danger" (click)="deleteItem(item.id)">
-                                        <i class="ni ni-fat-remove"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- END - Table Content -->
-                <!-- BEGIN - Loading gif -->
-                <div *ngIf="paginator.loading" class="table-responsive">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-6 col-md-8">
-                            <div class="card bg-secondary shadow border-0">
-                                <div class="card-body px-lg-5 py-lg-5">
-                                    <div class="text-center text-muted mb-4">
-                                        <small>{{ 'label.wait' | transloco }}</small>
-                                    </div>
-                                    <div class="text-center">
-                                        <div class="text-center">
-                                            <img class="icon-alert" src="./assets/img/gif/loading.gif">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- END - Loading gif -->
-                <!-- BEGIN - Pagination -->
-                <div class="card-footer border-0">
-                    <nav aria-label="...">
-                        <!-- BEGIN - mobile screen -->
-                        <ul *ngIf="getScreenWidth < mobileWidth" class="pagination justify-content-end">
-                            <div *ngFor="let pageIndex of paginator.allPages">
-                                <li *ngIf="pageIndex == paginator.page" class="page-item active">
-                                    <button class="page-link">{{ pageIndex }}</button>
-                                </li>
-                                <li *ngIf="pageIndex != paginator.page && pageIndex != '...'" class="page-item">
-                                    <button class="page-link" (click)="toPage(pageIndex)">{{ pageIndex }}</button>
-                                </li>
-                                <li *ngIf="pageIndex != paginator.page && pageIndex == '...'"
-                                    class="page-item disabled">
-                                    <button class="page-link" (click)="toPage(pageIndex)">{{ pageIndex }}</button>
-                                </li>
-                            </div>
-                        </ul>
-                        <ul *ngIf="getScreenWidth < mobileWidth" class="pagination justify-content-end">
-                            <li *ngIf="paginator.currentPage == 1" class="page-item disabled">
-                                <button class="page-link">
-                                    <i class="fas fa-angle-double-left"></i>
-                                    <span class="sr-only">First</span>
-                                </button>
-                            </li>
-                            <li *ngIf="paginator.currentPage != 1" class="page-item">
-                                <button class="page-link" (click)="toPage(1)">
-                                    <i class="fas fa-angle-double-left"></i>
-                                    <span class="sr-only">First</span>
-                                </button>
-                            </li>
-                            <li *ngIf="paginator.currentPage == 1" class="page-item disabled">
-                                <button class="page-link" tabindex="-1">
-                                    <i class="fas fa-angle-left"></i>
-                                    <span class="sr-only">Previous</span>
-                                </button>
-                            </li>
-                            <li *ngIf="paginator.currentPage != 1" class="page-item">
-                                <button class="page-link" (click)="toPage(paginator.page-1)">
-                                    <i class="fas fa-angle-left"></i>
-                                    <span class="sr-only">Previous</span>
-                                </button>
-                            </li>
-                            <li *ngIf="paginator.lastPage != paginator.page" class="page-item">
-                                <button class="page-link" (click)="toPage(paginator.page+1)">
-                                    <i class="fas fa-angle-right"></i>
-                                    <span class="sr-only">Next</span>
-                                </button>
-                            </li>
-                            <li *ngIf="paginator.lastPage == paginator.page" class="page-item disabled">
-                                <button class="page-link">
-                                    <i class="fas fa-angle-right"></i>
-                                    <span class="sr-only">Next</span>
-                                </button>
-                            </li>
-                            <li *ngIf="paginator.currentPage != paginator.lastPage" class="page-item">
-                                <button class="page-link" (click)="toPage(paginator.lastPage)">
-                                    <i class="fas fa-angle-double-right"></i>
-                                    <span class="sr-only">Last</span>
-                                </button>
-                            </li>
-                            <li *ngIf="paginator.currentPage == paginator.lastPage" class="page-item disabled">
-                                <button class="page-link">
-                                    <i class="fas fa-angle-double-right"></i>
-                                    <span class="sr-only">Last</span>
-                                </button>
-                            </li>
-                        </ul>
-                        <!-- END - mobile screen -->
-                        <!-- BEGIN - normal screen -->
-                        <ul *ngIf="getScreenWidth >= mobileWidth" class="pagination justify-content-end">
-                            <li *ngIf="paginator.currentPage == 1" class="page-item disabled">
-                                <button class="page-link">
-                                    <i class="fas fa-angle-double-left"></i>
-                                    <span class="sr-only">First</span>
-                                </button>
-                            </li>
-                            <li *ngIf="paginator.currentPage != 1" class="page-item">
-                                <button class="page-link" (click)="toPage(1)">
-                                    <i class="fas fa-angle-double-left"></i>
-                                    <span class="sr-only">First</span>
-                                </button>
-                            </li>
-                            <li *ngIf="paginator.currentPage == 1" class="page-item disabled">
-                                <button class="page-link" tabindex="-1">
-                                    <i class="fas fa-angle-left"></i>
-                                    <span class="sr-only">Previous</span>
-                                </button>
-                            </li>
-                            <li *ngIf="paginator.currentPage != 1" class="page-item">
-                                <button class="page-link" (click)="toPage(paginator.page-1)">
-                                    <i class="fas fa-angle-left"></i>
-                                    <span class="sr-only">Previous</span>
-                                </button>
-                            </li>
-                            <div *ngFor="let pageIndex of paginator.allPages">
-                                <li *ngIf="pageIndex == paginator.page" class="page-item active">
-                                    <button class="page-link">{{ pageIndex }}</button>
-                                </li>
-                                <li *ngIf="pageIndex != paginator.page && pageIndex != '...'" class="page-item">
-                                    <button class="page-link" (click)="toPage(pageIndex)">{{ pageIndex }}</button>
-                                </li>
-                                <li *ngIf="pageIndex != paginator.page && pageIndex == '...'"
-                                    class="page-item disabled">
-                                    <button class="page-link" (click)="toPage(pageIndex)">{{ pageIndex }}</button>
-                                </li>
-                            </div>
-                            <li *ngIf="paginator.lastPage != paginator.page" class="page-item">
-                                <button class="page-link" (click)="toPage(paginator.page+1)">
-                                    <i class="fas fa-angle-right"></i>
-                                    <span class="sr-only">Next</span>
-                                </button>
-                            </li>
-                            <li *ngIf="paginator.lastPage == paginator.page" class="page-item disabled">
-                                <button class="page-link">
-                                    <i class="fas fa-angle-right"></i>
-                                    <span class="sr-only">Next</span>
-                                </button>
-                            </li>
-                            <li *ngIf="paginator.currentPage != paginator.lastPage" class="page-item">
-                                <button class="page-link" (click)="toPage(paginator.lastPage)">
-                                    <i class="fas fa-angle-double-right"></i>
-                                    <span class="sr-only">Last</span>
-                                </button>
-                            </li>
-                            <li *ngIf="paginator.currentPage == paginator.lastPage" class="page-item disabled">
-                                <button class="page-link">
-                                    <i class="fas fa-angle-double-right"></i>
-                                    <span class="sr-only">Last</span>
-                                </button>
-                            </li>
-                        </ul>
-                        <ul class="pagination justify-content-end">
-                            <li class="page-item disabled">
-                                <div class="page-link"><i class="ni ni-bullet-list-67"></i></div>
-                            </li>
-                            <div *ngFor="let element of paginator.sizes">
-                                <li *ngIf="element==paginator.limit" class="page-item active">
-                                    <button class="page-link">
-                                        {{ element }}
-                                    </button>
-                                </li>
-                                <li *ngIf="element!=paginator.limit" class="page-item">
-                                    <button class="page-link" (click)="changeLimit(element)">
-                                        {{ element }}
-                                    </button>
-                                </li>
-                            </div>
-                        </ul>
-                        <!-- END - normal screen -->
-                    </nav>
-                </div>
-                <!-- END - Pagination -->
+                    <button type="button" class="btn btn-main btn-small" data-dismiss="modal">Apply Coupon</button>
+                </form>
             </div>
         </div>
     </div>

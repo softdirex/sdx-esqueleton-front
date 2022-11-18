@@ -10,16 +10,13 @@ import { AlertLinkModalComponent } from './shared/modals/alert-link-modal/alert-
 import { HttpClientModule } from '@angular/common/http';
 import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 import { ConfirmModalComponent } from './shared/modals/confirm-modal/confirm-modal.component';
-import { AdminLayoutComponent } from './dashboard/layouts/admin-layout/admin-layout.component';
-import { PublicLayoutComponent } from './dashboard/layouts/public-layout/public-layout.component';
-import { ComponentsModule } from './dashboard/components/components.module';
 import { SelectCompanyComponent } from './shared/modals/select-company/select-company.component';
 import { SelectLanguageModalComponent } from './shared/modals/select-language-modal/select-language-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdminLayoutComponent,
+    //AdminLayoutComponent,
     //PublicLayoutComponent,
     AlertModalComponent,
     AlertLinkModalComponent,
@@ -34,7 +31,6 @@ import { SelectLanguageModalComponent } from './shared/modals/select-language-mo
     SharedModule,
     HttpClientModule,
     MdbModalModule,
-    ComponentsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http';import { RouterModule } 
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClipboardModule } from 'ngx-clipboard';
-import { AdminLayoutRoutes } from './admin-layout.routing';
+import { AdminLayoutRoutes, AdminRoutingModule } from './admin-layout-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslocoModule } from '@ngneat/transloco';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -11,10 +11,13 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MyCompanyComponent } from '../../pages/admin/my-company/my-company.component';
 import { PaymentHistoryComponent } from '../../pages/admin/payment-history/payment-history.component';
-import { PublicProductComponent } from '../../pages/admin/public-product/public-product.component';
 import { SubscriptionsComponent } from '../../pages/admin/subscriptions/subscriptions.component';
 import { NameFormatPipe } from 'src/app/shared/pipes/name-format.pipe';
-// import { ToastrModule } from 'ngx-toastr';
+import { HomeComponent } from '../../pages/admin/home/home.component';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { AdminLayoutComponent } from './admin-layout.component';
+import { HeaderComponent } from '../../pages/admin/home/header/header.component';
+import { FooterComponent } from '../../pages/admin/home/footer/footer.component';
 
 @NgModule({
   imports: [
@@ -27,18 +30,24 @@ import { NameFormatPipe } from 'src/app/shared/pipes/name-format.pipe';
     ClipboardModule,
     TranslocoModule,
     MatAutocompleteModule,
-    SharedModule
+    SharedModule,
+    SlickCarouselModule,
+    AdminRoutingModule
   ],
   declarations: [
+    AdminLayoutComponent,
+    HomeComponent,
     MyCompanyComponent,
     PaymentHistoryComponent,
-    PublicProductComponent,
     SubscriptionsComponent,
+    HeaderComponent,
+    FooterComponent,
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { floatLabel: 'always' } },
     NameFormatPipe,
-  ]
+  ],
+  bootstrap: [AdminLayoutComponent]
 })
 
 export class AdminLayoutModule {}
