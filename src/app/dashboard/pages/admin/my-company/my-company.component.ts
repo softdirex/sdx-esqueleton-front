@@ -4,9 +4,20 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { map, Observable, ReplaySubject, startWith } from 'rxjs';
+import { Customer } from 'src/app/public/models/core/Customer';
+import { CompaniesService } from 'src/app/services/companies.service';
+import { CountriesService } from 'src/app/services/countries.service';
 import { CustomersService } from 'src/app/services/customers.service';
 import { SessionService } from 'src/app/services/session.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { Commons, FILTER } from 'src/app/shared/Commons';
+import { CommercialBusiness, CommercialBusinessType } from 'src/app/shared/config/commercial-business';
+import { PaginatorConfig } from 'src/app/shared/config/paginator-config';
+import { Company } from 'src/app/shared/interfaces/core/company';
+import { Country } from 'src/app/shared/interfaces/core/country';
+import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
+import { ConfirmModalComponent } from 'src/app/shared/modals/confirm-modal/confirm-modal.component';
+import { SelectCompanyComponent } from 'src/app/shared/modals/select-company/select-company.component';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -21,7 +32,7 @@ export class MyCompanyComponent implements OnInit {
   optionRequest: number = 3
   optionViewer: number = 4
   option: number = this.optionViewer
-  form: FormGroup | null= null
+  form: FormGroup = this.initForm(null)
   optionsCommercialBusiness: CommercialBusiness[] = CommercialBusinessType.TYPES
   provinceTypes: any[] = Commons.PROVINCE_TYPES
   optionsCountries: Country[] = [];
@@ -51,7 +62,7 @@ export class MyCompanyComponent implements OnInit {
     { label: 'label.city', field: 'city', value: '', enabled: false },
     { label: 'label.country', field: 'country', value: '', enabled: false }
   ]
-  fForm: FormGroup
+  fForm: FormGroup = this.initFForm()
   summary: string[] = []
   customerType = Commons.USER_TYPE_MEDIUM
 
@@ -73,7 +84,7 @@ export class MyCompanyComponent implements OnInit {
 
   ngOnInit(): void {
     this.getScreenWidth = window.innerWidth
-    this.initFForm()
+    this.fForm = this.initFForm()
     this.selectedCompany = this.clearCompany()
     this.loadCountries()
     this.logoUrl = this.sanitizer.bypassSecurityTrustUrl(Commons.DF_COMPANY_LOGO)
@@ -97,7 +108,14 @@ export class MyCompanyComponent implements OnInit {
       && customer.company == null) {
       this.option = this.optionCreate
     }
-    this.form = new FormGroup({
+    this.form = this.initForm(customer)
+
+    this.province_type.addValidators([this.validProvinceType(this.province_type), Validators.required])
+    this.loadData()
+  }
+
+  initForm(customer: any): FormGroup {
+    var result: FormGroup = new FormGroup({
       doc_number: new FormControl('', [Validators.required, Validators.pattern(environment.dniRegex)]),
       name: new FormControl('', [Validators.required, Validators.pattern(environment.namesRegex)]),
       logo: new FormControl(''),
@@ -113,29 +131,30 @@ export class MyCompanyComponent implements OnInit {
       province_value: new FormControl('', [Validators.required, Validators.pattern(environment.namesRegex)]),
       country: new FormControl('', [Validators.required, Validators.pattern(environment.namesRegex)]),
     })
-    if (customer.type == Commons.USER_TYPE_MEDIUM
-      && customer.rol == Commons.USER_ROL_RWX
-      && customer.company != null) {
-      this.option = this.optionEdit
-      this.form = new FormGroup({
-        doc_number: new FormControl(this.selectedCompany.doc_number, [Validators.required, Validators.pattern(environment.dniRegex)]),
-        name: new FormControl(this.selectedCompany.name, [Validators.required, Validators.pattern(environment.namesRegex)]),
-        logo: new FormControl(''),
-        description: new FormControl(this.selectedCompany.description, [Validators.required, Validators.pattern(environment.obsRegex)]),
-        commercial_business: new FormControl(this.selectedCompany.commercial_business, [Validators.required, Validators.pattern(environment.namesRegex)]),
-        phone1: new FormControl(this.selectedCompany.phone1, [Validators.pattern(environment.phonesRegex)]),
-        phone2: new FormControl(this.selectedCompany.phone2, [Validators.pattern(environment.phonesRegex)]),
-        email: new FormControl(this.selectedCompany.email, [Validators.required, Validators.email]),
-        web: new FormControl(this.selectedCompany.web, [Validators.pattern(environment.obsRegex)]),
-        address: new FormControl(this.selectedCompany.address, [Validators.required, Validators.pattern(environment.addressRegex)]),
-        city: new FormControl(this.selectedCompany.city, [Validators.required, Validators.pattern(environment.namesRegex)]),
-        province_type: new FormControl(this.selectedCompany.province_type, [Validators.required]),
-        province_value: new FormControl(this.selectedCompany.province_value, [Validators.required, Validators.pattern(environment.namesRegex)]),
-        country: new FormControl(this.selectedCompany.country, [Validators.required, Validators.pattern(environment.namesRegex)]),
-      })
+    if (Commons.validField(customer)) {
+      if (customer.type == Commons.USER_TYPE_MEDIUM
+        && customer.rol == Commons.USER_ROL_RWX
+        && customer.company != null) {
+        this.option = this.optionEdit
+        this.form = new FormGroup({
+          doc_number: new FormControl(this.selectedCompany.doc_number, [Validators.required, Validators.pattern(environment.dniRegex)]),
+          name: new FormControl(this.selectedCompany.name, [Validators.required, Validators.pattern(environment.namesRegex)]),
+          logo: new FormControl(''),
+          description: new FormControl(this.selectedCompany.description, [Validators.required, Validators.pattern(environment.obsRegex)]),
+          commercial_business: new FormControl(this.selectedCompany.commercial_business, [Validators.required, Validators.pattern(environment.namesRegex)]),
+          phone1: new FormControl(this.selectedCompany.phone1, [Validators.pattern(environment.phonesRegex)]),
+          phone2: new FormControl(this.selectedCompany.phone2, [Validators.pattern(environment.phonesRegex)]),
+          email: new FormControl(this.selectedCompany.email, [Validators.required, Validators.email]),
+          web: new FormControl(this.selectedCompany.web, [Validators.pattern(environment.obsRegex)]),
+          address: new FormControl(this.selectedCompany.address, [Validators.required, Validators.pattern(environment.addressRegex)]),
+          city: new FormControl(this.selectedCompany.city, [Validators.required, Validators.pattern(environment.namesRegex)]),
+          province_type: new FormControl(this.selectedCompany.province_type, [Validators.required]),
+          province_value: new FormControl(this.selectedCompany.province_value, [Validators.required, Validators.pattern(environment.namesRegex)]),
+          country: new FormControl(this.selectedCompany.country, [Validators.required, Validators.pattern(environment.namesRegex)]),
+        })
+      }
     }
-    this.province_type.addValidators([this.validProvinceType(this.province_type), Validators.required])
-    this.loadData()
+    return result
   }
 
   get doc_number() { return this.form.get('doc_number')!; }
@@ -161,8 +180,8 @@ export class MyCompanyComponent implements OnInit {
     this.getScreenWidth = window.innerWidth
   }
 
-  initFForm() {
-    this.fForm = new FormGroup({
+  initFForm(): FormGroup {
+    return new FormGroup({
       fField: new FormControl('', [Validators.required]),
       fValue: new FormControl('', [Validators.required, Validators.pattern(environment.addressRegex)])
     })
@@ -197,7 +216,7 @@ export class MyCompanyComponent implements OnInit {
     }
   }
 
-  changeCustomerType(arg) {
+  changeCustomerType(arg: string) {
     this.customerType = arg
     this.paginator.page = 1
     this.paginator.status = this.paginator.statusActive
@@ -275,7 +294,7 @@ export class MyCompanyComponent implements OnInit {
     this.loadData()
   }
 
-  onCheckboxChange(e) {
+  onCheckboxChange(e: any) {
     const checkArray: FormArray = this.chkForm.get('checkArray') as FormArray;
     if (e.target.checked) {
       checkArray.push(new FormControl(e.target.value));
@@ -284,7 +303,7 @@ export class MyCompanyComponent implements OnInit {
       }
     } else {
       let i: number = 0;
-      checkArray.controls.forEach((item: FormControl) => {
+      checkArray.controls.forEach((item) => {
         if (item.value == e.target.value) {
           checkArray.removeAt(i);
           return;
@@ -547,18 +566,18 @@ export class MyCompanyComponent implements OnInit {
   }
 
   addFilters() {
-    this.initFForm()
+    this.fForm = this.initFForm()
     this.paginator.addingFilters = true
   }
 
   clearFilters() {
     this.paginator.addingFilters = false
-    this.initFForm()
+    this.fForm = this.initFForm()
     for (let item of this.filtersInSelect) {
       item.value = ''
       item.enabled = false
     }
-    this.initFForm()
+    this.fForm = this.initFForm()
     this.buildFiltersTag()
     this.loadData()
   }
@@ -572,7 +591,7 @@ export class MyCompanyComponent implements OnInit {
         item.enabled = true
       }
     }
-    this.initFForm()
+    this.fForm = this.initFForm()
     this.buildFiltersTag()
     this.loadData()
   }
@@ -584,7 +603,7 @@ export class MyCompanyComponent implements OnInit {
         item.enabled = false
       }
     }
-    this.initFForm()
+    this.fForm = this.initFForm()
     this.buildFiltersTag()
     this.loadData()
   }
@@ -821,7 +840,7 @@ export class MyCompanyComponent implements OnInit {
     const result = new ReplaySubject<string>(1);
     const reader = new FileReader();
     reader.readAsBinaryString(file);
-    reader.onload = (event) => result.next(btoa(event.target.result.toString()));
+    reader.onload = (event) => (event != null && event.target != null && event.target.result != null) ? result.next(btoa(event.target.result.toString())) : null;
     return result;
   }
 
@@ -875,15 +894,15 @@ export class MyCompanyComponent implements OnInit {
   /**
   * on file drop handler
   */
-  onFileDropped($event) {
+  onFileDropped($event: any) {
     this.prepareFilesList($event);
   }
 
   /**
    * handle file from browsing
    */
-  fileBrowseHandler(files) {
-    this.prepareFilesList(files);
+  fileBrowseHandler(target: any) {
+    this.prepareFilesList(target.files);
   }
 
   /**
@@ -939,7 +958,7 @@ export class MyCompanyComponent implements OnInit {
    * @param bytes (File size in bytes)
    * @param decimals (Decimals point)
    */
-  formatBytes(bytes, decimals) {
+  formatBytes(bytes: any, decimals: any) {
     if (bytes === 0) {
       return '0 Bytes';
     }

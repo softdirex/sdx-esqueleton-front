@@ -5,14 +5,14 @@ import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { map, Observable, startWith } from 'rxjs';
 import { CountriesService } from 'src/app/services/countries.service';
 import { CustomersService } from 'src/app/services/customers.service';
-import { LanguageUtilService } from 'src/app/services/language-util.service';
-import { Commons } from 'src/app/shared/utils/commons';
-import { Country } from 'src/app/shared/utils/interfaces/core/country';
-import { CustomerRequest } from 'src/app/shared/utils/interfaces/core/customer-request';
-import { PersonalData } from 'src/app/shared/utils/interfaces/core/personal-data';
-import { PersonalDataRequest } from 'src/app/shared/utils/interfaces/core/personal-data-request';
-import { AlertModalComponent } from 'src/app/shared/utils/modals/alert-modal/alert-modal.component';
-import { NameFormatPipe } from 'src/app/shared/utils/pipes/name-format.pipe';
+import { LanguageUtilService } from 'src/app/services/language-util.service'
+import { Commons } from 'src/app/shared/Commons';
+import { Country } from 'src/app/shared/interfaces/core/country';
+import { CustomerRequest } from 'src/app/shared/interfaces/core/customer-request';
+import { PersonalData } from 'src/app/shared/interfaces/core/personal-data';
+import { PersonalDataRequest } from 'src/app/shared/interfaces/core/personal-data-request';
+import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
+import { NameFormatPipe } from 'src/app/shared/pipes/name-format.pipe';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -46,14 +46,14 @@ export class AddMemberComponent implements OnInit {
   startYear: any = { year: (new Date().getFullYear()) - 33, month: 1, day: 1 };
   alertModal: MdbModalRef<AlertModalComponent> | null = null;
   emailConfirmationMessage?: string
-  validNames: string | null = null
+  validNames: string  = ''
   /* --END-- STEP_REGISTER Fields */
   /* -BEGIN- STEP_CUSTOMER Fields */
-  fCustomer: FormGroup
+  fCustomer: FormGroup= new FormGroup({})
   customerRoles: any[] = Commons.USER_USU_ROLES
   /* --END-- STEP_CUSTOMER Fields */
 
-  customersPath: string = Commons.PATH_CUSTOMERS
+  customersPath: string = Commons.PATH_MY_COMPANY
   session = Commons.sessionObject().customer
   modalTitle = 'label.adding-members'
 

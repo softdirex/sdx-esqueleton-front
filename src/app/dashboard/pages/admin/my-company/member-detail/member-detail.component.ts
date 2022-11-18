@@ -4,16 +4,16 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { map, Observable, startWith } from 'rxjs';
+import { PersonalData } from 'src/app/public/models/core/PersonalData';
 import { CountriesService } from 'src/app/services/countries.service';
 import { CustomersService } from 'src/app/services/customers.service';
 import { LanguageUtilService } from 'src/app/services/language-util.service';
 import { StorageService } from 'src/app/services/storage.service';
-import { Commons } from 'src/app/shared/utils/commons';
-import { Country } from 'src/app/shared/utils/interfaces/core/country';
-import { Customer } from 'src/app/shared/utils/interfaces/core/customer';
-import { PersonalData } from 'src/app/shared/utils/interfaces/core/personal-data';
-import { AlertModalComponent } from 'src/app/shared/utils/modals/alert-modal/alert-modal.component';
-import { ConfirmModalComponent } from 'src/app/shared/utils/modals/confirm-modal/confirm-modal.component';
+import { Commons } from 'src/app/shared/Commons';
+import { Country } from 'src/app/shared/interfaces/core/country';
+import { Customer } from 'src/app/shared/interfaces/core/customer';
+import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
+import { ConfirmModalComponent } from 'src/app/shared/modals/confirm-modal/confirm-modal.component';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -56,9 +56,9 @@ export class MemberDetailComponent implements OnInit {
     company: {}
   }
   customerId: number = 0
-  avatarFormValue: string
+  avatarFormValue: string = ''
   avatarUrl: any
-  form: FormGroup
+  form: FormGroup = new FormGroup({})
   genderTypes: any[] = Commons.GENDER_TYPES
   provinceTypes: any[] = Commons.PROVINCE_TYPES
 
@@ -72,7 +72,7 @@ export class MemberDetailComponent implements OnInit {
   model: any;
   customerRoles: any[] = Commons.USER_USU_ROLES
 
-  cdForm: FormGroup
+  cdForm: FormGroup = new FormGroup({})
   getScreenWidth: any;
   mobileWidth: number = Commons.MOBILE_WIDTH
 
@@ -266,7 +266,7 @@ export class MemberDetailComponent implements OnInit {
     return this.optionsCountries.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
-  getErrorMessage(field: any) {
+  getErrorMessage(field: any) :any{
     if (field != null) {
       if (field.hasError('required')) {
         return 'validations.required-field'

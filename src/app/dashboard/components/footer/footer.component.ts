@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Commons } from 'src/app/shared/utils/commons';
+import { Commons } from 'src/app/shared/Commons';
 import { environment } from 'src/environments/environment';
 
 @Component({

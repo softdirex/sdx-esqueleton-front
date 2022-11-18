@@ -5,8 +5,8 @@ import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { LanguageUtilService } from 'src/app/services/language-util.service';
 import { SessionService } from 'src/app/services/session.service';
 import { StorageService } from 'src/app/services/storage.service';
-import { Commons } from 'src/app/shared/utils/commons';
-import { SelectLanguageModalComponent } from 'src/app/shared/utils/modals/select-language-modal/select-language-modal.component';
+import { Commons } from 'src/app/shared/Commons';
+import { SelectLanguageModalComponent } from 'src/app/shared/modals/select-language-modal/select-language-modal.component';
 
 declare interface RouteInfo {
   path: string;
@@ -27,12 +27,12 @@ export const PUBLIC_ROUTES: RouteInfo[] = [
 ];
 
 export const ADMIN_ROUTES: RouteInfo[] = [
-  { path: '/' + Commons.PATH_PRODUCTS, title: 'label.products', icon: 'ni-app text-primary', class: '' },
-  { path: '/' + Commons.PATH_PLANS, title: 'label.plans', icon: 'fa fa-clipboard-check text-success', class: '' },
-  { path: '/' + Commons.PATH_LICENCES, title: 'label.licences', icon: 'ni-money-coins text-orange', class: '' },
-  { path: '/' + Commons.PATH_CUSTOMERS, title: 'label.customers', icon: 'ni-single-02 text-yellow', class: '' },
-  { path: '/' + Commons.PATH_COMPANIES, title: 'label.companies', icon: 'ni-building text-red', class: '' },
-  { path: '/' + Commons.PATH_SALES_REPORT, title: 'label.sales-report', icon: 'fa fa-chart-line text-success', class: '' },
+  { path: '/' + Commons.PATH_MAIN, title: 'label.products', icon: 'ni-app text-primary', class: '' },
+  { path: '/' + Commons.PATH_MAIN, title: 'label.plans', icon: 'fa fa-clipboard-check text-success', class: '' },
+  { path: '/' + Commons.PATH_MAIN, title: 'label.licences', icon: 'ni-money-coins text-orange', class: '' },
+  { path: '/' + Commons.PATH_MAIN, title: 'label.customers', icon: 'ni-single-02 text-yellow', class: '' },
+  { path: '/' + Commons.PATH_MAIN, title: 'label.companies', icon: 'ni-building text-red', class: '' },
+  { path: '/' + Commons.PATH_MAIN, title: 'label.sales-report', icon: 'fa fa-chart-line text-success', class: '' },
 ];
 
 export const SETTINGS_ROUTES: RouteInfo[] = [
@@ -48,11 +48,11 @@ export const ALL_ROUTES: RouteInfo[] = MENU_ROUTES.concat(PUBLIC_ROUTES.concat(A
 })
 export class SidebarComponent implements OnInit {
 
-  public menuItems: any[];
-  public publicItems: any[];
-  public adminItems: any[];
-  public settingsItems: any[];
-  public argonItems: any[];
+  public menuItems: any[] = [];
+  public publicItems: any[] = [];
+  public adminItems: any[] = [];
+  public settingsItems: any[] = [];
+  public argonItems: any[] = [];
 
   public isCollapsed = true;
 

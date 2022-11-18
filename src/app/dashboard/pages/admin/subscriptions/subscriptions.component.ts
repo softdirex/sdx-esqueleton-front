@@ -2,14 +2,13 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
-import { retry } from 'rxjs';
 import { LicencesService } from 'src/app/services/licences.service';
-import { Commons, FILTER } from 'src/app/shared/utils/commons';
-import { LicencesConfig } from 'src/app/shared/utils/config/licences-config';
-import { PaginatorConfig } from 'src/app/shared/utils/config/paginator-config';
-import { Licence } from 'src/app/shared/utils/interfaces/core/licence';
-import { AlertModalComponent } from 'src/app/shared/utils/modals/alert-modal/alert-modal.component';
-import { ConfirmModalComponent } from 'src/app/shared/utils/modals/confirm-modal/confirm-modal.component';
+import { Commons, FILTER } from 'src/app/shared/Commons';
+import { LicencesConfig } from 'src/app/shared/config/licences-config';
+import { PaginatorConfig } from 'src/app/shared/config/paginator-config';
+import { Licence } from 'src/app/shared/interfaces/core/licence';
+import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
+import { ConfirmModalComponent } from 'src/app/shared/modals/confirm-modal/confirm-modal.component';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -35,7 +34,7 @@ export class SubscriptionsComponent implements OnInit {
     { label: 'label.product', field: 'product_name', value: '', enabled: false }
   ]
 
-  fForm: FormGroup
+  fForm: FormGroup = new FormGroup({})
 
   alertModal: MdbModalRef<AlertModalComponent> | null = null;
   confirmModal: MdbModalRef<ConfirmModalComponent> | null = null;
@@ -219,7 +218,7 @@ export class SubscriptionsComponent implements OnInit {
    * Requires toStringCheckbox method
    * @param e 
    */
-  onCheckboxChange(e) {
+  onCheckboxChange(e:any) {
     const checkArray: FormArray = this.form.get('checkArray') as FormArray;
     if (e.target.checked) {
       checkArray.push(new FormControl(e.target.value));
@@ -228,7 +227,7 @@ export class SubscriptionsComponent implements OnInit {
       }
     } else {
       let i: number = 0;
-      checkArray.controls.forEach((item: FormControl) => {
+      checkArray.controls.forEach((item) => {
         if (item.value == e.target.value) {
           checkArray.removeAt(i);
           return;

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ALL_ROUTES } from '../sidebar/sidebar.component';
 import { Location } from '@angular/common';
-import { Commons } from 'src/app/shared/utils/commons';
 import { SessionService } from 'src/app/services/session.service';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/services/storage.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { LanguageUtilService } from 'src/app/services/language-util.service';
-import { SelectLanguageModalComponent } from 'src/app/shared/utils/modals/select-language-modal/select-language-modal.component';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { Commons } from 'src/app/shared/Commons';
+import { SelectLanguageModalComponent } from 'src/app/shared/modals/select-language-modal/select-language-modal.component';
 
 @Component({
   selector: 'app-navbar',
@@ -16,8 +16,8 @@ import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  public focus;
-  public listTitles: any[];
+  public focus:any;
+  public listTitles: any[]=[];
   public location: Location;
 
   loginPath: string = Commons.PATH_LOGIN

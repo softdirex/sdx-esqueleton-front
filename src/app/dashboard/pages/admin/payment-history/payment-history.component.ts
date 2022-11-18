@@ -2,10 +2,10 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { LicencesService } from 'src/app/services/licences.service';
 import { StorageService } from 'src/app/services/storage.service';
-import { Commons } from 'src/app/shared/utils/commons';
-import { PaginatorConfig } from 'src/app/shared/utils/config/paginator-config';
-import { Transaction } from 'src/app/shared/utils/interfaces/core/transaction';
-import { AlertModalComponent } from 'src/app/shared/utils/modals/alert-modal/alert-modal.component';
+import { Commons } from 'src/app/shared/Commons';
+import { PaginatorConfig } from 'src/app/shared/config/paginator-config';
+import { Transaction } from 'src/app/shared/interfaces/core/transaction';
+import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
 
 @Component({
   selector: 'app-payment-history',

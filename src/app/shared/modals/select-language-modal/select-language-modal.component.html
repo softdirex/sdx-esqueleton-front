@@ -1,0 +1,19 @@
+<div class="grid-container">
+    <div class="modal-body">
+        <h2 class="text-center">{{ 'language.title' | transloco }}</h2>
+        <mat-grid-list cols="2">
+                <button *ngFor="let lang of languages" class="dropdown-item" (click)="setLang(lang.code)">
+                    <span class="avatar avatar-sm rounded-circle">
+                        <img alt="Image Lang" src="{{ lang.icon }}">
+                    </span>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;{{ lang.label | transloco }}</span>
+                </button>
+        </mat-grid-list>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" ngbAutofocus class="btn btn-danger" (click)="cancel()">
+            {{ 'label.cancel' | transloco }}
+        </button>
+    </div>
+</div>
