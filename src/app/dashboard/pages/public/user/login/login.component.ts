@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { CustomersService } from 'src/app/services/customers.service';
 import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from 'src/app/services/session.service';
 import { LanguageUtilService } from 'src/app/services/language-util.service';
 import { Commons } from 'src/app/shared/Commons';
+import { Buffer } from 'buffer';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,8 @@ export class LoginComponent implements OnInit {
 
   alertModal: MdbModalRef<AlertModalComponent> | null = null;
   alertLinkModal: MdbModalRef<AlertLinkModalComponent> | null = null;
+
+  
 
   constructor(
     private customerService: CustomersService,
@@ -73,36 +76,7 @@ export class LoginComponent implements OnInit {
                 this.sessionService.setUserLoggedIn(true)
                 this.langService.setLanguage(v.lang)
                 Commons.sessionOpenCustomer(v, credentials)
-                if (v.rol == Commons.USER_ROL_RWX && Commons.validField(v.company)) {
-                  this.customerService.getIndexCustomersByCompany(
-                    v.company.id,
-                    Commons.USER_TYPE_MEDIUM,
-                    Commons.STATUS_INACTIVE,
-                    1,
-                    1,
-                    null
-                  ).subscribe({
-                    next: async (v) => {
-                      if (v.meta.total > 0) {
-                        this.alertLinkModal = this.modalService.open(AlertLinkModalComponent, {
-                          data: {
-                            title: 'label.welcome',
-                            message: 'label.customers-inactive-alert',
-                            icon: Commons.ICON_WARNING,
-                            linkName: 'label.organization'
-                          }
-                        })
-                        this.alertLinkModal.onClose.subscribe((accept: any) => {
-                          if (accept) {
-                            this.router.navigate([Commons.PATH_MY_COMPANY])
-                          }
-                        });
-                      }
-                    },
-                    error: (e) => { },
-                    complete: () => { }
-                  })
-                }
+                window.location.reload();
                 this.router.navigate([Commons.PATH_MAIN])
               }
             },

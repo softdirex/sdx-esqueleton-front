@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { Observable } from 'rxjs';
-import { Commons } from '../utils/commons';
-import { AlertModalComponent } from '../utils/modals/alert-modal/alert-modal.component';
+import { Commons } from '../Commons';
+import { AlertModalComponent } from '../modals/alert-modal/alert-modal.component';
 
 @Injectable({
   providedIn: 'root'

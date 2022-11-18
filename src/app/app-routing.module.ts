@@ -23,7 +23,7 @@ const routes: Routes = [
       }
     ]
   },
-  /*{
+  {
     path: '',
     component: AdminLayoutComponent,
     children: [
@@ -32,7 +32,7 @@ const routes: Routes = [
         loadChildren: () => import('src/app/dashboard/layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
       }
     ]
-  },*/
+  },
   {
     path: '**',
     redirectTo: Commons.PATH_MAIN

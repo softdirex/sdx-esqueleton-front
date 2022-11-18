@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { CustomersService } from 'src/app/services/customers.service';
 import { LanguageUtilService } from 'src/app/services/language-util.service';
-import { Commons } from 'src/app/shared/utils/commons';
-import { AlertModalComponent } from 'src/app/shared/utils/modals/alert-modal/alert-modal.component';
+import { Commons } from 'src/app/shared/Commons';
+import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
 
 @Component({
   selector: 'app-verify-email',

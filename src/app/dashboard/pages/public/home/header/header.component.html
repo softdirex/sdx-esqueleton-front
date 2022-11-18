@@ -16,13 +16,7 @@
         <li class="nav-item">
           <a class="nav-link" href="about">About Us</a>
         </li>
-        <!-- Pages 
-        <li class="nav-item dropdown dropdown-slide">
-          <a class="nav-link dropdown-toggle" href="faqs" id="navbarDropdown4" role="button" data-delay="350"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Components.
-          </a>
-        </li> /Pages -->
+
         <li class="nav-item">
           <a class="nav-link" href="faqs">FAQ.</a>
         </li>
@@ -30,6 +24,25 @@
         <li class="nav-item">
           <a class="nav-link" href="contact">Contact Us</a>
         </li>
+        <!-- Pages -->
+        <li *ngIf="getScreenWidth < mobileWidth" class="nav-item dropdown dropdown-slide">
+          <a *ngIf="sessionIsOpen" class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button"
+            data-delay="350" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{getCustomerName()}}
+          </a>
+          <a *ngIf="!sessionIsOpen" class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button"
+            data-delay="350" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ 'label.login-invite' | transloco }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown4">
+            <li><a href="user/profile">Profile detail</a></li>
+            <li><a href="user/orders">Orders</a></li>
+            <li><a href="user/favorites">My favorites</a></li>
+            <li *ngIf="!sessionIsOpen"><a href="login">Login</a></li>
+            <li *ngIf="sessionIsOpen"><a (click)="closeSession()">Logout</a></li>
+          </ul>
+        </li><!-- /Pages -->
+
       </ul>
     </div>
     <!-- Navbar-collapse -->
@@ -88,14 +101,16 @@
           <i class="tf-ion-ios-person mr-3"></i>
         </a>
         <div class="dropdown-menu cart-dropdown">
+      <li *ngIf="sessionIsOpen"><h3>{{getCustomerName()}}</h3></li>
       <li><a href="user/profile">Profile Details</a></li>
       <li><a href="user/orders">Orders</a></li>
       <li><a href="user/favorites">My favorites</a></li>
-      <div class="text-center cart-buttons mt-3">
-        <a href="#" class="btn btn-small btn-main btn-block">Log out</a>
-      </div>
-      <div class="text-center cart-buttons mt-3">
+      <li><a href="product">Dashboard</a></li>
+      <div *ngIf="!sessionIsOpen" class="text-center cart-buttons mt-3">
         <a routerLink="/login" class="btn btn-small btn-main btn-block">Login</a>
+      </div>
+      <div *ngIf="sessionIsOpen" class="text-center cart-buttons mt-3">
+        <a (click)="closeSession()" class="btn btn-small btn-main btn-block">Logout</a>
       </div>
   </div>
   </li>

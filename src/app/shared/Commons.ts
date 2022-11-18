@@ -91,7 +91,7 @@ export class Commons {
     static readonly CANCEL = false
 
     static readonly MAX_COUNTRIES = 251
-    static readonly MOBILE_WIDTH = 600
+    static readonly MOBILE_WIDTH = 991
 
     static readonly USER_ROLES: any[] = [
         { value: this.USER_ROL_BASIC, name: 'label.rol-v-name' },
@@ -218,7 +218,9 @@ export class Commons {
      */
      static decryptDataGlobal(encryptedData: string|null): any {
         if (encryptedData != null && encryptedData != undefined) {
+            console.log(encryptedData)
             var bytes = CryptoJS.AES.decrypt(encryptedData, environment.coreTransactionKey);
+            console.log(JSON.parse(bytes.toString(CryptoJS.enc.Utf8)))
             return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
         }
         return null
