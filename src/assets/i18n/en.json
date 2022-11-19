@@ -503,7 +503,8 @@
     "passport": "Passport",
     "phone": "Phone",
     "email": "Email",
-    "sex-0": "Not decribed"
+    "sex-0": "Not decribed",
+    "password": "Password"
   },
   "invalid-parameter": "Wrong parameter"
 }

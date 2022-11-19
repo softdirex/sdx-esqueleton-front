@@ -503,7 +503,8 @@
     "passport": "Reisepass",
     "phone": "Telefon",
     "email": "Email",
-    "sex-0": "Nicht beschrieben"
+    "sex-0": "Nicht beschrieben",
+    "password": "Passwort"
   },
   "invalid-parameter": "Falscher Parameter"
 }

@@ -1,12 +1,11 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http'; import { RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ClipboardModule } from 'ngx-clipboard';
-import { PublicLayoutRoutes, PublicRoutingModule } from './public-layout-routing.module';
+import { PublicRoutingModule } from './public-layout-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { HomeComponent } from '../../pages/public/home/home.component';
 import { AboutComponent } from '../../pages/public/about/about.component';
@@ -27,7 +26,8 @@ import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 import { HeaderComponent } from '../../pages/public/home/header/header.component';
 import { FooterComponent } from '../../pages/public/home/footer/footer.component';
 import { PublicLayoutComponent } from './public-layout.component';
-// import { ToastrModule } from 'ngx-toastr';
+import { PasswordRecoveryComponent } from '../../pages/public/user/password-recovery/password-recovery.component';
+import { PasswordChangeComponent } from '../../pages/public/user/password-change/password-change.component';
 
 @NgModule({
   imports: [
@@ -60,6 +60,8 @@ import { PublicLayoutComponent } from './public-layout.component';
     OrdersComponent,
     HeaderComponent,
     FooterComponent,
+    PasswordRecoveryComponent,
+    PasswordChangeComponent
   ],
   providers: [
     NameFormatPipe,

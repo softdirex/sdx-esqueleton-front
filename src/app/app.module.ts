@@ -16,13 +16,11 @@ import { SelectLanguageModalComponent } from './shared/modals/select-language-mo
 @NgModule({
   declarations: [
     AppComponent,
-    //AdminLayoutComponent,
-    //PublicLayoutComponent,
     AlertModalComponent,
     AlertLinkModalComponent,
     ConfirmModalComponent,
     SelectCompanyComponent,
-    SelectLanguageModalComponent
+    SelectLanguageModalComponent,
   ],
   imports: [
     BrowserModule,

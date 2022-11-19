@@ -10,7 +10,7 @@ import { Commons } from '../shared/Commons';
 })
 export class CustomersService {
   myCustomerLoginUrl: string = environment.productBackendEndpoint + '/customers/login/'
-  customersUrl: string = environment.coreBackendEndpoint + '/customers'
+  customersUrl: string = environment.productBackendEndpoint + '/customers'
   myCustomersUrl: string = environment.coreBackendEndpoint + '/mycustomer'
   personalDataUrl: string = environment.coreBackendEndpoint + '/personaldata/'
   customersByCompanyUrl: string = environment.coreBackendEndpoint + '/company/'

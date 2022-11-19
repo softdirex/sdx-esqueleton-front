@@ -20,6 +20,9 @@ export class LoginComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   pwd = new FormControl('', [Validators.required]);
 
+  linkRecoveryPw = Commons.PATH_PWD_REC
+  linkRegister = Commons.PATH_REGISTER
+
   alertModal: MdbModalRef<AlertModalComponent> | null = null;
   alertLinkModal: MdbModalRef<AlertLinkModalComponent> | null = null;
 

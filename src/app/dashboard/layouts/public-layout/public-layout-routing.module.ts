@@ -12,6 +12,8 @@ import { TermsAndConditionsComponent } from '../../pages/public/terms/terms-and-
 import { FavoritesComponent } from '../../pages/public/user/favorites/favorites.component';
 import { LoginComponent } from '../../pages/public/user/login/login.component';
 import { OrdersComponent } from '../../pages/public/user/orders/orders.component';
+import { PasswordChangeComponent } from '../../pages/public/user/password-change/password-change.component';
+import { PasswordRecoveryComponent } from '../../pages/public/user/password-recovery/password-recovery.component';
 import { ProfileComponent } from '../../pages/public/user/profile/profile.component';
 
 export const PublicLayoutRoutes: Routes = [
@@ -27,6 +29,8 @@ export const PublicLayoutRoutes: Routes = [
     { path: Commons.PATH_FAVORITES, component: FavoritesComponent },
     { path: Commons.PATH_LOGIN, component: LoginComponent },
     { path: Commons.PATH_ORDERS, component: OrdersComponent },
+    { path: Commons.PATH_PWD_REC, component: PasswordRecoveryComponent },
+    { path: Commons.PATH_PWD_CHN, component: PasswordChangeComponent }
 ];
 
 @NgModule({
