@@ -7,7 +7,7 @@ import { Commons } from '../shared/Commons';
     providedIn: 'root'
 })
 export class StorageService {
-    storageUrl: string = environment.coreBackendEndpoint + '/storage'
+    storageUrl: string = environment.productBackendEndpoint + '/storage'
 
     constructor(private http: HttpClient) { }
 
@@ -20,35 +20,6 @@ export class StorageService {
             responseType: 'blob' as 'json'
         }
         return this.http.get<Blob>(this.storageUrl + '?filename=' + fileName, options)
-    }
-
-    getDocument(fileName: string) {
-        const options = {
-            headers: new HttpHeaders({
-                'Accept': '*/*',
-                Authorization: 'Basic ' + Commons.sessionCredentials()
-            }),
-            responseType: 'blob' as 'json'
-        }
-        return this.http.get<Blob>(this.storageUrl + '?filename=' + fileName, options)
-    }
-
-    attachFile(fileToUpload: File){
-        var data = new FormData();
-        data.append('attachment', fileToUpload);
-        const sessionObject = Commons.sessionObject()
-        const customerSign = {id:sessionObject.customer.id}
-        const sign = Commons.encryptDataGlobal(customerSign)
-
-        const options = {
-            headers: new HttpHeaders({
-                'Accept': 'image/webp,*/*',
-                'sign': sign,
-                Authorization: 'Basic ' + Commons.sessionCredentials()
-            }),
-        }
-        
-        return this.http.post<any>(this.storageUrl, data, options)
     }
 
     getProductImage(fileName: string) {

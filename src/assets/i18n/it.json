@@ -378,7 +378,15 @@
     "active-members": "Membri attivi",
     "inactive-members": "Membri inattivi",
     "deleted-members": "Membri eliminati",
-    "product-has-active-plans": "Il prodotto ha piani attivi"
+    "product-has-active-plans": "Il prodotto ha piani attivi",
+    "redirection-information": "Verrai reindirizzato alla nostra piattaforma EE",
+    "you-may-like-this": "Potrebbe piacerti questo",
+    "plans-desc": "I migliori prezzi che troverai sul web per la tua organizzazione",
+    "more-info": "Ulteriori informazioni",
+    "contact": "Contatto",
+    "seller": "Venditore",
+    "location": "Posizione",
+    "call-now": "Chiamare ora"
   },
   "input": {
     "email": "Inserisci il tuo indirizzo email",

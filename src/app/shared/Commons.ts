@@ -2,6 +2,7 @@ import * as CryptoJS from 'crypto-js';
 import { environment } from 'src/environments/environment';
 import StatusTypeConfig from './config/status-type';
 import * as uuid from 'uuid';
+import { ProductType } from './config/product-type';
 
 export interface FILTER {
     label: string
@@ -49,7 +50,7 @@ export class Commons {
     static readonly PATH_MY_CUSTOMER = 'user/profile'
     static readonly PATH_PRODUCT_SINGLE = 'product-single'
     static readonly PATH_CART = 'cart'
-    static readonly PATH_CHECKOUT ='checkout'
+    static readonly PATH_CHECKOUT = 'checkout'
 
     /* BEGIN - ENDPOINT NECESSARY FOR EMAIL DIRECT LINK */
     static readonly PATH_LOGIN = 'login'
@@ -59,15 +60,15 @@ export class Commons {
     static readonly PATH_MAIL_VER = 'verify-mail'
     /* END - ENDPOINT NECESSARY FOR EMAIL DIRECT LINK */
 
-    static readonly PATH_PURCHASE = environment.coreFrontendEndpoint + 'payment'
+    static readonly PATH_PURCHASE = 'payment'
     static readonly PATH_TERMS = 'terms'
-    static readonly PATH_SUPPORT = environment.coreFrontendEndpoint +'support'
+    static readonly PATH_SUPPORT = 'support'
     static readonly PATH_ABOUT = 'about'
     static readonly PATH_CONTACT = 'contact'
     static readonly PATH_FACTS = 'faqs'
     static readonly PATH_FAVORITES = 'user/favorites'
     static readonly PATH_ORDERS = 'user/orders'
-    static readonly PATH_PDF_VIEWER = environment.coreFrontendEndpoint +'pdf-viewer'
+    static readonly PATH_PDF_VIEWER = environment.coreFrontendEndpoint + 'pdf-viewer'
 
     static readonly PLAN_TYPES: any[] = [
         { value: -1, name: 'label.wrong-type' },
@@ -167,11 +168,18 @@ export class Commons {
         }
     ]
 
+    static readonly PLAN_CATEGORIES: any[] = [
+        { value: 'TRIAL', name: 'label.trial-plan', icon: 'fas fa-flask' },
+        { value: 'BASIC', name: 'label.basic-plan', icon: 'fas fa-bookmark' },
+        { value: 'MEDIUM', name: 'label.medium-plan', icon: 'fas fa-certificate' },
+        { value: 'PREMIUM', name: 'label.premium-plan', icon: 'fas fa-award' }
+    ]
+
     /**
      * 
      * @returns a 11 characters of password with sdx in end for backend validation
      */
-     static createPasswordForUser(): string {
+    static createPasswordForUser(): string {
         const pwd = uuid.v4();
         return pwd.substring(0, 8).toLowerCase() + 'sdx'
     }
@@ -212,15 +220,22 @@ export class Commons {
     }
 
     /**
+     * Return the traductor field for product type
+     * @param id 
+     * @returns 
+     */
+    static getProductType(id: any): string {
+        return ProductType.getType(id)
+    }
+
+    /**
      * Decrypt json object
      * @param encryptedData 
      * @returns 
      */
-     static decryptDataGlobal(encryptedData: string|null): any {
+    static decryptDataGlobal(encryptedData: string | null): any {
         if (encryptedData != null && encryptedData != undefined) {
-            console.log(encryptedData)
             var bytes = CryptoJS.AES.decrypt(encryptedData, environment.coreTransactionKey);
-            console.log(JSON.parse(bytes.toString(CryptoJS.enc.Utf8)))
             return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
         }
         return null
@@ -243,7 +258,7 @@ export class Commons {
      * @param stringData 
      * @returns 
      */
-     static encryptString(stringData: any): string {
+    static encryptString(stringData: any): string {
         if (this.validField(stringData)) {
             try {
                 return window.btoa(window.btoa(stringData))
@@ -260,7 +275,7 @@ export class Commons {
      * @param encryptedString 
      * @returns 
      */
-     static decryptString(encryptedString: string): any {
+    static decryptString(encryptedString: string): any {
         if (this.validField(encryptedString)) {
             try {
                 return window.atob((window.atob(encryptedString)))
@@ -345,5 +360,13 @@ export class Commons {
             credentials = sessionSign.key
         }
         return credentials
+    }
+
+    static openWithExternalToken(path: string) {
+        window.open(environment.coreFrontendEndpoint + 'store?to=' + path + '&token=' + Commons.encryptString(sessionStorage.getItem('cus_S')))
+    }
+
+    static openWithoutExternalToken(path: string) {
+        window.open(environment.coreFrontendEndpoint + path )
     }
 }

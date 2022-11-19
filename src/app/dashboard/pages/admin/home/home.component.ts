@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -18,7 +19,7 @@ import { environment } from 'src/environments/environment';
 })
 export class HomeComponent implements OnInit {
 
-  
+
   resource: Product = {
     id: null,
     name: '',
@@ -55,7 +56,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.sessionIsOpen = Commons.sessionIsOpen()
-    this.loadProduct(environment.productId)
+    this.loadProduct()
   }
 
   apply(planId: number) {
@@ -80,17 +81,21 @@ export class HomeComponent implements OnInit {
   }
 
   createLicence(planId: number, companyId: number) {
-    this.transaction.postMyLicence(planId, companyId).subscribe({
-      next: async (v) => {
-        const trxId = v.code + '-' + v.id
-        window.open(Commons.PATH_PURCHASE + '/' + trxId)
-      },
-      error: (e) => {
-        this.openModal(this.title, 'validations.purchase-not-found', Commons.ICON_WARNING)
-      },
-      complete: () => { }
-    })
-
+    if (this.sessionIsOpen) {
+      this.transaction.postMyLicence(planId, companyId).subscribe({
+        next: async (v) => {
+          const trxId = v.code + '-' + v.id
+          const path =Commons.PATH_PURCHASE + '/' + trxId
+          this.openModalWithRedirection(this.title, 'label.redirection-information', Commons.ICON_SUCCESS, path)
+        },
+        error: (e) => {
+          this.openModal(this.title, 'validations.purchase-not-found', Commons.ICON_WARNING)
+        },
+        complete: () => { }
+      })
+    } else {
+      this.openModal(this.title, 'label.login-invite', Commons.ICON_WARNING)
+    }
   }
 
   goBack() {
@@ -103,15 +108,25 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  openPdf(url: any, filename: any) {
+  openModalWithRedirection(title: string, message: string, icon: string, path: string) {
+    this.alertModal = this.modalService.open(AlertModalComponent, {
+      data: { title: title, message: message, icon: icon },
+    })
+    this.alertModal.onClose.subscribe(() => {
+      Commons.openWithExternalToken(path)
+    });
+  }
+
+  pdfViewer(filename: string, filePath: string) {
     if (this.sessionIsOpen) {
-      window.open(Commons.PATH_PDF_VIEWER + '/' + url + '/' + filename, '_blank')
+      const path = 'pdf-viewer/' + filePath + '/' + filename
+      this.openModalWithRedirection(this.title, 'label.redirection-information', Commons.ICON_SUCCESS, path)
     } else {
       this.openModal(this.title, 'label.login-invite', Commons.ICON_WARNING)
     }
   }
 
-  loadProduct(resourecId: number) {
+  loadProduct() {
     const fullView = this.sessionIsOpen && Commons.sessionObject().customer.rol != Commons.USER_ROL_BASIC
 
     this.service.get(fullView).subscribe({
@@ -136,7 +151,10 @@ export class HomeComponent implements OnInit {
       },
       complete: () => { }
     })
+  }
 
+  getProductType(type: any) {
+    return Commons.getProductType(type)
   }
 
   formatType(arg: any) {
@@ -182,18 +200,33 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  getPlanIcon(category: string) {
+  getPlanImage(category: string) {
     switch (category) {
       case 'TRIAL':
-        return 'fas fa-flask'
+        return 'assets/images/TRIAL.jpg'
       case 'BASIC':
-        return 'fas fa-bookmark'
+        return 'assets/images/BASIC.jpg'
       case 'MEDIUM':
-        return 'fas fa-certificate'
+        return 'assets/images/MEDIUM.jpg'
       case 'PREMIUM':
-        return 'fas fa-award'
+        return 'assets/images/PREMIUM.jpg'
       default:
-        return 'fas fa-flask'
+        return 'assets/images/TRIAL.jpg'
+    }
+  }
+
+  getPlanImage2(category: string) {
+    switch (category) {
+      case 'TRIAL':
+        return 'assets/images/TRIAL-2.jpg'
+      case 'BASIC':
+        return 'assets/images/BASIC-2.jpg'
+      case 'MEDIUM':
+        return 'assets/images/MEDIUM-2.jpg'
+      case 'PREMIUM':
+        return 'assets/images/PREMIUM-2.jpg'
+      default:
+        return 'assets/images/TRIAL-2.jpg'
     }
   }
 }

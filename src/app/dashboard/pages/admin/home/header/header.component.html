@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100 navigation" id="navbar">
   <div class="container">
-    <a class="navbar-brand font-weight-bold text-white" routerLink="/">sdxFront</a>
+    <a class="navbar-brand font-weight-bold text-white" routerLink="/">{{appName | uppercase }}</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar"
       aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,40 +10,40 @@
     <div class="collapse navbar-collapse " id="main-navbar">
       <ul class="navbar-nav mx-auto">
         <li class="nav-item active">
-          <a class="nav-link text-white" routerLink="{{PATH_PRODUCT}}">Product name</a>
+          <a class="nav-link text-white" routerLink="{{PATH_PRODUCT}}">{{'label.plans'|transloco}}</a>
         </li>
 
         <li *ngIf="getScreenWidth < mobileWidth" class="nav-item active">
-          <a class="nav-link text-white" routerLink="{{PATH_MY_COMPANY}}">My Organization</a>
+          <a class="nav-link text-white" (click)="toMyCompany()">{{'label.my-organization'|transloco}}</a>
         </li>
 
         <li *ngIf="getScreenWidth < mobileWidth" class="nav-item active">
-          <a class="nav-link text-white" routerLink="{{PATH_MY_PURCHASES}}">Payment history</a>
+          <a class="nav-link text-white" (click)="toPurchases()">{{'label.payment-history'|transloco}}</a>
         </li>
 
         <li *ngIf="getScreenWidth < mobileWidth" class="nav-item active">
-          <a class="nav-link text-white" routerLink="{{PATH_MY_LICENCES}}">My subscription</a>
+          <a class="nav-link text-white" (click)="toLicences()">{{'label.subscriptions'|transloco}}</a>
         </li>
 
         <li *ngIf="getScreenWidth >= mobileWidth" class="nav-item dropdown dropdown-slide">
-          <a *ngIf="sessionIsOpen" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown4" role="button"
-            data-delay="350" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            My company Name
+          <a *ngIf="sessionIsOpen" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown4"
+            role="button" data-delay="350" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{getCompanyName()}}
           </a>
           <a *ngIf="!sessionIsOpen" class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button"
             data-delay="350" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ 'label.login-invite' | transloco }}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown4">
-            <li><a href="{{PATH_MY_COMPANY}}">My Organization</a></li>
-            <li><a href="{{PATH_MY_PURCHASES}}">Payment history</a></li>
-            <li><a href="{{PATH_MY_LICENCES}}">My subscription</a></li>
+            <li><a (click)="toMyCompany()">{{'label.my-organization'|transloco}}</a></li>
+            <li><a (click)="toPurchases()">{{'label.payment-history'|transloco}}</a></li>
+            <li><a (click)="toLicences()">{{'label.subscriptions'|transloco}}</a></li>
           </ul>
         </li>
 
         <li *ngIf="getScreenWidth < mobileWidth" class="nav-item dropdown dropdown-slide">
-          <a *ngIf="sessionIsOpen" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown4" role="button"
-            data-delay="350" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a *ngIf="sessionIsOpen" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown4"
+            role="button" data-delay="350" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{getCustomerName()}}
           </a>
           <a *ngIf="!sessionIsOpen" class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button"
@@ -51,11 +51,11 @@
             {{ 'label.login-invite' | transloco }}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown4">
-            <li><a href="user/profile">Profile detail</a></li>
-            <li><a href="home">Home</a></li>
-            <li><a href="path/to/EEsupport">Support</a></li>
-            <li *ngIf="!sessionIsOpen"><a href="login">Login</a></li>
-            <li *ngIf="sessionIsOpen"><a (click)="closeSession()">Logout</a></li>
+            <li><a routerLink="{{PATH_MY_CUSTOMER}}">{{'label.profile'|transloco}}</a></li>
+            <li><a routerLink="{{PATH_MAIN}}">{{'label.go-back'|transloco}}</a></li>
+            <li><a (click)="toSupport()">{{'label.support'|transloco}}</a></li>
+            <li *ngIf="!sessionIsOpen"><a routerLink="{{PATH_LOGIN}}">{{'login.title'|transloco}}</a></li>
+            <li *ngIf="sessionIsOpen"><a (click)="closeSession()">{{'label.close'|transloco}}</a></li>
           </ul>
         </li>
 
@@ -71,15 +71,17 @@
           <i class="tf-ion-ios-person mr-3"></i>
         </a>
         <div class="dropdown-menu cart-dropdown">
-      <li *ngIf="sessionIsOpen"><h3>{{getCustomerName()}}</h3></li>
-      <li><a href="user/profile">Profile Details</a></li>
-      <li><a href="path/to/EEsupport">Support</a></li>
-      <li><a href="home">Home</a></li>
+      <li *ngIf="sessionIsOpen">
+        <h3>{{getCustomerName()}}</h3>
+      </li>
+      <li><a routerLink="{{PATH_MY_CUSTOMER}}">{{'label.profile'|transloco}}</a></li>
+      <li><a (click)="toSupport()">{{'label.support'|transloco}}</a></li>
+      <li><a routerLink="{{PATH_MAIN}}">{{'label.go-back'|transloco}}</a></li>
       <div *ngIf="!sessionIsOpen" class="text-center cart-buttons mt-3">
-        <a routerLink="/login" class="btn btn-small btn-main btn-block">Login</a>
+        <a routerLink="{{PATH_LOGIN}}" class="btn btn-small btn-main btn-block">{{'login.title'|transloco}}</a>
       </div>
       <div *ngIf="sessionIsOpen" class="text-center cart-buttons mt-3">
-        <a (click)="closeSession()" class="btn btn-small btn-main btn-block">Logout</a>
+        <a (click)="closeSession()" class="btn btn-small btn-main btn-block">{{'label.close'|transloco}}</a>
       </div>
   </div>
   </li>

@@ -35,10 +35,10 @@
             {{ 'label.login-invite' | transloco }}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown4">
-            <li><a href="user/profile">Profile detail</a></li>
-            <li><a href="user/orders">Orders</a></li>
-            <li><a href="user/favorites">My favorites</a></li>
-            <li><a href="product">Dashboard</a></li>
+            <li *ngIf="sessionIsOpen"><a href="user/profile">Profile detail</a></li>
+            <li *ngIf="sessionIsOpen"><a href="user/orders">Orders</a></li>
+            <li *ngIf="sessionIsOpen"><a href="user/favorites">My favorites</a></li>
+            <li *ngIf="sessionIsOpen"><a href="product">Dashboard</a></li>
             <li *ngIf="!sessionIsOpen"><a href="login">Login</a></li>
             <li *ngIf="sessionIsOpen"><a (click)="closeSession()">Logout</a></li>
           </ul>
@@ -103,10 +103,10 @@
         </a>
         <div class="dropdown-menu cart-dropdown">
       <li *ngIf="sessionIsOpen"><h3>{{getCustomerName()}}</h3></li>
-      <li><a href="user/profile">Profile Details</a></li>
-      <li><a href="user/orders">Orders</a></li>
-      <li><a href="user/favorites">My favorites</a></li>
-      <li><a href="product">Dashboard</a></li>
+      <li *ngIf="sessionIsOpen"><a href="user/profile">Profile Details</a></li>
+      <li *ngIf="sessionIsOpen"><a href="user/orders">Orders</a></li>
+      <li *ngIf="sessionIsOpen"><a href="user/favorites">My favorites</a></li>
+      <li *ngIf="sessionIsOpen"><a href="product">Dashboard</a></li>
       <div *ngIf="!sessionIsOpen" class="text-center cart-buttons mt-3">
         <a routerLink="/login" class="btn btn-small btn-main btn-block">Login</a>
       </div>

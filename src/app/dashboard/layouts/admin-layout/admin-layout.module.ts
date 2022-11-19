@@ -9,9 +9,6 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { MyCompanyComponent } from '../../pages/admin/my-company/my-company.component';
-import { PaymentHistoryComponent } from '../../pages/admin/payment-history/payment-history.component';
-import { SubscriptionsComponent } from '../../pages/admin/subscriptions/subscriptions.component';
 import { NameFormatPipe } from 'src/app/shared/pipes/name-format.pipe';
 import { HomeComponent } from '../../pages/admin/home/home.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
@@ -37,9 +34,6 @@ import { FooterComponent } from '../../pages/admin/home/footer/footer.component'
   declarations: [
     AdminLayoutComponent,
     HomeComponent,
-    MyCompanyComponent,
-    PaymentHistoryComponent,
-    SubscriptionsComponent,
     HeaderComponent,
     FooterComponent,
   ],

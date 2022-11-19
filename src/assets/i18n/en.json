@@ -378,7 +378,15 @@
     "active-members": "Active members",
     "inactive-members": "Inactive members",
     "deleted-members": "Deleted members",
-    "product-has-active-plans": "The product has active plans"
+    "product-has-active-plans": "The product has active plans",
+    "redirection-information": "You will be redirected to our EE platform",
+    "you-may-like-this": "You May Like This",
+    "plans-desc": "The best prices you will find on the web for your organization",
+    "more-info": "More info",
+    "contact": "Contact",
+    "seller": "Seller",
+    "location": "Location",
+    "call-now": "Call Now"
   },
   "input": {
     "email": "Enter a email",
