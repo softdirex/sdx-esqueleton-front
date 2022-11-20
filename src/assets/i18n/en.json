@@ -69,7 +69,7 @@
     "total": "Total",
     "payment-detail-desc": "Save time and pay for services very easily, the products will be activated automatically",
     "purchase-detail": "Purchase detail",
-    "page-register-desc": "Fill out these simple forms to create a new account and try our free services or enjoy our paid products.",
+    "page-register-desc": "Fill out this form to create a new account and test the features of this product that will innovate your organization.",
     "welcome": "Welcome!",
     "terms-conditions-accept-1": "I have read and accept the",
     "terms-conditions-accept-2": "terms and conditions",
@@ -386,7 +386,8 @@
     "contact": "Contact",
     "seller": "Seller",
     "location": "Location",
-    "call-now": "Call Now"
+    "call-now": "Call Now",
+    "home": "Home"
   },
   "input": {
     "email": "Enter a email",

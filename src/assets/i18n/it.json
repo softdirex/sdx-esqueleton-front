@@ -69,7 +69,7 @@
     "total": "Totale",
     "payment-detail-desc": "Risparmia tempo e paga i servizi molto facilmente, i prodotti verranno attivati ​​automaticamente",
     "purchase-detail": "Dettaglio acquisto",
-    "page-register-desc": "Compila questi semplici moduli per creare un nuovo account e provare i nostri servizi gratuiti o goderti i nostri prodotti a pagamento.",
+    "page-register-desc": "Compila questo form per creare un nuovo account e testare le funzionalità di questo prodotto che innoverà la tua organizzazione.",
     "welcome": "Benarrivato!",
     "terms-conditions-accept-1": "Ho letto e accetto i",
     "terms-conditions-accept-2": "termini e le condizioni",
@@ -386,7 +386,8 @@
     "contact": "Contatto",
     "seller": "Venditore",
     "location": "Posizione",
-    "call-now": "Chiamare ora"
+    "call-now": "Chiamare ora",
+    "home": "Home"
   },
   "input": {
     "email": "Inserisci il tuo indirizzo email",

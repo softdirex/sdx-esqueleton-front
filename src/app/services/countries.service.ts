@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
     providedIn: 'root'
 })
 export class CountriesService {
-    countriesUrl: string = environment.coreBackendEndpoint + '/countries/'
+    countriesUrl: string = environment.productBackendEndpoint + '/countries/'
 
     constructor(private http: HttpClient) { }
 

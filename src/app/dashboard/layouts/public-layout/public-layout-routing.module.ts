@@ -15,6 +15,8 @@ import { OrdersComponent } from '../../pages/public/user/orders/orders.component
 import { PasswordChangeComponent } from '../../pages/public/user/password-change/password-change.component';
 import { PasswordRecoveryComponent } from '../../pages/public/user/password-recovery/password-recovery.component';
 import { ProfileComponent } from '../../pages/public/user/profile/profile.component';
+import { RegisterComponent } from '../../pages/public/user/register/register.component';
+import { VerifyEmailComponent } from '../../pages/public/user/register/verify-email/verify-email.component';
 
 export const PublicLayoutRoutes: Routes = [
     { path: Commons.PATH_MAIN, component: HomeComponent },
@@ -30,7 +32,9 @@ export const PublicLayoutRoutes: Routes = [
     { path: Commons.PATH_LOGIN, component: LoginComponent },
     { path: Commons.PATH_ORDERS, component: OrdersComponent },
     { path: Commons.PATH_PWD_REC, component: PasswordRecoveryComponent },
-    { path: Commons.PATH_PWD_CHN, component: PasswordChangeComponent }
+    { path: Commons.PATH_PWD_CHN, component: PasswordChangeComponent },
+    { path: Commons.PATH_REGISTER, component: RegisterComponent },
+    { path: Commons.PATH_MAIL_VER, component: VerifyEmailComponent },
 ];
 
 @NgModule({

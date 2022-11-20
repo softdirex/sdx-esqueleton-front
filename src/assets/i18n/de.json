@@ -69,7 +69,7 @@
     "total": "Gesamt",
     "payment-detail-desc": "Sparen Sie Zeit und bezahlen Sie Dienstleistungen ganz einfach, die Produkte werden automatisch freigeschaltet",
     "purchase-detail": "Kaufdetail",
-    "page-register-desc": "Füllen Sie diese einfachen Formulare aus, um ein neues Konto zu erstellen und unsere kostenlosen Dienste auszuprobieren oder unsere kostenpflichtigen Produkte zu genießen.",
+    "page-register-desc": "Füllen Sie dieses Formular aus, um ein neues Konto zu erstellen und die Funktionen dieses Produkts zu testen, die Ihr Unternehmen innovativ gestalten werden.",
     "welcome": "Herzlich willkommen!",
     "terms-conditions-accept-1": "Ich habe die",
     "terms-conditions-accept-2": "AGB gelesen und akzeptiere sie",
@@ -386,7 +386,8 @@
     "contact": "Kontakt",
     "seller": "Verkäufer",
     "location": "Ort",
-    "call-now": "Jetzt anrufen"
+    "call-now": "Jetzt anrufen",
+    "home": "Drin"
   },
   "input": {
     "email": "Geben sie ihre E-Mail Adresse ein",

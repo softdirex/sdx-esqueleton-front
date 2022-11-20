@@ -69,7 +69,7 @@
     "total": "Total",
     "payment-detail-desc": "Economize tempo e pague pelos serviços com muita facilidade, os produtos serão ativados automaticamente",
     "purchase-detail": "Detalhe da compra",
-    "page-register-desc": "Preencha estes formulários simples para criar uma nova conta e experimentar os nossos serviços gratuitos ou desfrutar dos nossos produtos pagos.",
+    "page-register-desc": "Preencha este formulário para criar uma nova conta e testar as funcionalidades deste produto que irá inovar a sua organização.",
     "welcome": "Bem-vindo!",
     "terms-conditions-accept-1": "Li e aceito os",
     "terms-conditions-accept-2": "termos e condições",
@@ -386,7 +386,8 @@
     "contact": "Contato",
     "seller": "Vendedor",
     "location": "Localização",
-    "call-now": "Ligue agora"
+    "call-now": "Ligue agora",
+    "home": "Inicio"
   },
   "input": {
     "email": "Digite seu e-mail",

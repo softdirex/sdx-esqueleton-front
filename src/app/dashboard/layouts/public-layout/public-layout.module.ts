@@ -28,6 +28,10 @@ import { FooterComponent } from '../../pages/public/home/footer/footer.component
 import { PublicLayoutComponent } from './public-layout.component';
 import { PasswordRecoveryComponent } from '../../pages/public/user/password-recovery/password-recovery.component';
 import { PasswordChangeComponent } from '../../pages/public/user/password-change/password-change.component';
+import { VerifyEmailComponent } from '../../pages/public/user/register/verify-email/verify-email.component';
+import { RegisterComponent } from '../../pages/public/user/register/register.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   imports: [
@@ -42,7 +46,9 @@ import { PasswordChangeComponent } from '../../pages/public/user/password-change
     SlickCarouselModule,
     MatGridListModule,
     MdbModalModule,
-    PublicRoutingModule
+    PublicRoutingModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   declarations: [
     PublicLayoutComponent,
@@ -61,10 +67,15 @@ import { PasswordChangeComponent } from '../../pages/public/user/password-change
     HeaderComponent,
     FooterComponent,
     PasswordRecoveryComponent,
-    PasswordChangeComponent
+    PasswordChangeComponent,
+    RegisterComponent,
+    VerifyEmailComponent
   ],
   providers: [
     NameFormatPipe,
+  ],
+  exports: [
+    MatFormFieldModule,
   ],
   bootstrap: [PublicLayoutComponent]
 })
