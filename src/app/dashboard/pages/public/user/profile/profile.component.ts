@@ -1,13 +1,11 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { map, Observable, startWith } from 'rxjs';
 import { CountriesService } from 'src/app/services/countries.service';
 import { CustomersService } from 'src/app/services/customers.service';
 import { LanguageUtilService } from 'src/app/services/language-util.service';
-import { StorageService } from 'src/app/services/storage.service';
 import { Commons } from 'src/app/shared/Commons';
 import { Country } from 'src/app/shared/interfaces/core/country';
 import { Customer } from 'src/app/shared/interfaces/core/customer';
@@ -57,7 +55,6 @@ export class ProfileComponent implements OnInit {
     company: {}
   }
   avatarFormValue: string = ''
-  avatarUrl: any
   form: FormGroup = new FormGroup({})
   genderTypes: any[] = Commons.GENDER_TYPES
   provinceTypes: any[] = Commons.PROVINCE_TYPES
@@ -92,8 +89,6 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private service: CustomersService,
-    private storageService: StorageService,
-    private sanitizer: DomSanitizer,
     private modalService: MdbModalService,
     private router: Router,
     private langService: LanguageUtilService,
@@ -125,22 +120,6 @@ export class ProfileComponent implements OnInit {
     this.service.getMyCustomer().subscribe({
       next: async (v) => {
         this.customer = v
-        if (v.avatar != Commons.DF_AVATAR) {
-          this.avatarFormValue = 'label.loaded-by-file'
-          this.storageService.getImage(v.avatar).subscribe(
-            {
-              next: async (v) => {
-                this.avatarUrl = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(v))
-              },
-              error: (e) => {
-                this.avatarUrl = this.sanitizer.bypassSecurityTrustUrl(Commons.DF_AVATAR)
-              },
-              complete: () => { }
-            }
-          )
-        } else {
-          this.avatarUrl = this.sanitizer.bypassSecurityTrustUrl(Commons.DF_AVATAR)
-        }
         this.loadForm()
       },
       error: (e) => {
@@ -294,7 +273,7 @@ export class ProfileComponent implements OnInit {
     return this.optionsCountries.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
-  getErrorMessage(field: any) {
+  getErrorMessage(field: any): any {
     if (field != null) {
       if (field.hasError('required')) {
         return 'validations.required-field'
@@ -319,10 +298,9 @@ export class ProfileComponent implements OnInit {
       ) {
         return 'validations.invalid-pwd'
       }
-
-      return field.hasError('pattern') ? 'validations.invalid-field' : undefined;
+      return field.hasError('pattern') ? 'validations.invalid-field' : null;
     }
-    return ''
+    return null
   }
 
 
@@ -511,6 +489,10 @@ export class ProfileComponent implements OnInit {
       return this.provinceTypes[0].name
     }
     return type.name
+  }
+
+  labelSelectedLang(code:string):string{
+    return 'language.' + code.toLocaleLowerCase() + '-name'
   }
 
 }
