@@ -388,7 +388,8 @@
     "location": "Ort",
     "call-now": "Jetzt anrufen",
     "home": "Drin",
-    "create-company-header": "Organisation erstellen"
+    "create-company-header": "Organisation erstellen",
+    "out-of-dash": "Gehen Sie zur Website"
   },
   "input": {
     "email": "Geben sie ihre E-Mail Adresse ein",

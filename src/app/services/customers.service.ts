@@ -132,7 +132,7 @@ export class CustomersService {
         'product-id': environment.productId + ''
       })
     }
-    return this.http.get<any>(this.myCustomersUrl + '/' + customerId, options)
+    return this.http.get<any>(this.customersUrl + '/myprofile/' + customerId, options)
   }
 
   store(request: any) {

@@ -36,10 +36,14 @@ export class LanguageUtilService {
 
   setLanguage(arg:string){
     const vLang = this.languages.find(lang => lang === arg.toLocaleLowerCase())
+    console.log(vLang)
     if(vLang != undefined && vLang != null){
+      console.log('SERTTTING LAMNG'+this.translocoService.getActiveLang())
       sessionStorage.setItem('lang',vLang)
       this.translocoService.setDefaultLang(vLang)
       this.translocoService.setActiveLang(vLang)
+      console.log('SERTTTING LAMNG'+this.translocoService.getActiveLang())
+      console.log('SERTTTING LAMNG'+this.translocoService.getAvailableLangs())
     }
   }
 }

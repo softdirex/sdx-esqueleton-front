@@ -10,11 +10,11 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NameFormatPipe } from 'src/app/shared/pipes/name-format.pipe';
-import { HomeComponent } from '../../pages/admin/home/home.component';
+import { AdminHomeComponent } from '../../pages/admin/admin-home/admin-home.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { AdminLayoutComponent } from './admin-layout.component';
-import { HeaderComponent } from '../../pages/admin/home/header/header.component';
-import { FooterComponent } from '../../pages/admin/home/footer/footer.component';
+import { AdminHeaderComponent } from '../../pages/admin/admin-home/admin-header/admin-header.component';
+import { AdminFooterComponent } from '../../pages/admin/admin-home/admin-footer/admin-footer.component';
 
 @NgModule({
   imports: [
@@ -33,9 +33,9 @@ import { FooterComponent } from '../../pages/admin/home/footer/footer.component'
   ],
   declarations: [
     AdminLayoutComponent,
-    HomeComponent,
-    HeaderComponent,
-    FooterComponent,
+    AdminHomeComponent,
+    AdminHeaderComponent,
+    AdminFooterComponent,
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { floatLabel: 'always' } },

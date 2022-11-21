@@ -12,6 +12,7 @@ export const environment = {
   contactEmail: 'sales@softdirex.com',
   contactPhone: '+569 9867 2957',
   orgName: 'Softdirex',
+  ownerWeb: 'https://softdirex.cl/',
   productId: 1,
   productBackendEndpoint: 'http://127.0.0.1:3334/v1',
   coreBackendEndpoint: 'http://127.0.0.1:3333/v1',

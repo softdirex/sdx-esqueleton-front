@@ -3,11 +3,11 @@ import { Commons } from 'src/app/shared/Commons';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.css']
+  selector: 'app-admin-footer',
+  templateUrl: './admin-footer.component.html',
+  styleUrls: ['./admin-footer.component.css']
 })
-export class FooterComponent implements OnInit {
+export class AdminFooterComponent implements OnInit {
 
   version = environment.appVersion
   appName = environment.appName
@@ -18,6 +18,8 @@ export class FooterComponent implements OnInit {
   contactPhone = environment.contactPhone
 
   orgName=environment.orgName
+
+  ownerWeb=environment.ownerWeb
 
   anio: Date = new Date();
 

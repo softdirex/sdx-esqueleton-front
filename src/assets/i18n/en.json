@@ -388,7 +388,8 @@
     "location": "Location",
     "call-now": "Call Now",
     "home": "Home",
-    "create-company-header": "Create organization"
+    "create-company-header": "Create organization",
+    "out-of-dash": "Go to site"
   },
   "input": {
     "email": "Enter a email",

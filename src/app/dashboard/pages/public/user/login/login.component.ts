@@ -85,6 +85,7 @@ export class LoginComponent implements OnInit {
               if (v != null) {
                 this.cleanForm()
                 this.sessionService.setUserLoggedIn(true)
+                console.log(v.lang)
                 this.langService.setLanguage(v.lang)
                 Commons.sessionOpenCustomer(v, credentials)
                 window.location.reload();

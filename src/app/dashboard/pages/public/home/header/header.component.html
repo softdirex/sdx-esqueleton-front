@@ -40,6 +40,7 @@
             <li *ngIf="sessionIsOpen"><a href="user/favorites">My favorites</a></li>
             <li *ngIf="sessionIsOpen"><a href="product">Dashboard</a></li>
             <li *ngIf="!sessionIsOpen"><a href="login">Login</a></li>
+            <li *ngIf="!sessionIsOpen"><a href="register">Register</a></li>
             <li *ngIf="sessionIsOpen"><a (click)="closeSession()">Logout</a></li>
           </ul>
         </li><!-- /Pages -->

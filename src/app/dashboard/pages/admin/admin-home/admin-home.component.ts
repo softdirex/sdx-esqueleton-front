@@ -12,11 +12,11 @@ import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-mod
 import { ConfirmModalComponent } from 'src/app/shared/modals/confirm-modal/confirm-modal.component';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-admin-home',
+  templateUrl: './admin-home.component.html',
+  styleUrls: ['./admin-home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class AdminHomeComponent implements OnInit {
 
 
   resource: Product = {

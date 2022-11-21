@@ -7,11 +7,11 @@ import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-mod
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  selector: 'app-admin-header',
+  templateUrl: './admin-header.component.html',
+  styleUrls: ['./admin-header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class AdminHeaderComponent implements OnInit {
 
   appName = environment.appName
 

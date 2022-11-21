@@ -388,7 +388,8 @@
     "location": "Posizione",
     "call-now": "Chiamare ora",
     "home": "Home",
-    "create-company-header": "Crea organizzazione"
+    "create-company-header": "Crea organizzazione",
+    "out-of-dash": "Vai al sito"
   },
   "input": {
     "email": "Inserisci il tuo indirizzo email",
