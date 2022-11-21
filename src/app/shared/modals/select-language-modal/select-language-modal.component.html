@@ -3,7 +3,7 @@
         <h2 class="text-center">{{ 'language.title' | transloco }}</h2>
         <mat-grid-list cols="2">
                 <button *ngFor="let lang of languages" class="dropdown-item" (click)="setLang(lang.code)">
-                    <span class="avatar avatar-sm rounded-circle">
+                    <span>
                         <img alt="Image Lang" src="{{ lang.icon }}">
                     </span>
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;{{ lang.label | transloco }}</span>

@@ -1,9 +1,11 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { LanguageUtilService } from 'src/app/services/language-util.service';
 import { SessionService } from 'src/app/services/session.service';
 import { Commons } from 'src/app/shared/Commons';
 import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
+import { SelectLanguageModalComponent } from 'src/app/shared/modals/select-language-modal/select-language-modal.component';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -29,12 +31,14 @@ export class AdminHeaderComponent implements OnInit {
   sessionObject: any = Commons.sessionObject()
   alertModal: MdbModalRef<AlertModalComponent> | null = null;
   title = 'label.access-link'
+  selLangModal: MdbModalRef<SelectLanguageModalComponent> | null = null;
 
 
   constructor(
     private sessionService: SessionService,
     private router: Router,
     private modalService: MdbModalService,
+    private langService: LanguageUtilService,
   ) { }
 
   ngOnInit(): void {
@@ -44,6 +48,16 @@ export class AdminHeaderComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onWindowResize() {
     this.getScreenWidth = window.innerWidth
+  }
+
+  openLanguageModal() {
+    this.selLangModal = this.modalService.open(SelectLanguageModalComponent)
+    this.selLangModal.onClose.subscribe((lang: any) => {
+      if (lang != this.langService.getLangActive()) {
+        this.langService.setLanguage(lang)
+        window.location.reload();
+      }
+    });
   }
 
   closeSession() {

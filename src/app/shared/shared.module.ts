@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedRoutingModule } from './shared-routing.module';
 import { NameFormatPipe } from './pipes/name-format.pipe';
-import { TranslocoRootModule } from '../transloco-root.module';
+import { TranslocoRootModule } from './transloco-root.module';
 
 
 @NgModule({

@@ -4,3 +4,8 @@
     margin-right: auto;
     width: 20%;
 }
+
+img {
+    max-width:5%;
+    height:auto;
+}
