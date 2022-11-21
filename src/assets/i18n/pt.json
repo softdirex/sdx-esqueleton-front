@@ -387,7 +387,8 @@
     "seller": "Vendedor",
     "location": "Localização",
     "call-now": "Ligue agora",
-    "home": "Inicio"
+    "home": "Inicio",
+    "create-company-header": "Criar organização"
   },
   "input": {
     "email": "Digite seu e-mail",
@@ -395,7 +396,8 @@
     "create-password": "Criar uma nova senha",
     "repeat-password": "Repita a senha",
     "order": "Ordem de Compra",
-    "pay": "Pagar"
+    "pay": "Pagar",
+    "re-enter-password": "Repita a senha"
   },
   "login": {
     "title": "Conecte-se",
@@ -409,7 +411,8 @@
     "recovery-invite": "Se você esqueceu sua senha, selecione recuperar conta ou registre-se com um e-mail válido",
     "credentials-locked": "Usuário bloqueado",
     "closed": "Sessão fechada",
-    "closed-msg": "Você excedeu o tempo ocioso permitido"
+    "closed-msg": "Você excedeu o tempo ocioso permitido",
+    "security-info": "Por segurança, lembre-se de encerrar sua sessão ao final, assim evitará o uso malicioso de seus recursos e dados em nossa plataforma e estará de acordo com nossas políticas de privacidade."
   },
   "password-recovery": {
     "title": "Recuperar senha",

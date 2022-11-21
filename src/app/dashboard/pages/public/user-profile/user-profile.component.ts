@@ -112,44 +112,44 @@ export class UserProfileComponent implements OnInit {
         })
       }
     }
-    if(!Commons.sessionIsOpen()){
+    if (!Commons.sessionIsOpen()) {
       this.router.navigate([Commons.PATH_LOGIN])
     }
     const customer = Commons.sessionObject().customer
-    if(customer.type == Commons.USER_TYPE_APP){
-      this.openModal(this.modalTitle,'validations.wrong-privilege',Commons.ICON_WARNING)
+    if (customer.type == Commons.USER_TYPE_APP) {
+      this.openModal(this.modalTitle, 'validations.wrong-privilege', Commons.ICON_WARNING)
       this.router.navigate([Commons.PATH_MAIN])
     }
     this.getScreenWidth = window.innerWidth
     this.loadForm()
     this.initCDForm()
-      this.service.getMyCustomer().subscribe({
-        next: async (v) => {
-          this.customer = v
-          if (v.avatar != Commons.DF_AVATAR) {
-            this.avatarFormValue = 'label.loaded-by-file'
-            this.storageService.getImage(v.avatar).subscribe(
-              {
-                next: async (v) => {
-                  this.avatarUrl = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(v))
-                },
-                error: (e) => {
-                  this.avatarUrl = this.sanitizer.bypassSecurityTrustUrl(Commons.DF_AVATAR)
-                },
-                complete: () => { }
-              }
-            )
-          } else {
-            this.avatarUrl = this.sanitizer.bypassSecurityTrustUrl(Commons.DF_AVATAR)
-          }
-          this.loadForm()
-        },
-        error: (e) => {
-          this.openModal('label.customer-detail', 'label.customer-not-found', Commons.ICON_WARNING)
-          this.goBack()
-        },
-        complete: () => { }
-      })
+    this.service.getMyCustomer().subscribe({
+      next: async (v) => {
+        this.customer = v
+        if (v.avatar != Commons.DF_AVATAR) {
+          this.avatarFormValue = 'label.loaded-by-file'
+          this.storageService.getImage(v.avatar).subscribe(
+            {
+              next: async (v) => {
+                this.avatarUrl = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(v))
+              },
+              error: (e) => {
+                this.avatarUrl = this.sanitizer.bypassSecurityTrustUrl(Commons.DF_AVATAR)
+              },
+              complete: () => { }
+            }
+          )
+        } else {
+          this.avatarUrl = this.sanitizer.bypassSecurityTrustUrl(Commons.DF_AVATAR)
+        }
+        this.loadForm()
+      },
+      error: (e) => {
+        this.openModal('label.customer-detail', 'label.customer-not-found', Commons.ICON_WARNING)
+        this.goBack()
+      },
+      complete: () => { }
+    })
 
 
     this.filteredCountriesPersonalData = this.country.valueChanges.pipe(
@@ -436,7 +436,7 @@ export class UserProfileComponent implements OnInit {
     }
     this.customer.personal_data.contact_data = contact_data
     if (validToRequest) {
-      this.service.updateMyCustomer(this.customer.id,this.customer)
+      this.service.updateMyCustomer(this.customer.id, this.customer)
         .subscribe(
           {
             next: (v) => {
@@ -456,6 +456,7 @@ export class UserProfileComponent implements OnInit {
 
   private mapServiceValidationResponse(detail: any) {
     detail = (detail != undefined && detail != null) ? detail : 'ERROR'
+    detail = detail.replace('API_RESPONSE: ', '')
     switch (detail) {
       case 'Invalid country name':
         this.openModal('validations.invalid-country', 'validations.invalid-country-msg', Commons.ICON_WARNING)
@@ -487,7 +488,7 @@ export class UserProfileComponent implements OnInit {
     this.alertModal.onClose.subscribe(() => {
       window.location.reload()
     })
-    
+
   }
 
   applyCDForm() {
@@ -550,7 +551,7 @@ export class UserProfileComponent implements OnInit {
   /**
   * on file drop handler
   */
-   onFileDropped($event) {
+  onFileDropped($event) {
     this.prepareFilesList($event);
   }
 
@@ -651,7 +652,7 @@ export class UserProfileComponent implements OnInit {
     return result;
   }
 
-  get provinceTypeSelected(){
+  get provinceTypeSelected() {
     const type = this.provinceTypes.find(item => item.value == this.provinceType.value)
     if (type == undefined) {
       return this.provinceTypes[0].name

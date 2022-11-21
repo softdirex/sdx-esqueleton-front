@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -8,9 +7,9 @@ import { ProductsService } from 'src/app/services/products.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { Commons } from 'src/app/shared/Commons';
+import { AlertLinkModalComponent } from 'src/app/shared/modals/alert-link-modal/alert-link-modal.component';
 import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
 import { ConfirmModalComponent } from 'src/app/shared/modals/confirm-modal/confirm-modal.component';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -44,6 +43,7 @@ export class HomeComponent implements OnInit {
   sessionIsOpen: boolean = false
   types: any[] = Commons.PLAN_TYPES
   confirmModal: MdbModalRef<ConfirmModalComponent> | null = null;
+  alertLinkModal: MdbModalRef<AlertLinkModalComponent> | null = null;
 
   constructor(
     private router: Router,
@@ -61,23 +61,42 @@ export class HomeComponent implements OnInit {
 
   apply(planId: number) {
     if (this.sessionIsOpen) {
-      const customer = Commons.sessionObject().customer
-      if (Commons.sessionRol() == Commons.USER_ROL_BASIC) {
-        this.openModal(this.title, 'validations.wrong-privilege', Commons.ICON_WARNING)
-      } else {
-        this.confirmModal = this.modalService.open(ConfirmModalComponent, {
-          data: { title: this.title, message: 'label.action-confirm', icon: Commons.ICON_WARNING },
+      if (!Commons.validField(Commons.sessionObject().customer.company)) {
+        this.alertLinkModal = this.modalService.open(AlertLinkModalComponent, {
+          data: {
+            title: this.title,
+            message: 'label.create-company',
+            icon: Commons.ICON_WARNING,
+            linkName: 'register.button'
+          }
         })
-        this.confirmModal.onClose.subscribe((accept: any) => {
+        this.alertLinkModal.onClose.subscribe((accept: any) => {
           if (accept) {
-            this.createLicence(planId, customer.company.id)
+            this.toMyCompany()
           }
         });
+      } else {
+        const customer = Commons.sessionObject().customer
+        if (Commons.sessionRol() == Commons.USER_ROL_BASIC) {
+          this.openModal(this.title, 'validations.wrong-privilege', Commons.ICON_WARNING)
+        } else {
+          this.confirmModal = this.modalService.open(ConfirmModalComponent, {
+            data: { title: this.title, message: 'label.action-confirm', icon: Commons.ICON_WARNING },
+          })
+          this.confirmModal.onClose.subscribe((accept: any) => {
+            if (accept) {
+              this.createLicence(planId, customer.company.id)
+            }
+          });
+        }
       }
-
     } else {
       this.openModal(this.title, 'label.login-invite', Commons.ICON_WARNING)
     }
+  }
+
+  toMyCompany() {
+    Commons.openWithExternalToken(Commons.PATH_MY_COMPANY)
   }
 
   createLicence(planId: number, companyId: number) {
@@ -85,7 +104,7 @@ export class HomeComponent implements OnInit {
       this.transaction.postMyLicence(planId, companyId).subscribe({
         next: async (v) => {
           const trxId = v.code + '-' + v.id
-          const path =Commons.PATH_PURCHASE + '/' + trxId
+          const path = Commons.PATH_PURCHASE + '/' + trxId
           this.openModalWithRedirection(this.title, 'label.redirection-information', Commons.ICON_SUCCESS, path)
         },
         error: (e) => {

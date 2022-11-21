@@ -387,7 +387,8 @@
     "seller": "Venditore",
     "location": "Posizione",
     "call-now": "Chiamare ora",
-    "home": "Home"
+    "home": "Home",
+    "create-company-header": "Crea organizzazione"
   },
   "input": {
     "email": "Inserisci il tuo indirizzo email",
@@ -395,7 +396,8 @@
     "create-password": "Crea una nuova password",
     "repeat-password": "Ripeti la password",
     "order": "Ordinazione d'acquisto",
-    "pay": "Paga"
+    "pay": "Paga",
+    "re-enter-password": "Ripeti la password"
   },
   "login": {
     "title": "Login",
@@ -409,7 +411,8 @@
     "recovery-invite": "Se hai dimenticato la password, seleziona recupera account o registrati con un'e-mail valida",
     "credentials-locked": "Utente bloccato",
     "closed": "Sessione chiusa",
-    "closed-msg": "Hai superato il tempo di inattività consentito"
+    "closed-msg": "Hai superato il tempo di inattività consentito",
+    "security-info": "Per sicurezza, ricordati di chiudere la tua sessione al termine, in questo modo eviterai l'uso dannoso delle tue risorse e dei tuoi dati sulla nostra piattaforma e rispetterai le nostre politiche sulla privacy."
   },
   "password-recovery": {
     "title": "Recupera la password",

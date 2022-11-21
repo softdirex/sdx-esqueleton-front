@@ -13,31 +13,39 @@
           <a class="nav-link text-white" routerLink="{{PATH_PRODUCT}}">{{'label.plans'|transloco}}</a>
         </li>
 
-        <li *ngIf="getScreenWidth < mobileWidth" class="nav-item active">
+        <li *ngIf="withoutCompany" class="nav-item active">
+          <a class="nav-link text-white" (click)="toMyCompany()">{{'label.create-company-header'|transloco}}</a>
+        </li>
+
+        <li *ngIf="getScreenWidth < mobileWidth && !withoutCompany" class="nav-item active">
           <a class="nav-link text-white" (click)="toMyCompany()">{{'label.my-organization'|transloco}}</a>
         </li>
 
-        <li *ngIf="getScreenWidth < mobileWidth" class="nav-item active">
+        <li *ngIf="getScreenWidth < mobileWidth && !withoutCompany" class="nav-item active">
           <a class="nav-link text-white" (click)="toPurchases()">{{'label.payment-history'|transloco}}</a>
         </li>
 
-        <li *ngIf="getScreenWidth < mobileWidth" class="nav-item active">
+        <li *ngIf="getScreenWidth < mobileWidth && !withoutCompany" class="nav-item active">
           <a class="nav-link text-white" (click)="toLicences()">{{'label.subscriptions'|transloco}}</a>
         </li>
 
         <li *ngIf="getScreenWidth >= mobileWidth" class="nav-item dropdown dropdown-slide">
-          <a *ngIf="sessionIsOpen" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown4"
-            role="button" data-delay="350" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a *ngIf="sessionIsOpen && !withoutCompany" class="nav-link dropdown-toggle text-white" href="#"
+            id="navbarDropdown4" role="button" data-delay="350" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
             {{getCompanyName()}}
           </a>
+
           <a *ngIf="!sessionIsOpen" class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button"
             data-delay="350" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ 'label.login-invite' | transloco }}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown4">
-            <li><a (click)="toMyCompany()">{{'label.my-organization'|transloco}}</a></li>
-            <li><a (click)="toPurchases()">{{'label.payment-history'|transloco}}</a></li>
-            <li><a (click)="toLicences()">{{'label.subscriptions'|transloco}}</a></li>
+            <li><a
+                (click)="toMyCompany()">{{(withoutCompany)?'label.create-company-header':'label.my-organization'|transloco}}</a>
+            </li>
+            <li *ngIf="!withoutCompany"><a (click)="toPurchases()">{{'label.payment-history'|transloco}}</a></li>
+            <li *ngIf="!withoutCompany"><a (click)="toLicences()">{{'label.subscriptions'|transloco}}</a></li>
           </ul>
         </li>
 

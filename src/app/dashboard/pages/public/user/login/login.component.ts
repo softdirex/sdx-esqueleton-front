@@ -26,7 +26,9 @@ export class LoginComponent implements OnInit {
   alertModal: MdbModalRef<AlertModalComponent> | null = null;
   alertLinkModal: MdbModalRef<AlertLinkModalComponent> | null = null;
 
-  
+
+  getScreenWidth: any;
+  mobileWidth: number = Commons.MOBILE_WIDTH
 
   constructor(
     private customerService: CustomersService,
@@ -38,6 +40,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getScreenWidth = window.innerWidth
     if (Commons.sessionIsOpen()) {
       this.router.navigate([Commons.PATH_MAIN])
     }
@@ -50,6 +53,11 @@ export class LoginComponent implements OnInit {
         }
       }
       );
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.getScreenWidth = window.innerWidth
   }
 
   ngOnDestroy() {

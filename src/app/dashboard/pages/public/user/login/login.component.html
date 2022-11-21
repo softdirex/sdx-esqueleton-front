@@ -4,14 +4,12 @@
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <div class="content text-center">
-                    <h1 class="mb-3">Login</h1>
-                    <p>Hath after appear tree great fruitful green dominion moveth sixth abundantly image that midst of
-                        god day multiply you’ll which</p>
+                    <h1 class="mb-3">{{'login.title'|transloco}}</h1>
+                    <p>{{'login.security-info'|transloco}}</p>
 
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb bg-transparent justify-content-center">
-                            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Login</li>
+                            <li class="breadcrumb-item"><a routerLink="/">{{'label.home'|transloco}}</a></li>
                         </ol>
                     </nav>
                 </div>
@@ -23,71 +21,86 @@
     <div class="checkout shopping">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 pr-5">
-
+                <div class="col-lg-12 pr-5">
                     <div class="billing-details mt-5">
-                        <h4 class="mb-4">Login</h4>
                         <form class="checkout-form">
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group mb-4">
-                                        <label for="first_name">{{'personal-data.email'|transloco}}</label>
-                                        <input type="email" class="form-control" [formControl]="email" placeholder="">
-                                        <span *ngIf="email.hasError" class="badge badge-danger">{{getErrorMessage()| transloco}}</span>
+                                <div *ngIf="getScreenWidth < mobileWidth">
+                                    <h4 class="mb-4">{{'login.title'|transloco}}</h4>
+                                    <div class="col-lg-12">
+                                        <div class="form-group mb-4">
+                                            <label for="first_name">{{'personal-data.email'|transloco}}</label>
+                                            <input type="email" class="form-control" [formControl]="email"
+                                                placeholder="">
+                                            <span *ngIf="email.hasError" class="badge badge-danger">{{getErrorMessage()|
+                                                transloco}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group mb-4">
+                                            <label for="last_name">{{'personal-data.password'|transloco}}</label>
+                                            <input type="password" class="form-control" [formControl]="pwd"
+                                                placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group mb-4">
+                                            <button type="button" class="btn btn-main btn-small" data-dismiss="modal"
+                                                (click)="login()"
+                                                [disabled]="email.invalid">{{'login.button'|transloco}}</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col">{{'login.forgot-msg'|transloco}}{{' '}}<a
+                                                    [href]="linkRecoveryPw"><b>{{'login.recovery-msg'|transloco}}</b></a>
+                                            </div>
+                                            <div class="col"><a
+                                                    [href]="linkRegister"><b>{{'login.create-msg'|transloco}}</b></a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group mb-4">
-                                        <label for="last_name">{{'personal-data.password'|transloco}}</label>
-                                        <input type="password" class="form-control" [formControl]="pwd" placeholder="">
+                                <div class="col-4"></div>
+                                <div *ngIf="getScreenWidth >= mobileWidth" class="col-4">
+                                    <h4 class="mb-4">{{'login.title'|transloco}}</h4>
+                                    <div class="col-lg-12">
+                                        <div class="form-group mb-4">
+                                            <label for="first_name">{{'personal-data.email'|transloco}}</label>
+                                            <input type="email" class="form-control" [formControl]="email"
+                                                placeholder="">
+                                            <span *ngIf="email.hasError" class="badge badge-danger">{{getErrorMessage()|
+                                                transloco}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group mb-4">
+                                            <label for="last_name">{{'personal-data.password'|transloco}}</label>
+                                            <input type="password" class="form-control" [formControl]="pwd"
+                                                placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group mb-4">
+                                            <button type="button" class="btn btn-main btn-small" data-dismiss="modal"
+                                                (click)="login()"
+                                                [disabled]="email.invalid">{{'login.button'|transloco}}</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col">{{'login.forgot-msg'|transloco}}{{' '}}<a
+                                                    [href]="linkRecoveryPw"><b>{{'login.recovery-msg'|transloco}}</b></a>
+                                            </div>
+                                            <div class="col"><a
+                                                    [href]="linkRegister"><b>{{'login.create-msg'|transloco}}</b></a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group mb-4">
-                                        <button type="button" class="btn btn-main btn-small"
-                                            data-dismiss="modal" (click)="login()" [disabled]="email.invalid">Login</button>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="row">
-                                        <div class="col">{{'login.forgot-msg'|transloco}}{{' '}}<a [href]="linkRecoveryPw"><b>{{'login.recovery-msg'|transloco}}</b></a></div>
-                                        <div class="col"><a [href]="linkRegister"><b>{{'login.create-msg'|transloco}}</b></a></div>
-                                    </div>
-                                </div>
+                                <div class="col-4"></div>
                             </div>
                         </form>
-                    </div>
-                </div>
-
-                <!-- Order sidebar Summery -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="product-checkout-details mt-5 mt-lg-0">
-                        <h4 class="mb-4 border-bottom pb-4">Our Company</h4>
-
-                        <div class="media product-card">
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                It has survived not only five centuries, but also the leap into electronic typesetting,
-                                remaining essentially unchanged. It was popularised in the 1960s with the release of
-                                Letraset
-                                sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-                                software
-                                like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                        </div>
-                        <p>
-                            <a routerLink="/terms/privacy-policy" class="btn btn-main btn-small">Privacy Policy</a>
-                        </p>
-                        <p>
-                            <a routerLink="/terms/conditions-terms" class="btn btn-main btn-small">Terms &
-                                Conditions</a>
-                        </p>
-                        <p>
-                            <a routerLink="/terms/cookie-policy" class="btn btn-main btn-small">Cookie Policy</a>
-                        </p>
-                        <p>
-                            <a routerLink="/terms/sales-terms" class="btn btn-main btn-small">Terms of Sale</a>
-                        </p>
                     </div>
                 </div>
             </div>

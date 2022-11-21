@@ -70,7 +70,7 @@ export class HeaderComponent implements OnInit {
     return name
   }
 
-  getCompanyName(){
+  getCompanyName() {
     var name = 'NO-NAME'
     if (this.sessionObject.customer) {
       if (this.sessionObject.customer.company) {
@@ -80,23 +80,27 @@ export class HeaderComponent implements OnInit {
     return name
   }
 
-  toSupport(){
+  get withoutCompany() {
+    return !Commons.validField(Commons.sessionObject().customer.company)
+  }
+
+  toSupport() {
     this.openNewWindow(Commons.PATH_SUPPORT)
   }
 
-  toMyCompany(){
+  toMyCompany() {
     this.openNewWindow(this.PATH_MY_COMPANY)
   }
 
-  toPurchases(){
+  toPurchases() {
     this.openNewWindow(this.PATH_MY_PURCHASES)
   }
 
-  toLicences(){
+  toLicences() {
     this.openNewWindow(this.PATH_MY_LICENCES)
   }
 
-  openNewWindow(path:string) {
+  openNewWindow(path: string) {
     Commons.openWithExternalToken(path)
   }
 

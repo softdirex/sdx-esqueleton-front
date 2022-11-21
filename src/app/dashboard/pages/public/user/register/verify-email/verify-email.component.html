@@ -1,1 +1,63 @@
-<p>verify-email works!</p>
+<section class="page-header">
+    <div class="overly"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="content text-center">
+                    <h1 *ngIf="flow == FLOW_REGISTER_SIGNED" class="mb-3">{{ 'register.title' | transloco }}</h1>
+                    <h1 *ngIf="flow != FLOW_REGISTER_SIGNED" class="mb-3">{{ 'label.verify-title' | transloco }}</h1>
+                    <p>{{'login.security-info'|transloco}}</p>
+
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-transparent justify-content-center">
+                            <li class="breadcrumb-item"><a routerLink="/">{{'label.home'|transloco}}</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="page-wrapper">
+    <div class="checkout shopping">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 pr-5">
+                    <div class="billing-details mt-5">
+                        <form class="checkout-form">
+                            <div class="row">
+                                <div *ngIf="getScreenWidth < mobileWidth">
+                                    <h4 class="mb-4">{{ 'register.register-verify-msg' | transloco }}</h4>
+
+                                    <div *ngIf="flow == FLOW_REGISTER_SIGNED" class="form-group mb-4">
+                                        <button type="button" class="btn btn-main btn-small" (click)="verify()">{{
+                                            'register.button' | transloco }}</button>
+                                    </div>
+
+                                    <div *ngIf="flow != FLOW_REGISTER_SIGNED" class="form-group mb-4">
+                                        <button type="button" class="btn btn-main btn-small" (click)="verify()">{{
+                                            'label.verify-button' | transloco }}</button>
+                                    </div>
+                                </div>
+                                <div class="col-4"></div>
+                                <div *ngIf="getScreenWidth >= mobileWidth" class="col-4">
+                                    <h4 class="mb-4">{{ 'register.register-verify-msg' | transloco }}</h4>
+                                    <div *ngIf="flow == FLOW_REGISTER_SIGNED" class="form-group mb-4">
+                                        <button type="button" class="btn btn-main btn-small" (click)="verify()">{{
+                                            'register.button' | transloco }}</button>
+                                    </div>
+
+                                    <div *ngIf="flow != FLOW_REGISTER_SIGNED" class="form-group mb-4">
+                                        <button type="button" class="btn btn-main btn-small" (click)="verify()">{{
+                                            'label.verify-button' | transloco }}</button>
+                                    </div>
+                                </div>
+                                <div class="col-4"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

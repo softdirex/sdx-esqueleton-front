@@ -62,6 +62,7 @@ export class RegisterComponent implements OnInit {
   /* --END-- STEP_CUSTOMER Fields */
   loginPath: string = Commons.PATH_LOGIN
   termsConditionsPath: string = Commons.PATH_TERMS
+  model: any
 
   constructor(
     private countriesService: CountriesService,
@@ -461,6 +462,7 @@ export class RegisterComponent implements OnInit {
 
   private mapServiceValidationResponse(detail: any) {
     detail = (detail != undefined && detail != null) ? detail : 'ERROR'
+    detail = detail.replace('API_RESPONSE: ', '')
     switch (detail) {
       case 'Invalid country name':
         this.openModal('validations.invalid-country', 'validations.invalid-country-msg', Commons.ICON_WARNING)
@@ -519,6 +521,18 @@ export class RegisterComponent implements OnInit {
   cancelAll() {
     sessionStorage.removeItem('register')
     this.router.navigate([Commons.PATH_LOGIN])
+  }
+
+  toTC() {
+    this.openNewWindowWhithoutToken(Commons.PATH_TERMS + '/terms-conditions')
+  }
+
+  toPP() {
+    this.openNewWindowWhithoutToken(Commons.PATH_TERMS + '/privacy-policy')
+  }
+
+  openNewWindowWhithoutToken(path: string) {
+    Commons.openWithoutExternalToken(path)
   }
 
 }

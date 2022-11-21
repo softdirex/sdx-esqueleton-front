@@ -387,7 +387,8 @@
     "seller": "Verkäufer",
     "location": "Ort",
     "call-now": "Jetzt anrufen",
-    "home": "Drin"
+    "home": "Drin",
+    "create-company-header": "Organisation erstellen"
   },
   "input": {
     "email": "Geben sie ihre E-Mail Adresse ein",
@@ -395,7 +396,8 @@
     "create-password": "Erstelle ein neues Passwort",
     "repeat-password": "Passwort wiederholen",
     "order": "Bestellung",
-    "pay": "Zahlen"
+    "pay": "Zahlen",
+    "re-enter-password": "Passwort wiederholen"
   },
   "login": {
     "title": "Anmeldung",
@@ -409,7 +411,8 @@
     "recovery-invite": "Wenn Sie Ihr Passwort vergessen haben, wählen Sie Konto wiederherstellen oder registrieren Sie sich mit einer gültigen E-Mail-Adresse",
     "credentials-locked": "Nutzer blockiert",
     "closed": "Geschlossene Sitzung",
-    "closed-msg": "Sie haben die zulässige Leerlaufzeit überschritten"
+    "closed-msg": "Sie haben die zulässige Leerlaufzeit überschritten",
+    "security-info": "Denken Sie aus Sicherheitsgründen daran, Ihre Sitzung am Ende zu schließen. Auf diese Weise vermeiden Sie die böswillige Nutzung Ihrer Ressourcen und Daten auf unserer Plattform und halten sich an unsere Datenschutzrichtlinien."
   },
   "password-recovery": {
     "title": "Passwort wiederherstellen",

@@ -23,13 +23,13 @@
     <div class="checkout shopping">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 pr-5">
-
+                <div class="col-lg-12 pr-5">
+                    <!-- BEGIN - STEP_DOCUMENT_DATA -->
                     <div *ngIf="currentStep==STEP_DOCUMENT_DATA" class="billing-details mt-5">
                         <h4 class="mb-4">{{ 'register.title' | transloco }}</h4>
                         <form class="checkout-form" [formGroup]="fDocumentData">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group mb-4">
                                         <label>{{ 'personal-data.document-type' | transloco }}</label>
                                         <select class="form-control" formControlName="docType">
@@ -45,7 +45,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group mb-4">
                                         <label>{{ 'personal-data.document-value' | transloco }}</label>
                                         <input type="text" class="form-control" formControlName="docValue"
@@ -57,7 +57,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group mb-4">
                                         <label>{{ 'personal-data.country' | transloco }}</label>
                                         <input type="text" matInput class="form-control" formControlName="docCountry"
@@ -97,20 +97,22 @@
 
                                 <div class="col-lg-12">
                                     <div class="row">
-                                        <div class="col"><a [href]="loginPath"><b>{{ 'register.haveaccount-msg' | transloco }}</b></a></div>
+                                        <div class="col"><a [href]="loginPath"><b>{{ 'register.haveaccount-msg' |
+                                                    transloco }}</b></a></div>
                                     </div>
                                 </div>
 
                             </div>
                         </form>
                     </div>
-
-                    <div *ngIf="currentStep==STEP_REGISTER" class="billing-details mt-5">
+                    <!-- END - STEP_DOCUMENT_DATA -->
+                    <!-- BEGIN - STEP_OPTION_SELECT -->
+                    <div *ngIf="currentStep==STEP_OPTION_SELECT" class="billing-details mt-5">
                         <h4 class="mb-4">{{ 'label.hello-name' | transloco: { name: getCustomerName() } }}</h4>
-                        <small>
+                        <p>
                             {{ 'register.personal-data-exists' | transloco }}
-                          </small>
-                          <div class="col-lg-12">
+                        </p>
+                        <div class="col-lg-12">
                             <div class="row">
                                 <div *ngIf="totalCustomers > 0" class="col">
                                     <div class="form-group mb-4">
@@ -128,162 +130,333 @@
 
                                 <div *ngIf="totalCustomers > 0" class="col">
                                     <div class="form-group mb-4">
-                                        <button type="button" class="btn btn-main btn-small" (click)="goStep(STEP_CUSTOMER)">
+                                        <button type="button" class="btn btn-main btn-small"
+                                            (click)="goStep(STEP_CUSTOMER)">
                                             {{ 'register.create-other-user' | transloco }}</button>
                                     </div>
                                 </div>
                                 <div *ngIf="totalCustomers == 0" class="col">
                                     <div class="form-group mb-4">
                                         <button type="button" class="btn btn-main btn-small"
-                                        (click)="goStep(STEP_DOCUMENT_DATA)">
-                                        {{ 'label.go-back' | transloco }}</button>
+                                            (click)="goStep(STEP_DOCUMENT_DATA)">
+                                            {{ 'label.go-back' | transloco }}</button>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12">
                                     <div class="row">
-                                        <div class="col"><a [href]="loginPath"><b>{{ 'register.haveaccount-msg' | transloco }}</b></a></div>
+                                        <div class="col"><a [href]="loginPath"><b>{{ 'register.haveaccount-msg' |
+                                                    transloco }}</b></a></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    <!-- END - STEP_OPTION_SELECT -->
+                    <!-- BEGIN - STEP_REGISTER -->
                     <div *ngIf="currentStep==STEP_REGISTER" class="billing-details mt-5">
-                        <h4 class="mb-4">{{ 'register.title' | transloco }}</h4>
-                        <form class="checkout-form" [formGroup]="fDocumentData">
+                        <h4 class="mb-4">{{ 'register.title' | transloco }}{{' - '}}<small>{{ 'personal-data.title' |
+                                transloco | nameformat }}</small></h4>
+                        <form class="checkout-form" [formGroup]="fPersonalData">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group mb-4">
-                                        <select class="form-control" formControlName="docType">
-                                            <option value="" selected disabled>{{ 'personal-data.document-type' |
-                                                transloco }}</option>
-                                            <option *ngFor="let item of documentDataTypes" value="{{ item.value }}">
+                                        <label>{{ 'personal-data.name' | transloco }}</label>
+                                        <input type="text" class="form-control" [value]="name.value | nameformat"
+                                            formControlName="name" placeholder="">
+                                        <div *ngIf="name.hasError">
+                                            <span class="badge badge-danger">{{ getErrorMessage(name) | transloco
+                                                }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group mb-4">
+                                        <label>{{ 'personal-data.last-name' | transloco }}</label>
+                                        <input type="text" class="form-control" formControlName="lastName"
+                                            [value]="lastName.value | nameformat" placeholder="">
+                                        <div *ngIf="lastName.hasError">
+                                            <span class="badge badge-danger">{{ getErrorMessage(lastName) | transloco
+                                                }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group mb-4">
+                                        <label>{{ 'personal-data.email' | transloco }}</label>
+                                        <input class="form-control" formControlName="email" type="email" placeholder="">
+                                        <div *ngIf="email.hasError">
+                                            <span class="badge badge-danger">{{ getErrorMessage(email) | transloco
+                                                }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group mb-4">
+                                        <label>{{ 'personal-data.phone' | transloco }}</label>
+                                        <input type="text" class="form-control" formControlName="phone" placeholder="">
+                                        <div *ngIf="phone.hasError">
+                                            <span class="badge badge-danger">{{ getErrorMessage(phone) | transloco
+                                                }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group mb-4">
+                                        <label>{{ 'personal-data.sex' | transloco }}</label>
+                                        <select class="form-control" formControlName="gender">
+                                            <option value="0" selected disabled>{{ 'personal-data.sex' | transloco }}
+                                            </option>
+                                            <option *ngFor="let item of genderTypes" value="{{ item.value }}">
                                                 {{ item.name | transloco }}
                                             </option>
                                         </select>
-                                    </div>
-                                    <div *ngIf="docType.hasError">
-                                        <span class="badge badge-danger">{{ getErrorMessage(docType) | transloco
-                                            }}</span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group mb-4">
-                                        <label for="last_name">Document</label>
-                                        <input type="text" class="form-control" id="last_name" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group mb-4">
-                                        <label for="first_name">First Name</label>
-                                        <input type="text" class="form-control" id="first_name" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group mb-4">
-                                        <label for="last_name">Last Name</label>
-                                        <input type="text" class="form-control" id="last_name" placeholder="">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-12">
-                                    <div class="form-group mb-4">
-                                        <label for="first_name">Phone </label>
-                                        <input type="text" class="form-control" id="phone" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group mb-4">
-                                        <label for="first_name">Email address </label>
-                                        <input type="text" class="form-control" id="email" placeholder="">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-12">
-                                    <div class="form-group mb-4">
-                                        <label for="first_name">My address </label>
-                                        <input type="text" class="form-control" id="email" placeholder="">
+                                        <div *ngIf="gender.hasError">
+                                            <span class="badge badge-danger">{{ getErrorMessage(gender) | transloco
+                                                }}</span>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-group mb-4">
-                                        <label for="first_name">City </label>
-                                        <input type="text" class="form-control" id="email" placeholder="">
+                                        <label>{{ 'personal-data.birthday' | transloco }}</label>
+                                        <input class="form-control datepicker" formControlName="birthday"
+                                            placeholder="{{ 'personal-data.birthday' | transloco }}" name="dp"
+                                            [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" [startDate]="startYear"
+                                            [minDate]="minYear" [maxDate]="maxYear" (click)="d.toggle()" type="text" />
+                                        <div *ngIf="birthday.hasError">
+                                            <span class="badge badge-danger">{{ getErrorMessage(birthday) | transloco
+                                                }}</span>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="form-group mb-4">
-                                        <label for="first_name">Province </label>
-                                        <input type="text" class="form-control" id="email" placeholder="">
+                                        <label>{{ 'personal-data.country' | transloco }}</label>
+                                        <input type="text" matInput class="form-control" formControlName="country"
+                                            placeholder="" [matAutocomplete]="auto" (blur)="onKeyValidatorCountry2()"
+                                            (keyup)="onKeyValidatorCountry2()">
+                                        <div *ngIf="country.hasError">
+                                            <span class="badge badge-danger">{{ getErrorMessage(country) | transloco
+                                                }}</span>
+                                        </div>
+                                        <mat-autocomplete #auto="matAutocomplete">
+                                            <mat-option *ngFor="let optCountry of filteredCountriesPersonalData | async"
+                                                [value]="optCountry.name">
+                                                {{optCountry.name}}
+                                            </mat-option>
+                                        </mat-autocomplete>
                                     </div>
                                 </div>
 
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="form-group mb-4">
-                                        <label for="first_name">Country </label>
-                                        <input type="text" class="form-control" id="email" placeholder="">
+                                        <label>{{ 'personal-data.city' | transloco }}</label>
+                                        <input type="text" class="form-control" formControlName="city"
+                                            [value]="city.value | nameformat" required placeholder="">
+                                        <div *ngIf="city.hasError">
+                                            <span class="badge badge-danger">{{ getErrorMessage(city) | transloco
+                                                }}</span>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <div class="form-group mb-4">
-                                        <label for="last_name">Gender</label>
-                                        <input type="text" class="form-control" id="last_name" placeholder="">
+                                        <label>{{ 'personal-data.address' | transloco }}</label>
+                                        <input class="form-control" formControlName="address" type="text"
+                                            [value]="address.value | nameformat" required placeholder="">
+                                        <div *ngIf="address.hasError">
+                                            <span class="badge badge-danger">{{ getErrorMessage(address) | transloco
+                                                }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <h4>{{ 'label.access-data' | transloco | nameformat }}</h4>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group mb-4">
+                                        <label>{{'personal-data.password'|transloco}}</label>
+                                        <input type="password" class="form-control" formControlName="pwd"
+                                            placeholder="{{ 'input.password' | transloco }}">
+                                        <div *ngIf="pwd.hasError">
+                                            <span class="badge badge-danger">{{ getErrorMessage(pwd) | transloco
+                                                }}</span>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <div class="form-group mb-4">
-                                        <label for="last_name">Birthday</label>
-                                        <input type="text" class="form-control" id="last_name" placeholder="">
+                                        <label>{{'input.re-enter-password' |transloco}}</label>
+                                        <input type="password" class="form-control" formControlName="pwd2"
+                                            placeholder="{{ 'input.re-enter-password' | transloco }}">
+                                        <div *ngIf="pwd2.hasError">
+                                            <span class="badge badge-danger">{{ getErrorMessage(pwd2) | transloco
+                                                }}</span>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12">
                                     <div class="form-group mb-4">
-                                        <button type="button" class="btn btn-main btn-small"
-                                            data-dismiss="modal">Update</button>
+                                        <input class="custom-control-input" id="tcCheck" type="checkbox"
+                                            formControlName="tcCheck">
+                                        <label class="custom-control-label" for="tcCheck">
+                                            <span class="text-muted">{{ 'label.terms-conditions-accept-1' | transloco }}
+                                                <a (click)="toTC()">&nbsp;<b>{{ 'label.terms-conditions' | transloco |
+                                                        nameformat }}</b></a>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="form-group mb-4">
+                                        <input class="custom-control-input" id="ppCheck" type="checkbox"
+                                            formControlName="ppCheck">
+                                        <label class="custom-control-label" for="ppCheck">
+                                            <span class="text-muted">{{ 'label.terms-conditions-accept-1' | transloco }}
+                                                <a (click)="toPP()">&nbsp;<b>{{ 'label.privacy-policy' | transloco |
+                                                        nameformat }}</b></a>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group mb-4">
+                                                <button type="button" class="btn btn-main btn-small"
+                                                    (click)="openConfirmModal()" [disabled]="fPersonalData.invalid">{{
+                                                    'register.button' | transloco }}</button>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group mb-4">
+                                                <button type="button" class="btn btn-main btn-small"
+                                                    (click)="goStep(STEP_DOCUMENT_DATA)">
+                                                    {{ 'label.go-back' | transloco }}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col"><a [href]="loginPath"><b>{{ 'register.haveaccount-msg' |
+                                                    transloco }}</b></a></div>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
-                </div>
+                    <!-- END - STEP_REGISTER -->
+                    <!-- BEGIN - STEP_CUSTOMER -->
+                    <div *ngIf="currentStep==STEP_CUSTOMER" class="billing-details mt-5">
+                        <h4 class="mb-4">{{ 'register.title' | transloco }}{{' - '}}<small>{{ 'register.create-user' |
+                                transloco | nameformat }}</small></h4>
+                        <form class="checkout-form" [formGroup]="fCustomer">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group mb-4">
+                                        <label>{{ 'personal-data.email' | transloco }}</label>
+                                        <input type="email" class="form-control" formControlName="cusEmail"
+                                            placeholder="">
+                                        <div *ngIf="cusEmail.hasError">
+                                            <span class="badge badge-danger">{{ getErrorMessage(cusEmail) | transloco
+                                                }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group mb-4">
+                                        <label>{{'personal-data.password'|transloco}}</label>
+                                        <input type="password" class="form-control" formControlName="cusPwd"
+                                            placeholder="{{ 'input.password' | transloco }}">
+                                        <div *ngIf="cusPwd.hasError">
+                                            <span class="badge badge-danger">{{ getErrorMessage(cusPwd) | transloco
+                                                }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group mb-4">
+                                        <label>{{'input.re-enter-password' |transloco}}</label>
+                                        <input type="password" class="form-control" formControlName="cusPwd2"
+                                            placeholder="{{ 'input.re-enter-password' | transloco }}">
+                                        <div *ngIf="cusPwd2.hasError">
+                                            <span class="badge badge-danger">{{ getErrorMessage(cusPwd2) | transloco
+                                                }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="form-group mb-4">
+                                        <input class="custom-control-input" id="cusTcCheck" type="checkbox"
+                                            formControlName="cusTcCheck">
+                                        <label class="custom-control-label" for="cusTcCheck">
+                                            <span class="text-muted">{{ 'label.terms-conditions-accept-1' | transloco }}
+                                                <a (click)="toTC()">&nbsp;<b>{{ 'label.terms-conditions' | transloco |
+                                                        nameformat }}</b></a>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="form-group mb-4">
+                                        <input class="custom-control-input" id="cusPpCheck" type="checkbox"
+                                            formControlName="cusPpCheck">
+                                        <label class="custom-control-label" for="cusPpCheck">
+                                            <span class="text-muted">{{ 'label.terms-conditions-accept-1' | transloco }}
+                                                <a (click)="toPP()">&nbsp;<b>{{ 'label.privacy-policy' | transloco |
+                                                        nameformat }}</b></a>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group mb-4">
+                                                <button type="button" class="btn btn-main btn-small"
+                                                    (click)="createCustomer()" [disabled]="fCustomer.invalid">{{
+                                                    'register.button' | transloco }}</button>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group mb-4">
+                                                <button type="button" class="btn btn-main btn-small"
+                                                    (click)="goStep(STEP_DOCUMENT_DATA)">
+                                                    {{ 'label.go-back' | transloco }}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col"><a [href]="loginPath"><b>{{ 'register.haveaccount-msg' |
+                                                    transloco }}</b></a></div>
+                                    </div>
+                                </div>
 
 
-                <!-- Order sidebar Summery -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="product-checkout-details mt-5 mt-lg-0">
-                        <h4 class="mb-4 border-bottom pb-4">Our Company</h4>
-
-                        <div class="media product-card">
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                It has survived not only five centuries, but also the leap into electronic typesetting,
-                                remaining essentially unchanged. It was popularised in the 1960s with the release of
-                                Letraset
-                                sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-                                software
-                                like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                        </div>
-                        <p>
-                            <a routerLink="/terms/privacy-policy" class="btn btn-main btn-small">Privacy Policy</a>
-                        </p>
-                        <p>
-                            <a routerLink="/terms/conditions-terms" class="btn btn-main btn-small">Terms &
-                                Conditions</a>
-                        </p>
-                        <p>
-                            <a routerLink="/terms/cookie-policy" class="btn btn-main btn-small">Cookie Policy</a>
-                        </p>
-                        <p>
-                            <a routerLink="/terms/sales-terms" class="btn btn-main btn-small">Terms of Sale</a>
-                        </p>
+                            </div>
+                        </form>
                     </div>
+                    <!-- END - STEP_CUSTOMER -->
                 </div>
             </div>
         </div>

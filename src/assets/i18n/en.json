@@ -387,7 +387,8 @@
     "seller": "Seller",
     "location": "Location",
     "call-now": "Call Now",
-    "home": "Home"
+    "home": "Home",
+    "create-company-header": "Create organization"
   },
   "input": {
     "email": "Enter a email",
@@ -395,7 +396,8 @@
     "create-password": "Create a new password",
     "repeat-password": "Repeat password",
     "order": "Purchase order",
-    "pay": "Pay"
+    "pay": "Pay",
+    "re-enter-password": "Repeat password"
   },
   "login": {
     "title": "Login",
@@ -409,7 +411,8 @@
     "recovery-invite": "If you forgot your password, select recover account or register with a valid email",
     "credentials-locked": "User blocked",
     "closed": "Closed session",
-    "closed-msg": "You have exceeded the allowed idle time"
+    "closed-msg": "You have exceeded the allowed idle time",
+    "security-info": "For security, remember to close your session at the end, in this way you will avoid the malicious use of your resources and data on our platform and you will comply with our privacy policies."
   },
   "password-recovery": {
     "title": "Recover password",
