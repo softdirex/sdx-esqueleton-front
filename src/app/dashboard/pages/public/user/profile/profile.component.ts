@@ -165,6 +165,8 @@ export class ProfileComponent implements OnInit {
       gender: new FormControl(this.personalData.sex, [Validators.required]),
       birthday: new FormControl(this.dateToForm(this.personalData.birthday), [Validators.required])
     })
+
+
     if (Commons.validField(this.personalData.contact_data) && this.personalData.contact_data.length > 0) {
       for (let item of this.personalData.contact_data) {
         for (let cdItem of this.contactTypeInSelect) {
@@ -493,6 +495,10 @@ export class ProfileComponent implements OnInit {
 
   labelSelectedLang(code:string):string{
     return 'language.' + code.toLocaleLowerCase() + '-name'
+  }
+
+  getGenderByCode(value:string):string{
+    return 'personal-data.sex-'+value
   }
 
 }

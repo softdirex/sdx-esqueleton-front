@@ -165,7 +165,7 @@ export class CustomersService {
         'product-id': environment.productId + ''
       })
     }
-    return this.http.put<any>(this.myCustomersUrl + '/' + itemId, request, options)
+    return this.http.put<any>(this.customersUrl + '/updateprofile/' + itemId, request, options)
   }
 
   delete(itemId: number) {

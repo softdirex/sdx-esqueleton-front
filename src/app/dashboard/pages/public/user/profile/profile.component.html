@@ -36,7 +36,7 @@
                                         <input type="email" class="form-control" formControlName="email" readonly>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-2">
                                     <div class="form-group mb-4">
                                         <label>
                                             {{ 'language.title' | transloco }}
@@ -57,7 +57,7 @@
                                     <h4>{{ 'label.personal-information' | transloco }}</h4>
                                 </div>
 
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <div class="form-group mb-4">
                                         <label>
                                             {{ 'personal-data.name' | transloco }}
@@ -72,7 +72,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <div class="form-group mb-4">
                                         <label>
                                             {{ 'personal-data.last-name' | transloco }}
@@ -87,14 +87,14 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="form-group mb-4">
                                         <label>
                                             {{ 'personal-data.sex' | transloco }}
                                         </label>
                                         <select class="form-control" formControlName="gender">
-                                            <option value="0" selected disabled>
-                                                {{ 'personal-data.sex' | transloco }}
+                                            <option value="{{gender.value}}" selected disabled>
+                                                {{ getGenderByCode(gender.value) | transloco }}
                                             </option>
                                             <option *ngFor="let item of genderTypes" value="{{ item.value }}">
                                                 {{ item.name | transloco }}
@@ -108,7 +108,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="form-group mb-4">
                                         <label>
                                             {{ 'personal-data.birthday' | transloco }}
@@ -162,7 +162,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="form-group mb-4">
                                         <label>
                                             {{ 'personal-data.province' | transloco }}
@@ -183,7 +183,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-3">
                                     <div class="form-group mb-4">
                                         <label>
                                             {{ provinceTypeSelected | transloco}}
@@ -241,7 +241,7 @@
                                                             class="form-control-sm form-control-alternative">
                                                     </div>
                                                     <div class="col-4">
-                                                        <button class="btn btn-sm btn-default" (click)="applyCDForm()"
+                                                        <button class="btn btn-info btn-small" (click)="applyCDForm()"
                                                             [disabled]="cdForm.invalid">
                                                             {{ 'label.add' | transloco }}
                                                         </button>
@@ -271,7 +271,7 @@
                                                 <br>
                                                 <div class="row">
                                                     <div class="col-12">
-                                                        <button class="btn btn-sm btn-default" (click)="applyCDForm()"
+                                                        <button class="btn btn-info btn-small" (click)="applyCDForm()"
                                                             [disabled]="cdForm.invalid">
                                                             {{ 'label.add' | transloco }}
                                                         </button>
