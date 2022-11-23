@@ -397,7 +397,8 @@
     "slogan": "Slogan",
     "mission": "Mission",
     "vision": "Vision",
-    "terms-filename": "Terms file name"
+    "terms-filename": "Terms file name",
+    "terms": "Terms"
   },
   "input": {
     "email": "Enter a email",

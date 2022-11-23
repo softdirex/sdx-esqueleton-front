@@ -14,7 +14,7 @@ import { FaqsComponent } from '../../pages/public/faqs/faqs.component';
 import { ProductsingleComponent } from '../../pages/public/home/productsingle/productsingle.component';
 import { CartComponent } from '../../pages/public/home/productsingle/cart/cart.component';
 import { CheckoutComponent } from '../../pages/public/home/productsingle/cart/checkout/checkout.component';
-import { TermsAndConditionsComponent } from '../../pages/public/terms/terms-and-conditions/terms-and-conditions.component';
+import { TermsComponent } from '../../pages/public/terms/terms.component';
 import { ProfileComponent } from '../../pages/public/user/profile/profile.component';
 import { FavoritesComponent } from '../../pages/public/user/favorites/favorites.component';
 import { LoginComponent } from '../../pages/public/user/login/login.component';
@@ -59,7 +59,7 @@ import { MatInputModule } from '@angular/material/input';
     ProductsingleComponent,
     CartComponent,
     CheckoutComponent,
-    TermsAndConditionsComponent,
+    TermsComponent,
     ProfileComponent,
     FavoritesComponent,
     LoginComponent,
