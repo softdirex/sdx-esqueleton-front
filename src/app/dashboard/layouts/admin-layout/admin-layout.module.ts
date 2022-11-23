@@ -15,6 +15,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { AdminLayoutComponent } from './admin-layout.component';
 import { AdminHeaderComponent } from '../../pages/admin/admin-home/admin-header/admin-header.component';
 import { AdminFooterComponent } from '../../pages/admin/admin-home/admin-footer/admin-footer.component';
+import { ConfigurationComponent } from '../../pages/admin/configuration/configuration.component';
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import { AdminFooterComponent } from '../../pages/admin/admin-home/admin-footer/
     AdminHomeComponent,
     AdminHeaderComponent,
     AdminFooterComponent,
+    ConfigurationComponent
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { floatLabel: 'always' } },

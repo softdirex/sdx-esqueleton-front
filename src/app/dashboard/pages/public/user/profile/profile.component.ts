@@ -129,15 +129,6 @@ export class ProfileComponent implements OnInit {
       complete: () => { }
     })
 
-
-    this.filteredCountriesPersonalData = this.country.valueChanges.pipe(
-      startWith(''),
-      map(value => {
-        const name = typeof value === 'string' ? value : value?.name;
-        return name ? this._filter(name as string) : this.optionsCountries.slice();
-      }),
-    );
-
     this.loadCountries()
     this.type.addValidators([this.validUserType(this.type), Validators.required])
     this.rol.addValidators([this.validUserRol(this.rol), Validators.required])
@@ -177,6 +168,14 @@ export class ProfileComponent implements OnInit {
         }
       }
     }
+
+    this.filteredCountriesPersonalData = this.country.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const name = typeof value === 'string' ? value : value?.name;
+        return name ? this._filter(name as string) : this.optionsCountries.slice();
+      }),
+    );
 
   }
 

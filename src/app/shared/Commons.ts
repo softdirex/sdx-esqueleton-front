@@ -70,6 +70,10 @@ export class Commons {
     static readonly PATH_ORDERS = 'user/orders'
     static readonly PATH_PDF_VIEWER = environment.coreFrontendEndpoint + 'pdf-viewer'
 
+    /* BEGIN - ENDPOINT ONLY WITH LICENCE ( path ends with *_WITH_LIC ) */
+    static readonly PATH_CONFIG_WITH_LIC = 'configuration'
+    /* END - ENDPOINT ONLY WITH LICENCE */
+
     static readonly PLAN_TYPES: any[] = [
         { value: -1, name: 'label.wrong-type' },
         { value: 0, name: 'label.trial-plan' },
@@ -300,11 +304,7 @@ export class Commons {
     static sessionReloadCustomer(customer: any) {
         const now: Date = new Date()
         var sessionSign = this.decryptDataGlobal(sessionStorage.getItem(this.SESSION_KEY))
-        sessionSign.customer.personal_data = customer.personal_data
-        sessionSign.customer.avatar = customer.avatar
-        if (this.validField(customer.company)) {
-            sessionSign.customer.company = customer.company
-        }
+        sessionSign.customer = customer
         sessionSign.time = now.getTime()
         sessionStorage.setItem(this.SESSION_KEY, this.encryptDataGlobal(sessionSign))
     }

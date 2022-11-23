@@ -29,6 +29,10 @@
           <a class="nav-link text-white" (click)="toLicences()">{{'label.subscriptions'|transloco}}</a>
         </li>
 
+        <li *ngIf="getScreenWidth < mobileWidth && !withoutCompany" class="nav-item active">
+          <a class="nav-link text-white" routerLink="{{PATH_CONFIG}}">{{'label.configuration'|transloco}}</a>
+        </li>
+
         <li *ngIf="getScreenWidth >= mobileWidth" class="nav-item dropdown dropdown-slide">
           <a *ngIf="sessionIsOpen && !withoutCompany" class="nav-link dropdown-toggle text-white" href="#"
             id="navbarDropdown4" role="button" data-delay="350" data-toggle="dropdown" aria-haspopup="true"
@@ -46,6 +50,7 @@
             </li>
             <li *ngIf="!withoutCompany"><a (click)="toPurchases()">{{'label.payment-history'|transloco}}</a></li>
             <li *ngIf="!withoutCompany"><a (click)="toLicences()">{{'label.subscriptions'|transloco}}</a></li>
+            <li *ngIf="!withoutCompany"><a routerLink="{{PATH_CONFIG}}">{{'label.configuration'|transloco}}</a></li>
           </ul>
         </li>
 

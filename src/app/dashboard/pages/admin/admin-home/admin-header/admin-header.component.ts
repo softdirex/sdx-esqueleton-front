@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { CustomersService } from 'src/app/services/customers.service';
 import { LanguageUtilService } from 'src/app/services/language-util.service';
 import { SessionService } from 'src/app/services/session.service';
 import { Commons } from 'src/app/shared/Commons';
@@ -25,6 +26,8 @@ export class AdminHeaderComponent implements OnInit {
   PATH_MY_CUSTOMER = Commons.PATH_MY_CUSTOMER
   PATH_LOGIN = Commons.PATH_LOGIN
 
+  PATH_CONFIG = Commons.PATH_CONFIG_WITH_LIC
+
   getScreenWidth: any;
   mobileWidth: number = Commons.MOBILE_WIDTH
   sessionIsOpen: boolean = Commons.sessionIsOpen()
@@ -39,6 +42,7 @@ export class AdminHeaderComponent implements OnInit {
     private router: Router,
     private modalService: MdbModalService,
     private langService: LanguageUtilService,
+    private customersService: CustomersService
   ) { }
 
   ngOnInit(): void {
@@ -103,7 +107,37 @@ export class AdminHeaderComponent implements OnInit {
   }
 
   toMyCompany() {
-    this.openNewWindow(this.PATH_MY_COMPANY)
+    if(this.withoutCompany){
+      this.customersService.loginCustomer(Commons.sessionObject().customer.email,Commons.sessionCredentials()).subscribe({
+        next: (v) => {
+          if (v != null) {
+            Commons.sessionReloadCustomer(v)
+            window.location.reload();
+            this.openNewWindow(this.PATH_MY_COMPANY)
+          }
+        },
+        error: (e) => {
+          if (e.error != null && e.error.detail != null) {
+            switch (e.error.detail) {
+              case 'You must verify the email':
+                this.openModal('login.button-tooltip', 'label.email-review', Commons.ICON_WARNING)
+                break
+              case 'User blocked':
+                this.openModal('login.credentials-locked', 'login.locked-msg', Commons.ICON_WARNING)
+                break
+              default:
+                this.openModal('label.unknown-error', 'label.unknown-error-contact-retry', Commons.ICON_ERROR)
+                break
+            }
+          } else {
+            this.openModal('label.unknown-error', 'label.unknown-error-contact-retry', Commons.ICON_ERROR)
+          }
+        },
+        complete: () => { }
+      })
+    }else{
+      this.openNewWindow(this.PATH_MY_COMPANY)
+    }
   }
 
   toPurchases() {

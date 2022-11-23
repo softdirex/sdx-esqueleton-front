@@ -1,0 +1,229 @@
+<section class="page-header">
+    <div class="overly"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="content text-center">
+                    <h1 class="mb-3">{{ 'label.configuration' | transloco }}</h1>
+                    <p>{{ 'label.configuration-desc' | transloco }}</p>
+
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-transparent justify-content-center">
+                            <li class="breadcrumb-item"><a [routerLink]="['/'+PATH_PRODUCT]">{{'label.dashboard'|transloco}}</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ 'label.configuration' | transloco
+                                }}
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="page-wrapper">
+    <div class="checkout shopping">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 pr-5">
+                    <div class="billing-details mt-5">
+                        <h4 class="mb-4">{{ 'label.configuration' | transloco }}</h4>
+                        <form class="checkout-form" [formGroup]="form">
+                            <div class="row">
+                                
+                                <div class="col-lg-2">
+                                    <div class="form-group mb-4">
+                                        <label>
+                                            {{ 'language.title' | transloco }}
+                                        </label>
+                                        <select class="form-control" formControlName="lang">
+                                            <option value="{{lang.value}}" selected disabled>
+                                                {{ labelSelectedLang(lang.value) | transloco }}
+                                            </option>
+                                            <option *ngFor="let item of langItems" [ngValue]="item.code">
+                                                {{ item.label | transloco }}
+                                            </option>
+                                        </select>
+                                        <span class="badge badge-danger">{{ getErrorMessage(lang) | transloco }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-5">
+                                    <div class="form-group mb-4">
+                                        <label>
+                                            {{ 'label.slogan' | transloco }}
+                                        </label>
+                                        <input type="text" class="form-control" formControlName="slogan" placeholder="">
+                                        <div *ngIf="slogan.errors">
+                                            <span class="badge badge-danger">
+                                                {{ getErrorMessage(slogan) | transloco }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-5">
+                                    <div class="form-group mb-4">
+                                        <label>
+                                            {{ 'label.terms-filename' | transloco }}
+                                        </label>
+                                        <input type="text" class="form-control" formControlName="terms_filename" placeholder="">
+                                        <div *ngIf="terms_filename.errors">
+                                            <span class="badge badge-danger">
+                                                {{ getErrorMessage(terms_filename) | transloco }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="form-group mb-4">
+                                        <label>
+                                            {{ 'label.about-us' | transloco }}
+                                        </label>
+                                        <textarea class="form-control" formControlName="about" placeholder="" rows="10"></textarea>
+                                        <div *ngIf="about.errors">
+                                            <span class="badge badge-danger">
+                                                {{ getErrorMessage(about) | transloco }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group mb-4">
+                                        <label>
+                                            {{ 'label.mission' | transloco }}
+                                        </label>
+                                        <textarea class="form-control" formControlName="mission" placeholder="" rows="10"></textarea>
+                                        <div *ngIf="mission.errors">
+                                            <span class="badge badge-danger">
+                                                {{ getErrorMessage(mission) | transloco }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group mb-4">
+                                        <label>
+                                            {{ 'label.vision' | transloco }}
+                                        </label>
+                                        <textarea class="form-control" formControlName="vision" placeholder="" rows="10"></textarea>
+                                        <div *ngIf="vision.errors">
+                                            <span class="badge badge-danger">
+                                                {{ getErrorMessage(vision) | transloco }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <h4>{{ 'label.contact-information' | transloco }}</h4>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group mb- 4">
+                                        <label>
+                                            {{ 'personal-data.phone' | transloco }}
+                                        </label>
+                                        <input type="text" class="form-control" formControlName="contact_phone"
+                                            placeholder="">
+                                        <div *ngIf="contact_phone.errors">
+                                            <span class="badge badge-danger">
+                                                {{ getErrorMessage(contact_phone) | transloco }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group mb- 4">
+                                        <label>
+                                            {{ 'personal-data.email' | transloco }}
+                                        </label>
+                                        <input type="text" class="form-control" formControlName="contact_mail"
+                                            placeholder="">
+                                        <div *ngIf="contact_mail.errors">
+                                            <span class="badge badge-danger">
+                                                {{ getErrorMessage(contact_mail) | transloco }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <h4>
+                                        {{ 'label.address-information' | transloco }}
+                                    </h4>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <div class="form-group mb-4">
+                                        <label>{{ 'personal-data.country' | transloco }}</label>
+                                        <input type="text" matInput class="form-control" formControlName="country"
+                                            placeholder="" [matAutocomplete]="auto" (blur)="onKeyValidatorCountry()"
+                                            (keyup)="onKeyValidatorCountry()">
+                                        <div *ngIf="country.errors">
+                                            <span class="badge badge-danger">{{ getErrorMessage(country) | transloco
+                                                }}</span>
+                                        </div>
+                                        <mat-autocomplete #auto="matAutocomplete">
+                                            <mat-option *ngFor="let optCountry of filteredCountries | async"
+                                                [value]="optCountry.name">
+                                                {{optCountry.name}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <div class="form-group mb-4">
+                                        <label>
+                                            {{ 'personal-data.city' | transloco }}
+                                        </label>
+                                        <input type="text" class="form-control" formControlName="city"
+                                            [value]="city.value | nameformat" required placeholder="">
+                                        <div *ngIf="city.errors">
+                                            <span class="badge badge-danger">
+                                                {{ getErrorMessage(city) | transloco }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-6">
+                                    <div class="form-group mb-4">
+                                        <label>
+                                            {{ 'personal-data.address' | transloco }}
+                                        </label>
+                                        <input class="form-control" formControlName="address" type="text"
+                                            [value]="address.value | nameformat" required placeholder="">
+                                        <div *ngIf="address.errors">
+                                            <span class="badge badge-danger">
+                                                {{ getErrorMessage(address) | transloco }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group mb-4">
+                                                <button type="button" class="btn btn-main btn-small"
+                                                    [disabled]="form.invalid" (click)="submit()">
+                                                    {{ 'label.save' | transloco }}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

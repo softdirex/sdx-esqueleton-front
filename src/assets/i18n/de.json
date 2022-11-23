@@ -389,7 +389,15 @@
     "call-now": "Jetzt anrufen",
     "home": "Drin",
     "create-company-header": "Organisation erstellen",
-    "out-of-dash": "Gehen Sie zur Website"
+    "out-of-dash": "Gehen Sie zur Website",
+    "configuration": "Aufbau",
+    "configuration-updated": "Die Konfiguration wurde erfolgreich aktualisiert",
+    "configuration-desc": "Sie können die öffentlichen und allgemeinen Informationen Ihrer Organisation konfigurieren, diese Informationen werden als öffentliche Informationen angezeigt, sodass Sie die Aufmerksamkeit Ihrer Kunden auf sich ziehen und Kommunikationskanäle mit ihnen aufbauen können.",
+    "dashboard": "Armaturenbrett",
+    "slogan": "Slogan",
+    "mission": "Mission",
+    "vision": "Vision",
+    "terms-filename": "Begriffsdateiname"
   },
   "input": {
     "email": "Geben sie ihre E-Mail Adresse ein",

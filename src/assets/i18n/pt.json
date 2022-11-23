@@ -389,7 +389,15 @@
     "call-now": "Ligue agora",
     "home": "Inicio",
     "create-company-header": "Criar organização",
-    "out-of-dash": "Ir para o site"
+    "out-of-dash": "Ir para o site",
+    "configuration": "Configuração",
+    "configuration-updated": "A configuração foi atualizada com sucesso",
+    "configuration-desc": "Você pode configurar as informações públicas e gerais de sua organização, essas informações serão expostas como informações públicas para que você possa captar a atenção de seus clientes e estabelecer canais de comunicação com eles.",
+    "dashboard": "Painel",
+    "slogan": "Slogan",
+    "mission": "Missão",
+    "vision": "Visão",
+    "terms-filename": "Nome do arquivo de termos"
   },
   "input": {
     "email": "Digite seu e-mail",

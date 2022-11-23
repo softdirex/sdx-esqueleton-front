@@ -156,7 +156,7 @@
     "cmb-type-indusrty": "Industria",
     "cmb-type-energy-supply": "Proveedor de energia",
     "cmb-type-water-supply": "Suministro de agua",
-    "cmb-type-building": "Edificio",
+    "cmb-type-building": "Construcción",
     "cmb-type-trade": "Comercio",
     "cmb-type-transportation": "Transporte",
     "cmb-type-storage": "Almacenamiento",
@@ -389,7 +389,15 @@
     "call-now": "Llama ahora",
     "home": "Inicio",
     "create-company-header": "Crear organización",
-    "out-of-dash": "Ir al sitio"
+    "out-of-dash": "Ir al sitio",
+    "configuration": "Configuración",
+    "configuration-updated": "La configuración ha sido actualizada con éxito",
+    "configuration-desc": "Puedes configurar la información pública y general de tu organización, esta información estará expuesta como información pública para que puedas captar la atención de tus clientes y establecer canales de comunicación con ellos.",
+    "dashboard": "Tablero",
+    "slogan": "Eslogan",
+    "mission": "Misión",
+    "vision": "Visión",
+    "terms-filename": "Nombre del archivo de términos"
   },
   "input": {
     "email": "Ingrese correo electrónico",

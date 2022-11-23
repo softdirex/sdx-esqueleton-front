@@ -389,7 +389,15 @@
     "call-now": "Call Now",
     "home": "Home",
     "create-company-header": "Create organization",
-    "out-of-dash": "Go to site"
+    "out-of-dash": "Go to site",
+    "configuration": "Configuration",
+    "configuration-updated": "The configuration has been updated successfully",
+    "configuration-desc": "You can configure the public and general information of your organization, this information will be exposed as public information so that you can capture the attention of your clients and establish communication channels with them.",
+    "dashboard": "Dashboard",
+    "slogan": "Slogan",
+    "mission": "Mission",
+    "vision": "Vision",
+    "terms-filename": "Terms file name"
   },
   "input": {
     "email": "Enter a email",

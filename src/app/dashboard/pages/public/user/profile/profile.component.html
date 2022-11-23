@@ -115,8 +115,8 @@
                                         </label>
                                         <input class="form-control datepicker" formControlName="birthday"
                                             placeholder="{{ 'personal-data.birthday' | transloco }}" name="dp"
-                                             ngbDatepicker #d="ngbDatepicker" [startDate]="startYear"
-                                            [minDate]="minYear" [maxDate]="maxYear" (click)="d.toggle()" type="text" />
+                                            ngbDatepicker #d="ngbDatepicker" [startDate]="startYear" [minDate]="minYear"
+                                            [maxDate]="maxYear" (click)="d.toggle()" type="text" />
                                         <div *ngIf="birthday.errors">
                                             <span class="badge badge-danger">
                                                 {{ getErrorMessage(birthday) | transloco }}
@@ -127,16 +127,13 @@
 
                                 <div class="col-lg-3">
                                     <div class="form-group mb-4">
-                                        <label>
-                                            {{ 'personal-data.country' | transloco }}
-                                        </label>
+                                        <label>{{ 'personal-data.country' | transloco }}</label>
                                         <input type="text" matInput class="form-control" formControlName="country"
                                             placeholder="" [matAutocomplete]="auto" (blur)="onKeyValidatorCountry()"
                                             (keyup)="onKeyValidatorCountry()">
                                         <div *ngIf="country.errors">
-                                            <span class="badge badge-danger">
-                                                {{ getErrorMessage(country) | transloco }}
-                                            </span>
+                                            <span class="badge badge-danger">{{ getErrorMessage(country) | transloco
+                                                }}</span>
                                         </div>
                                         <mat-autocomplete #auto="matAutocomplete">
                                             <mat-option *ngFor="let optCountry of filteredCountriesPersonalData | async"

@@ -13,7 +13,10 @@ export const environment = {
   contactEmail: 'sales@softdirex.com',
   contactPhone: '+569 9867 2957',
   orgName: 'Softdirex',
+  // Direccion web de softdirex
   ownerWeb: 'https://softdirex.cl/',
+  // OWNER_ID Asociado al producto, si está en 0 carga datos de softdirex
+  ownerId: 0,
   productId: 1,
   productBackendEndpoint: 'http://127.0.0.1:3334/v1',
   coreBackendEndpoint: 'http://127.0.0.1:3333/v1',
@@ -27,7 +30,7 @@ export const environment = {
   phonesRegex: '[0-9+() -]{6,40}',
   addressRegex: '[a-zA-Z\u00C0-\u00ff-.@ 0-9]{2,90}',
   rrssRegex: '[a-zA-Z-.@_0-9]',
-  obsRegex: '[a-zA-Z\u00C0-\u00ff-.,": 0-9]{2,250}',
+  obsRegex: '[a-zA-Z\u00C0-\u00ff-.,\'\n": 0-9]{2,1000}',
 };
 
 /*

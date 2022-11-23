@@ -3,9 +3,12 @@ import { Commons } from 'src/app/shared/Commons';
 import { CustomerGuard } from 'src/app/shared/guards/customer.guard';
 import { AdminHomeComponent } from '../../pages/admin/admin-home/admin-home.component';
 import { NgModule } from '@angular/core';
+import { ConfigurationComponent } from '../../pages/admin/configuration/configuration.component';
+import { CustomerRWXGuard } from 'src/app/shared/guards/customer-rwx.guard';
 
 export const AdminLayoutRoutes: Routes = [
     { path: Commons.PATH_PRODUCT, component: AdminHomeComponent, canActivate: [CustomerGuard] },
+    { path: Commons.PATH_CONFIG_WITH_LIC, component: ConfigurationComponent, canActivate: [CustomerRWXGuard] },
 ];
 
 @NgModule({
