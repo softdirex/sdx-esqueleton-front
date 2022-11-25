@@ -16,7 +16,7 @@ export const environment = {
   // Direccion web de softdirex
   providerWeb: 'https://softdirex.cl/',
   // OWNER_ID Asociado al producto, si está en 0 carga datos de softdirex
-  ownerId: 1,
+  ownerId: 0,
   productId: 1,
   // BEGIN - Owner config default
   dfConfigCompanyName: 'Softdirex',

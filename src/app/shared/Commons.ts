@@ -412,8 +412,8 @@ export class Commons {
 
                 }
             } else {
-                const customer = Commons.sessionObject().customer
-                if (Commons.sessionIsOpen() && Commons.validField(customer.owner) && Commons.validField(customer.owner.config)) {
+                const customer = (Commons.sessionIsOpen()) ? Commons.sessionObject().customer : null
+                if (Commons.validField(customer) && Commons.validField(customer.owner) && Commons.validField(customer.owner.config)) {
                     return customer.owner.config
                 }
                 return ownerDetail
