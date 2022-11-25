@@ -397,8 +397,12 @@
     "slogan": "Eslogan",
     "mission": "Misión",
     "vision": "Visión",
-    "terms-filename": "Nombre del archivo de términos",
-    "terms": "Términos"
+    "terms-filename": "Archivo de términos",
+    "terms": "Términos",
+    "company": "Organización",
+    "useful-link": "Enlace útil",
+    "contact-desc": "Contáctenos para obtener más información sobre nuestros productos y servicios, a la brevedad nos comunicaremos con usted",
+    "contact-sended": "Gracias por contactarnos, revisaremos su solicitud y le responderemos lo antes posible."
   },
   "input": {
     "email": "Ingrese correo electrónico",
@@ -422,7 +426,8 @@
     "credentials-locked": "Usuario bloqueado",
     "closed": "Sesión cerrada",
     "closed-msg": "Ha excedido el tiempo de inactividad permitido",
-    "security-info": "Por seguridad, recuerda cerrar tu sesión al finalizar, de esta forma evitarás el uso malicioso de tus recursos y datos en nuestra plataforma y cumplirás con nuestras políticas de privacidad."
+    "security-info": "Por seguridad, recuerda cerrar tu sesión al finalizar, de esta forma evitarás el uso malicioso de tus recursos y datos en nuestra plataforma y cumplirás con nuestras políticas de privacidad.",
+    "organization-wrong-msg": "Este usuario no pertenece a la organización, comuníquese con el administrador de la organización"
   },
   "password-recovery": {
     "title": "Recuperar contraseña",

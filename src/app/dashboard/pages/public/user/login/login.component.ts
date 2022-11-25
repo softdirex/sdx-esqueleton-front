@@ -103,6 +103,10 @@ export class LoginComponent implements OnInit {
                     this.cleanForm()
                     this.openModal('login.credentials-locked', 'login.locked-msg', Commons.ICON_WARNING)
                     break
+                  case 'This user does not belong to the organization':
+                    this.cleanForm()
+                    this.openModal('login.credentials-locked', 'login.organization-wrong-msg', Commons.ICON_WARNING)
+                    break
                   default:
                     this.cleanPwd()
                     this.alertLinkModal = this.modalService.open(AlertLinkModalComponent, {

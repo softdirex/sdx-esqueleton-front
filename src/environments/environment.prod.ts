@@ -10,10 +10,24 @@ export const environment = {
   contactPhone: '+569 9867 2957',
   orgName: 'Softdirex',
   // Direccion web de softdirex
-  ownerWeb: 'https://softdirex.cl/',
+  providerWeb: 'https://softdirex.cl/',
   // OWNER_ID Asociado al producto, si está en 0 carga datos de softdirex
   ownerId: 0,
   productId: 1,
+  // BEGIN - Owner config default
+  dfConfigCompanyName: 'Softdirex',
+  dfConfigSlogan: 'Modernize your digital tools',
+  dfConfigAbout: 'We are a company that in a short time has managed to take our clients to the next technological level, keeping our computer tools in constant evolution to keep up with the growing technological advance, our work has been arduous but the achievements have been rewarding, we focus on responding to our clients in their technological requirements with added value to continue growing. We have a research area to create new cutting-edge solutions.',
+  dfConfigMission: 'Our mission is to promote and provide small and medium-sized businesses with better specific software management tools that will help them compete more effectively in the market.',
+  dfConfigVision: 'We all must have access to modern information systems, regardless of the size of our projects, any effective implementation of technology will contribute to better development and in the long run will bring great profits.',
+  dfConfigContactPhone: '+569 9867 2957',
+  dfConfigContactMail: 'info@softdirex.com',
+  dfConfigAddress: '',
+  dfConfigCity: 'La Serena',
+  dfConfigCountry: 'Chile',
+  dfConfigTermsFilename: 'terms.json',
+  dfConfigLang: 'en',
+  // END - Owner config default
   productBackendEndpoint: 'http://127.0.0.1:3334/v1',
   coreBackendEndpoint: 'http://127.0.0.1:3333/v1',
   coreFrontendEndpoint: 'http://localhost:4401/',

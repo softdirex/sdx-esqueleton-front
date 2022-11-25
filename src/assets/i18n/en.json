@@ -397,8 +397,12 @@
     "slogan": "Slogan",
     "mission": "Mission",
     "vision": "Vision",
-    "terms-filename": "Terms file name",
-    "terms": "Terms"
+    "terms-filename": "Terms file",
+    "terms": "Terms",
+    "company": "Organization",
+    "useful-link": "Useful Link",
+    "contact-desc": "Contact us to obtain more information about our products and services, we will contact you shortly",
+    "contact-sended": "Thank you for contacting us, we will review your request and respond as soon as possible."
   },
   "input": {
     "email": "Enter a email",
@@ -422,7 +426,8 @@
     "credentials-locked": "User blocked",
     "closed": "Closed session",
     "closed-msg": "You have exceeded the allowed idle time",
-    "security-info": "For security, remember to close your session at the end, in this way you will avoid the malicious use of your resources and data on our platform and you will comply with our privacy policies."
+    "security-info": "For security, remember to close your session at the end, in this way you will avoid the malicious use of your resources and data on our platform and you will comply with our privacy policies.",
+    "organization-wrong-msg": "This user does not belong to the organization, please contact the organization's administrator"
   },
   "password-recovery": {
     "title": "Recover password",

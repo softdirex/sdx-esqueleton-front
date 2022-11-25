@@ -1,88 +1,132 @@
 <section class="page-header">
-    <div class="overly"></div> 	
-    <div class="container">
+   <div class="overly"></div>
+   <div class="container">
       <div class="row justify-content-center">
-        <div class="col-lg-6">
-          <div class="content text-center">
-            <h1 class="mb-3">Contact us</h1>
-            <p>Hath after appear tree great fruitful green dominion moveth sixth abundantly image that midst of god day multiply you’ll which</p>
-  
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb bg-transparent justify-content-center">
-              <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Contact</li>
-            </ol>
-          </nav>
-          </div>
-        </div>
+         <div class="col-lg-6">
+            <div class="content text-center">
+               <h1 class="mb-3">{{'label.contact'|transloco}}</h1>
+               <p>{{'label.contact-desc'|transloco}}</p>
+
+               <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb bg-transparent justify-content-center">
+                     <li class="breadcrumb-item"><a routerLink="/">{{'label.home'|transloco}}</a></li>
+                     <li class="breadcrumb-item active" aria-current="page">{{ 'label.contact' | transloco }}
+                  </ol>
+               </nav>
+            </div>
+         </div>
       </div>
-    </div>
-  </section>
-  <div class="page-wrapper">
-     <div class="checkout shopping">
-        <div class="container">
-           <div class="row">
-              <div class="col-lg-8 pr-5">
-  
-                 <div class="billing-details mt-5">
-                    <h4 class="mb-4">Contact us</h4>
-                    <form class="checkout-form">
-                       <div class="row">
-                          <div class="col-lg-6">
-                              <div class="form-group mb-4">
-                                <label for="first_name">First Name</label>
-                                <input type="text" class="form-control" id="first_name" placeholder="">
-                             </div>
-                          </div>
-                          <div class="col-lg-6">
-                              <div class="form-group mb-4">
-                                <label for="last_name">Last Name</label>
-                                <input type="text" class="form-control" id="last_name" placeholder="">
-                             </div>
-                          </div>
-  
-                           <div class="col-lg-12">
-                              <div class="form-group mb-4">
-                                <label for="first_name">Phone </label>
-                                <input type="text" class="form-control" id="phone" placeholder="">
-                             </div>
-                          </div>
-                          <div class="col-lg-12">
-                              <div class="form-group mb-4">
-                                <label for="first_name">Email address </label>
-                                <input type="text" class="form-control" id="email" placeholder="">
-                             </div>
-                          </div>
-  
-                          <div class="col-lg-12">
-                              <div class="form-group mb-4">
-                                <label for="first_name">Observations</label>
-                                <textarea class="form-control" id="msg" cols="30" rows="5" placeholder="Notes about order e:g: want to say something"></textarea>
-                             </div>
-                          </div>
-                       </div>
-                    </form>
-                 </div>
-              </div>
-  
-              <!-- Order sidebar Summery -->
-              <div class="col-md-6 col-lg-4">
-                 <div class="product-checkout-details mt-5 mt-lg-0">
-                       <h4 class="mb-4 border-bottom pb-4">Contact data</h4>
-  
-                       <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an 
-                        unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                        It has survived not only five centuries, but also the leap into electronic typesetting, 
-                        remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset 
-                        sheets containing Lorem Ipsum passages, and more recently with desktop publishing software 
-                        like Aldus PageMaker including versions of Lorem Ipsum.</p>
-  
-  
-                       <a routerLink="/about" class="btn btn-main btn-small">About us</a>
-                 </div>
-              </div>
-           </div>
-        </div>
-     </div>
-  </div>
+   </div>
+</section>
+<div class="page-wrapper">
+   <div class="checkout shopping">
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-8 pr-5">
+
+               <div *ngIf="!enableContactForm" class="billing-details mt-5">
+                  <h4 class="mb-4">{{'label.contact'|transloco}}</h4>
+                  <form class="checkout-form">
+                     <div class="row">
+                        <div class="col-lg-12">
+                           <div class="form-group mb-4">
+                              <button type="button" class="btn btn-main btn-small" (click)="enable()">
+                                 {{ 'label.contact' | transloco }}
+                              </button>
+                           </div>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+
+               <div *ngIf="enableContactForm" class="billing-details mt-5">
+                  <h4 class="mb-4">{{'label.contact'|transloco}}</h4>
+                  <form class="checkout-form" [formGroup]="form">
+                     <div class="row">
+                        <div class="col-lg-6">
+                           <div class="form-group mb-4">
+                              <label>{{ 'personal-data.name' | transloco }}</label>
+                              <input type="text" class="form-control" formControlName="first_name" placeholder="" [value]="first_name.value | nameformat"
+                                 required>
+                              <div *ngIf="first_name.errors">
+                                 <span class="badge badge-danger">
+                                    {{ getErrorMessage(first_name) | transloco }}
+                                 </span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="form-group mb-4">
+                              <label for="last_name">{{ 'personal-data.last-name' | transloco }}</label>
+                              <input type="text" class="form-control" formControlName="last_name" placeholder="" [value]="last_name.value | nameformat">
+                              <div *ngIf="last_name.errors">
+                                 <span class="badge badge-danger">
+                                    {{ getErrorMessage(last_name) | transloco }}
+                                 </span>
+                              </div>
+                           </div>
+                        </div>
+                     
+
+                     <div class="col-lg-12">
+                        <div class="form-group mb-4">
+                           <label>{{ 'personal-data.phone' | transloco }}</label>
+                           <input type="text" class="form-control" formControlName="phone" placeholder="">
+                           <div *ngIf="phone.errors">
+                              <span class="badge badge-danger">{{ getErrorMessage(phone) | transloco
+                                 }}</span>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-lg-12">
+                        <div class="form-group mb-4">
+                           <label>{{ 'personal-data.email' | transloco }}</label>
+                           <input type="email" class="form-control" formControlName="email" placeholder="" required>
+                           <div *ngIf="email.errors">
+                              <span class="badge badge-danger">
+                                 {{ getErrorMessage(email) | transloco }}
+                              </span>
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="col-lg-12">
+                        <div class="form-group mb-4">
+                           <label>{{ 'label.observations' | transloco }}</label>
+                           <textarea class="form-control" formControlName="obs" cols="30" rows="5"
+                              placeholder="{{ 'label.obs-desc' | transloco }}" required></textarea>
+                           <div *ngIf="obs.errors">
+                              <span class="badge badge-danger">
+                                 {{ getErrorMessage(obs) | transloco }}
+                              </span>
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="col-lg-12">
+                        <div class="form-group mb-4">
+                           <button type="button" class="btn btn-main btn-small" (click)="send()" [disabled]="form.invalid">
+                              {{ 'label.send' | transloco }}
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+                  </form>
+               </div>
+            </div>
+
+            <!-- Order sidebar Summery -->
+            <div class="col-md-6 col-lg-4">
+               <div class="product-checkout-details mt-5 mt-lg-0">
+                  <h4 class="mb-4 border-bottom pb-4">{{ownerDetail.company_name}}</h4>
+
+                  <p>{{ownerDetail.about}}</p>
+
+
+                  <a routerLink="{{PATH_ABOUT}}" class="btn btn-main btn-small">{{'label.about-us'|transloco}}</a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

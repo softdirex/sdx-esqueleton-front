@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import StatusTypeConfig from './config/status-type';
 import * as uuid from 'uuid';
 import { ProductType } from './config/product-type';
+import { OwnerConfig } from '../public/models/core/OwnerConfig';
 
 export interface FILTER {
     label: string
@@ -14,6 +15,7 @@ export interface FILTER {
 export class Commons {
     static readonly SDX = 'Softdirex'
     static readonly SESSION_KEY = 'cus_S'
+    static readonly OWNER_KEY = 'own_S'
     // CUSTOMER's roles
     static readonly USER_ROL_BASIC = 'V'
     static readonly USER_ROL_RW = 'RW'
@@ -367,6 +369,58 @@ export class Commons {
     }
 
     static openWithoutExternalToken(path: string) {
-        window.open(environment.coreFrontendEndpoint + path )
+        window.open(environment.coreFrontendEndpoint + path)
+    }
+
+    static setOwnerConfig(ownerConfig: OwnerConfig) {
+        sessionStorage.setItem(this.OWNER_KEY, this.encryptDataGlobal(ownerConfig))
+    }
+
+    /**
+     * If result is null then call getConfig service
+     * @returns 
+     */
+    static getOwnerConfig(): OwnerConfig | null {
+        const result = this.decryptDataGlobal(sessionStorage.getItem(this.OWNER_KEY))
+        if (result == null) {
+            var ownerDetail: OwnerConfig = {
+                id: 0,
+                owner_id: 0,
+                company_name: environment.dfConfigCompanyName,
+                slogan: environment.dfConfigSlogan,
+                about: environment.dfConfigAbout,
+                mission: environment.dfConfigMission,
+                vision: environment.dfConfigVision,
+                contact_phone: environment.dfConfigContactPhone,
+                contact_mail: environment.dfConfigContactMail,
+                address: environment.dfConfigAddress,
+                city: environment.dfConfigCity,
+                country: environment.dfConfigCountry,
+                terms_filename: environment.dfConfigTermsFilename,
+                lang: environment.dfConfigLang,
+                createdAt: null,
+                updatedAt: null
+            }
+            if (environment.ownerId != 0) {
+
+                const customer = (Commons.sessionIsOpen()) ? Commons.sessionObject().customer : null
+                if (Commons.validField(customer) && Commons.validField(customer.owner) && Commons.validField(customer.owner.config)) {
+                    const customer = Commons.sessionObject().customer
+                    return customer.owner.config
+                } else {
+                    return null
+
+                }
+            } else {
+                const customer = Commons.sessionObject().customer
+                if (Commons.sessionIsOpen() && Commons.validField(customer.owner) && Commons.validField(customer.owner.config)) {
+                    return customer.owner.config
+                }
+                return ownerDetail
+            }
+        } else {
+            return result
+        }
+
     }
 }

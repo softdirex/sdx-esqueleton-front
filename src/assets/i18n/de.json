@@ -397,8 +397,12 @@
     "slogan": "Slogan",
     "mission": "Mission",
     "vision": "Vision",
-    "terms-filename": "Begriffsdateiname",
-    "terms": "Bedingungen"
+    "terms-filename": "Begriffsdatei",
+    "terms": "Bedingungen",
+    "company": "Organisation",
+    "useful-link": "Nützlicher Link",
+    "contact-desc": "Kontaktieren Sie uns, um weitere Informationen zu unseren Produkten und Dienstleistungen zu erhalten. Wir werden uns in Kürze mit Ihnen in Verbindung setzen",
+    "contact-sended": "Vielen Dank, dass Sie sich mit uns in Verbindung gesetzt haben. Wir werden Ihre Anfrage prüfen und so schnell wie möglich antworten."
   },
   "input": {
     "email": "Geben sie ihre E-Mail Adresse ein",
@@ -422,7 +426,8 @@
     "credentials-locked": "Nutzer blockiert",
     "closed": "Geschlossene Sitzung",
     "closed-msg": "Sie haben die zulässige Leerlaufzeit überschritten",
-    "security-info": "Denken Sie aus Sicherheitsgründen daran, Ihre Sitzung am Ende zu schließen. Auf diese Weise vermeiden Sie die böswillige Nutzung Ihrer Ressourcen und Daten auf unserer Plattform und halten sich an unsere Datenschutzrichtlinien."
+    "security-info": "Denken Sie aus Sicherheitsgründen daran, Ihre Sitzung am Ende zu schließen. Auf diese Weise vermeiden Sie die böswillige Nutzung Ihrer Ressourcen und Daten auf unserer Plattform und halten sich an unsere Datenschutzrichtlinien.",
+    "organization-wrong-msg": "Dieser Benutzer gehört nicht zur Organisation, bitte wenden Sie sich an den Administrator der Organisation"
   },
   "password-recovery": {
     "title": "Passwort wiederherstellen",

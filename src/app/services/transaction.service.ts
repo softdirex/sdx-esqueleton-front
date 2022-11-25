@@ -7,7 +7,6 @@ import { Commons } from '../shared/Commons';
   providedIn: 'root'
 })
 export class TransactionService {
-  apiCoreTransactionsUrl: string = environment.coreBackendEndpoint + '/transactions'
   apiCoreMyLicencesUrl: string = environment.productBackendEndpoint + '/mycompany/licence'
 
   constructor(private http: HttpClient) { }

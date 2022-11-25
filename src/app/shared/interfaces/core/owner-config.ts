@@ -1,5 +1,6 @@
 
 export interface OwnerConfig {
+    company_name: string
     slogan: string
     about: string
     mission: string

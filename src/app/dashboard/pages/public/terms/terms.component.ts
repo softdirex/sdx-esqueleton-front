@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { OwnerConfig } from 'src/app/public/models/core/OwnerConfig';
+import { OwnerConfigService } from 'src/app/services/owner-config.service';
 import { PublicResourcesService } from 'src/app/services/resources.service';
 import { Commons } from 'src/app/shared/Commons';
 import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
@@ -42,14 +44,35 @@ export class TermsComponent implements OnInit {
 
   modalRef: MdbModalRef<AlertModalComponent> | null = null;
 
+  ownerDetail: OwnerConfig = {
+    id: 0,
+    company_name: '',
+    owner_id: 0,
+    slogan: '',
+    about: '',
+    mission: '',
+    vision: '',
+    contact_phone: '',
+    contact_mail: '',
+    address: '',
+    city: '',
+    country: '',
+    terms_filename: '',
+    lang: '',
+    createdAt: null,
+    updatedAt: null
+  }
+
   constructor(
     private route : ActivatedRoute,
     private resourceService:PublicResourcesService,
     private modalService: MdbModalService,
-    private router:Router
+    private router:Router,
+    private ownerConfigService: OwnerConfigService
     ) { }
 
   ngOnInit(): void {
+    this.loadOwnerConfig()
     if(this.OWNER_ID == 0){
       this.OWNER_ID = Commons.sessionObject().customer.owner.id
     }
@@ -84,6 +107,24 @@ export class TermsComponent implements OnInit {
     this.modalRef = this.modalService.open(AlertModalComponent, {
       data: { title: title, message: message, icon: icon },
     })
+  }
+
+  loadOwnerConfig(){
+    const validated = Commons.getOwnerConfig()
+    if (validated == null) {
+      //load from endpoint
+      this.ownerConfigService.getConfig().subscribe(
+        {
+          next: (v) => {
+            this.ownerDetail = v
+            Commons.setOwnerConfig(v)
+          },
+          complete: () => { }
+        }
+      )
+    } else {
+      this.ownerDetail = validated
+    }
   }
 
 }

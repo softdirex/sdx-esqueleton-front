@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { Commons } from 'src/app/shared/Commons';
 import { AboutComponent } from '../../pages/public/about/about.component';
 import { ContactComponent } from '../../pages/public/contact/contact.component';
-import { FaqsComponent } from '../../pages/public/faqs/faqs.component';
 import { HomeComponent } from '../../pages/public/home/home.component';
 import { CartComponent } from '../../pages/public/home/productsingle/cart/cart.component';
 import { CheckoutComponent } from '../../pages/public/home/productsingle/cart/checkout/checkout.component';
@@ -22,7 +21,6 @@ export const PublicLayoutRoutes: Routes = [
     { path: Commons.PATH_MAIN, component: HomeComponent },
     { path: Commons.PATH_ABOUT, component: AboutComponent },
     { path: Commons.PATH_CONTACT, component: ContactComponent },
-    { path: Commons.PATH_FACTS, component: FaqsComponent },
     { path: Commons.PATH_PRODUCT_SINGLE + '/:id', component: ProductsingleComponent },
     { path: Commons.PATH_CART, component: CartComponent },
     { path: Commons.PATH_CHECKOUT, component: CheckoutComponent },

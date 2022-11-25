@@ -19,7 +19,7 @@ export class AdminFooterComponent implements OnInit {
 
   orgName=environment.orgName
 
-  ownerWeb=environment.ownerWeb
+  providerWeb=environment.providerWeb
 
   anio: Date = new Date();
 

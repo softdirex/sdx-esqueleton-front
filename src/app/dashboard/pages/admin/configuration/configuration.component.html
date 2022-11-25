@@ -47,7 +47,21 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-5">
+                                <div class="col-lg-2">
+                                    <div class="form-group mb-4">
+                                        <label>
+                                            {{ 'label.company' | transloco }}
+                                        </label>
+                                        <input type="text" class="form-control" formControlName="company_name" placeholder="">
+                                        <div *ngIf="company_name.errors">
+                                            <span class="badge badge-danger">
+                                                {{ getErrorMessage(company_name) | transloco }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
                                     <div class="form-group mb-4">
                                         <label>
                                             {{ 'label.slogan' | transloco }}
@@ -61,7 +75,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-5">
+                                <div class="col-lg-2">
                                     <div class="form-group mb-4">
                                         <label>
                                             {{ 'label.terms-filename' | transloco }}
@@ -198,7 +212,7 @@
                                             {{ 'personal-data.address' | transloco }}
                                         </label>
                                         <input class="form-control" formControlName="address" type="text"
-                                            [value]="address.value | nameformat" required placeholder="">
+                                            [value]="address.value | nameformat" placeholder="">
                                         <div *ngIf="address.errors">
                                             <span class="badge badge-danger">
                                                 {{ getErrorMessage(address) | transloco }}

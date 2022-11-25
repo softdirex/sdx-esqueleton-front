@@ -22,6 +22,7 @@ import { environment } from 'src/environments/environment';
 export class ConfigurationComponent implements OnInit {
 
   resource: OwnerConfig = {
+    company_name: '',
     slogan: '',
     about: '',
     mission: '',
@@ -97,13 +98,14 @@ export class ConfigurationComponent implements OnInit {
 
   loadForm() {
     this.form = new FormGroup({
+      company_name: new FormControl(this.resource.company_name, [Validators.required, Validators.pattern(environment.namesRegex)]),
       slogan: new FormControl(this.resource.slogan, [Validators.required, Validators.pattern(environment.obsRegex)]),
       about: new FormControl(this.resource.about, [Validators.required, Validators.pattern(environment.obsRegex)]),
       mission: new FormControl(this.resource.mission, [Validators.required, Validators.pattern(environment.obsRegex)]),
       vision: new FormControl(this.resource.vision, [Validators.required, Validators.pattern(environment.obsRegex)]),
-      contact_phone: new FormControl(this.resource.contact_phone, [Validators.required, Validators.pattern(environment.phonesRegex)]),
+      contact_phone: new FormControl(this.resource.contact_phone, [Validators.pattern(environment.phonesRegex)]),
       contact_mail: new FormControl(this.resource.contact_mail, [Validators.required, Validators.email]),
-      address: new FormControl(this.resource.address, [Validators.required, Validators.pattern(environment.addressRegex)]),
+      address: new FormControl(this.resource.address, [Validators.pattern(environment.addressRegex)]),
       country: new FormControl(this.resource.country, [Validators.required, Validators.pattern(environment.addressRegex)]),
       city: new FormControl(this.resource.city, [Validators.required, Validators.pattern(environment.namesRegex)]),
       terms_filename: new FormControl(this.resource.terms_filename, [Validators.required]),
@@ -121,6 +123,7 @@ export class ConfigurationComponent implements OnInit {
   }
 
   /* -BEGIN- Get Controls */
+  get company_name() { return this.form.get('company_name')!; }
   get slogan() { return this.form.get('slogan')!; }
   get about() { return this.form.get('about')!; }
   get mission() { return this.form.get('mission')!; }
@@ -204,6 +207,7 @@ export class ConfigurationComponent implements OnInit {
 
 
   submit() {
+    this.resource.company_name = this.company_name.value
     this.resource.slogan = this.slogan.value
     this.resource.about = this.about.value
     this.resource.mission = this.mission.value

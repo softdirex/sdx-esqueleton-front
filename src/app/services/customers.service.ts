@@ -60,7 +60,8 @@ export class CustomersService {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Authorization: 'Basic ' + credentials,
-        'product-id': environment.productId + ''
+        'product-id': environment.productId + '',
+        'owner-id': environment.ownerId + ''
       })
     }
     return this.http.get<any>(this.myCustomerLoginUrl + email, options)

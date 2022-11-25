@@ -3,8 +3,8 @@
       <div class="row">
             <div class="col-md-6 col-lg-4 col-sm-6 mb-5 mb-lg-0 text-center text-sm-left mr-auto">
               <div class="footer-widget">
-                      <h4 class="mb-4">sdxFront <small>v{{version}}</small></h4>
-                      <p class="lead">Iste dolores iure quis excepturi, deserunt praesentium.</p>
+                <h4 class="mb-4">{{ ownerDetail.company_name }}</h4>
+                      <p class="lead">{{ ownerDetail.slogan }}</p>
               </div>
             </div>
   
@@ -23,25 +23,23 @@
   
             <div class="col-md-6 col-lg-2 col-sm-6 mb-5 mb-lg-0 text-center text-sm-left">
                  <div class="footer-widget">
-                <h4 class="mb-4">Useful Link</h4>
+                <h4 class="mb-4">{{'label.useful-link'|transloco}}</h4>
                 <ul class="pl-0 list-unstyled mb-0">
-                  <li><a href="about">About Us</a></li>
-                  <li><a href="contact">Contact Us</a></li>
-                  <li><a href="faqs">FAQ.</a></li>
+                  <li><a routerLink="{{PATH_ABOUT}}">{{'label.about-us'|transloco}}</a></li>
+                  <li><a routerLink="{{PATH_CONTACT}}">{{'label.contact'|transloco}}</a></li>
                 </ul>
                     </div>
             </div>
   
             <div class="col-md-6 col-lg-3 col-sm-6 text-center text-sm-left">
                  <div class="footer-widget">
-                <h4 class="mb-4">Support</h4>
+                <h4 class="mb-4">{{'label.contact'|transloco}}</h4>
                 <ul class="pl-0 list-unstyled mb-5">
-                  <li class="d-lg-flex justify-content-between">Seller <span> seller name if trial plan</span></li>
-                  <li class="d-lg-flex justify-content-between">Location <span> North Punjab ,INDIA</span></li>
-                  <li class="d-lg-flex justify-content-between">Email <span>support@email.com</span></li>
+                  <li class="d-lg-flex justify-content-between">{{'label.location'|transloco}}{{' '}}<span> {{ location }}</span></li>
+                  <li class="d-lg-flex justify-content-between">{{'label.email'|transloco}}{{' '}}<span>{{ ownerDetail.contact_mail }}</span></li>
                 </ul>
   
-                <h5>Call Now : +(000) 000-000</h5>
+                <h5 *ngIf="ownerDetail.contact_phone !== ''">{{'label.call-now'|transloco}}{{' '}}{{ ownerDetail.contact_phone }}</h5>
               </div>
             </div>
          </div>
@@ -53,14 +51,14 @@
     <div class="container">
       <div class="row ">
              <div class="col-lg-6">
-                 <p class="copyright mb-0 ">2022 @ <a href="https://softdirex.cl/">Softdirex</a>. Todos los derechos reservados</p>
+                 <p class="copyright mb-0 ">{{ appName + ' v' + version }} &copy; {{ anio | date: "yyyy" }} <a href="#" class="font-weight-bold ml-1" target="_blank">{{ ciaName }}</a>. Todos los derechos reservados</p>
              </div>
              <div class="col-lg-6">
                   <ul class="list-inline mb-0 footer-btm-links text-lg-right mt-2 mt-lg-0">
-                  <li class="list-inline-item"><a routerLink="{{'/'+privacyPolicyPath}}">Privacy Policy</a></li>
-                  <li class="list-inline-item"><a routerLink="{{'/'+termConditionsPath}}">Terms &amp; Conditions</a></li>
-                  <li class="list-inline-item"><a routerLink="{{'/'+cookiePolicyPath}}">Cookie Policy</a></li>
-                  <li class="list-inline-item"><a routerLink="{{'/'+termSalesPath}}">Terms of Sale</a></li>
+                  <li class="list-inline-item"><a routerLink="{{'/'+privacyPolicyPath}}">{{'label.privacy-policy'|transloco}}</a></li>
+                  <li class="list-inline-item"><a routerLink="{{'/'+termConditionsPath}}">{{'label.terms-conditions'|transloco}}</a></li>
+                  <li class="list-inline-item"><a routerLink="{{'/'+cookiePolicyPath}}">{{'label.cookie-policy'|transloco}}</a></li>
+                  <li class="list-inline-item"><a routerLink="{{'/'+termSalesPath}}">{{'label.terms-sales'|transloco}}</a></li>
                 </ul>
              </div>
          </div>
