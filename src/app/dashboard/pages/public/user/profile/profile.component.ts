@@ -146,13 +146,13 @@ export class ProfileComponent implements OnInit {
       type: new FormControl(this.customer.type, [Validators.required]),
       rol: new FormControl(this.customer.rol, [Validators.required]),
       avatar: new FormControl(this.customer.avatar, [Validators.required]),
-      first_name: new FormControl(this.personalData.first_name, [Validators.required, Validators.pattern(environment.namesRegex)]),
-      last_name: new FormControl(this.personalData.last_name, [Validators.required, Validators.pattern(environment.namesRegex)]),
-      address: new FormControl(this.personalData.address, [Validators.required, Validators.pattern(environment.addressRegex)]),
-      city: new FormControl(this.personalData.city, [Validators.required, Validators.pattern(environment.namesRegex)]),
+      first_name: new FormControl(this.personalData.first_name, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
+      last_name: new FormControl(this.personalData.last_name, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
+      address: new FormControl(this.personalData.address, [Validators.required, Validators.pattern(environment.addressRegex), Validators.maxLength(90), Validators.minLength(2)]),
+      city: new FormControl(this.personalData.city, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
       provinceType: new FormControl(this.personalData.province_type, [Validators.required]),
-      provinceValue: new FormControl(this.personalData.province_value, [Validators.required, Validators.pattern(environment.namesRegex)]),
-      country: new FormControl(this.personalData.country, [Validators.required, Validators.pattern(environment.namesRegex)]),
+      provinceValue: new FormControl(this.personalData.province_value, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
+      country: new FormControl(this.personalData.country, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
       gender: new FormControl(this.personalData.sex, [Validators.required]),
       birthday: new FormControl(this.dateToForm(this.personalData.birthday), [Validators.required])
     })
@@ -278,6 +278,12 @@ export class ProfileComponent implements OnInit {
     if (field != null) {
       if (field.hasError('required')) {
         return 'validations.required-field'
+      }
+      if (field.hasError('maxlength')) {
+        return 'validations.maxlength'
+      }
+      if (field.hasError('minlength')) {
+        return 'validations.minlength'
       }
       if (field.hasError('validProvinceType')) {
         return 'validations.required-field'

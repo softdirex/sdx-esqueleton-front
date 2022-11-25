@@ -10,9 +10,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { HomeComponent } from '../../pages/public/home/home.component';
 import { AboutComponent } from '../../pages/public/about/about.component';
 import { ContactComponent } from '../../pages/public/contact/contact.component';
-import { ProductsingleComponent } from '../../pages/public/home/productsingle/productsingle.component';
-import { CartComponent } from '../../pages/public/home/productsingle/cart/cart.component';
-import { CheckoutComponent } from '../../pages/public/home/productsingle/cart/checkout/checkout.component';
 import { TermsComponent } from '../../pages/public/terms/terms.component';
 import { ProfileComponent } from '../../pages/public/user/profile/profile.component';
 import { FavoritesComponent } from '../../pages/public/user/favorites/favorites.component';
@@ -54,9 +51,6 @@ import { MatInputModule } from '@angular/material/input';
     HomeComponent,
     AboutComponent,
     ContactComponent,
-    ProductsingleComponent,
-    CartComponent,
-    CheckoutComponent,
     TermsComponent,
     ProfileComponent,
     FavoritesComponent,

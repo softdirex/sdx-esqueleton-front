@@ -40,7 +40,7 @@
                         <h4 class="mb-4 border-bottom pb-4">{{ ownerDetail.company_name }}</h4>
 
                         <div class="media product-card">
-                            <p>{{ ownerDetail.about }}</p>
+                            <p [innerHTML]="ownerDetail.about"></p>
                         </div>
                         <p>
                             <a routerLink="{{'/'+privacyPolicyPath}}" class="btn btn-main btn-small">{{'label.privacy-policy'|transloco}}</a>

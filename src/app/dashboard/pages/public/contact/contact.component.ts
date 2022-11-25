@@ -55,9 +55,9 @@ export class ContactComponent implements OnInit {
 
   loadForm() {
     this.form = new FormGroup({
-      first_name: new FormControl('', [Validators.required, Validators.pattern(environment.namesRegex)]),
-      last_name: new FormControl('', [Validators.pattern(environment.namesRegex)]),
-      phone: new FormControl('', [Validators.pattern(environment.phonesRegex)]),
+      first_name: new FormControl('', [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
+      last_name: new FormControl('', [Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
+      phone: new FormControl('', [Validators.pattern(environment.phonesRegex), Validators.maxLength(35), Validators.minLength(8)]),
       email: new FormControl('', [Validators.required, Validators.email]),
       obs: new FormControl('', [Validators.pattern(environment.obsRegex)])
     })

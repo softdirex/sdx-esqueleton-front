@@ -111,26 +111,26 @@ export class RegisterComponent implements OnInit {
       name: new FormControl(
         (this.personalDataSession != undefined && this.personalDataSession.first_name != null)
           ? this.personalDataSession.first_name : '',
-        [Validators.required, Validators.pattern(environment.namesRegex)]),
+        [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
       lastName: new FormControl(
         (this.personalDataSession != undefined && this.personalDataSession.last_name != null)
           ? this.personalDataSession.last_name : '',
-        [Validators.required, Validators.pattern(environment.namesRegex)]),
+        [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
       email: new FormControl(this.getContactDataFromSession('MAIL'), [Validators.required, Validators.email]),
-      phone: new FormControl(this.getContactDataFromSession('PHONE'), [Validators.required, Validators.pattern(environment.phonesRegex)]),
+      phone: new FormControl(this.getContactDataFromSession('PHONE'), [Validators.required, Validators.pattern(environment.phonesRegex), Validators.maxLength(35), Validators.minLength(8)]),
       gender: new FormControl((this.personalDataSession != undefined && this.personalDataSession.sex != null)
         ? this.personalDataSession.sex + '' : '', [Validators.required]),
       birthday: new FormControl(
         (this.personalDataSession != undefined && this.personalDataSession.birthday != null)
           ? new Date(this.personalDataSession.birthday) : '', [Validators.required]),
       address: new FormControl((this.personalDataSession != undefined && this.personalDataSession.address != null)
-        ? this.personalDataSession.address : '', [Validators.required, Validators.pattern(environment.addressRegex)]),
+        ? this.personalDataSession.address : '', [Validators.required, Validators.pattern(environment.addressRegex), Validators.maxLength(90), Validators.minLength(2)]),
       city: new FormControl(
         (this.personalDataSession != undefined && this.personalDataSession.city != null)
-          ? this.personalDataSession.city : '', [Validators.required, Validators.pattern(environment.namesRegex)]),
+          ? this.personalDataSession.city : '', [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
       country: new FormControl(
         (this.personalDataSession != undefined && this.personalDataSession.country != null)
-          ? this.personalDataSession.country : '', [Validators.required, Validators.minLength(4), Validators.pattern(environment.namesRegex)]),
+          ? this.personalDataSession.country : '', [Validators.required, Validators.minLength(4), Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
       pwd: new FormControl('', [Validators.required, Validators.pattern(environment.pwdRegex)]),
       pwd2: new FormControl('', [Validators.required, Validators.pattern(environment.pwdRegex)]),
       tcCheck: new FormControl(false, [Validators.required, Validators.requiredTrue]),

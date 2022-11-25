@@ -483,7 +483,9 @@
     "invalid-percentage": "Porcentagem errada",
     "invalid-pdf-type": "Você deve enviar um arquivo em formato PDF",
     "logo-requied": "O logotipo é obrigatório",
-    "notsame-email": "Os e-mails não correspondem"
+    "notsame-email": "Os e-mails não correspondem",
+    "maxlength": "Excede o máximo de caracteres permitidos",
+    "minlength": "Os caracteres digitados são muito poucos"
   },
   "password-update": {
     "title": "Atualizar senha",

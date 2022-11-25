@@ -37,8 +37,9 @@ export const environment = {
   dniRegex: '[a-zA-Z0-9-]{6,100}',
   documentDataRegex: '[a-zA-Z0-9-]{6,100}',
   namesRegex: '[a-zA-Z\u00C0-\u00ff- ]{2,90}',
-  phonesRegex: '[0-9+() -]{6,40}',
+  phonesRegex: '[0-9+() -]{8,35}',
   addressRegex: '[a-zA-Z\u00C0-\u00ff-.@ 0-9]{2,90}',
   rrssRegex: '[a-zA-Z-.@_0-9]',
-  obsRegex: '[a-zA-Z\u00C0-\u00ff-.,\'\n": 0-9]{2,1000}',
+  obsRegex: '[a-zA-Z\u00C0-\u00ff-.,\'\n": 0-9]{20,1000}',
+  aboutRegex: '[a-zA-Z\u00C0-\u00ff-.,\'\n": 0-9]{20,5000}',
 };

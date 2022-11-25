@@ -483,7 +483,9 @@
     "invalid-percentage": "Wrong percentage",
     "invalid-pdf-type": "You must upload a file in PDF format",
     "logo-requied": "Logo is required",
-    "notsame-email": "The emails do not match"
+    "notsame-email": "The emails do not match",
+    "maxlength": "Exceeds the maximum characters allowed",
+    "minlength": "The characters entered are too few"
   },
   "password-update": {
     "title": "Update Password",

@@ -483,7 +483,9 @@
     "invalid-percentage": "Falscher Prozentsatz",
     "invalid-pdf-type": "Sie müssen eine Datei im PDF-Format hochladen",
     "logo-requied": "Logo ist erforderlich",
-    "notsame-email": "Die E-Mails stimmen nicht überein"
+    "notsame-email": "Die E-Mails stimmen nicht überein",
+    "maxlength": "Überschreitet die maximal zulässige Zeichenzahl",
+    "minlength": "Die eingegebenen Zeichen sind zu wenige"
   },
   "password-update": {
     "title": "Kennwort aktualisieren",

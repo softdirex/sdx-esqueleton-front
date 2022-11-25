@@ -73,7 +73,7 @@ export class TermsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadOwnerConfig()
-    if(this.OWNER_ID == 0){
+    if(this.OWNER_ID == 0 && Commons.sessionIsOpen()){
       this.OWNER_ID = Commons.sessionObject().customer.owner.id
     }
     // Entrada por parametros

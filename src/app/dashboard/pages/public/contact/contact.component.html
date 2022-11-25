@@ -120,7 +120,7 @@
                <div class="product-checkout-details mt-5 mt-lg-0">
                   <h4 class="mb-4 border-bottom pb-4">{{ownerDetail.company_name}}</h4>
 
-                  <p>{{ownerDetail.about}}</p>
+                  <p [innerHTML]="ownerDetail.about"></p>
 
 
                   <a routerLink="{{PATH_ABOUT}}" class="btn btn-main btn-small">{{'label.about-us'|transloco}}</a>

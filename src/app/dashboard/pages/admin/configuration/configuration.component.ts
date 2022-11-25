@@ -78,7 +78,7 @@ export class ConfigurationComponent implements OnInit {
       this.router.navigate([Commons.PATH_LOGIN])
     }
     const customer = Commons.sessionObject().customer
-    console.log(customer)
+
     if (customer.rol != Commons.USER_ROL_RWX) {
       this.openModal(this.modalTitle, 'validations.wrong-privilege', Commons.ICON_WARNING)
       this.router.navigate([Commons.PATH_MAIN])
@@ -86,7 +86,7 @@ export class ConfigurationComponent implements OnInit {
     this.getScreenWidth = window.innerWidth
     this.resource = Commons.sessionObject().customer.owner.config
     this.loadForm()
-   
+
 
     this.loadCountries()
   }
@@ -98,18 +98,18 @@ export class ConfigurationComponent implements OnInit {
 
   loadForm() {
     this.form = new FormGroup({
-      company_name: new FormControl(this.resource.company_name, [Validators.required, Validators.pattern(environment.namesRegex)]),
-      slogan: new FormControl(this.resource.slogan, [Validators.required, Validators.pattern(environment.obsRegex)]),
-      about: new FormControl(this.resource.about, [Validators.required, Validators.pattern(environment.obsRegex)]),
-      mission: new FormControl(this.resource.mission, [Validators.required, Validators.pattern(environment.obsRegex)]),
-      vision: new FormControl(this.resource.vision, [Validators.required, Validators.pattern(environment.obsRegex)]),
-      contact_phone: new FormControl(this.resource.contact_phone, [Validators.pattern(environment.phonesRegex)]),
+      company_name: new FormControl(this.resource.company_name, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
+      slogan: new FormControl(this.resource.slogan, [Validators.required, Validators.pattern(environment.obsRegex), Validators.maxLength(1000), Validators.minLength(20)]),
+      about: new FormControl(this.resource.about.replace(/<br>/gi, '\n'), [Validators.required, Validators.pattern(environment.aboutRegex), Validators.maxLength(5000), Validators.minLength(20)]),
+      mission: new FormControl(this.resource.mission.replace(/<br>/gi, '\n'), [Validators.required, Validators.pattern(environment.aboutRegex), Validators.maxLength(5000), Validators.minLength(20)]),
+      vision: new FormControl(this.resource.vision.replace(/<br>/gi, '\n'), [Validators.required, Validators.pattern(environment.aboutRegex), Validators.maxLength(5000), Validators.minLength(20)]),
+      contact_phone: new FormControl(this.resource.contact_phone, [Validators.pattern(environment.phonesRegex), Validators.maxLength(35), Validators.minLength(8)]),
       contact_mail: new FormControl(this.resource.contact_mail, [Validators.required, Validators.email]),
-      address: new FormControl(this.resource.address, [Validators.pattern(environment.addressRegex)]),
-      country: new FormControl(this.resource.country, [Validators.required, Validators.pattern(environment.addressRegex)]),
-      city: new FormControl(this.resource.city, [Validators.required, Validators.pattern(environment.namesRegex)]),
+      address: new FormControl(this.resource.address, [Validators.pattern(environment.addressRegex), Validators.maxLength(90), Validators.minLength(2)]),
+      country: new FormControl(this.resource.country, [Validators.required, Validators.pattern(environment.addressRegex), Validators.maxLength(90), Validators.minLength(2)]),
+      city: new FormControl(this.resource.city, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
       terms_filename: new FormControl(this.resource.terms_filename, [Validators.required]),
-      lang: new FormControl(this.resource.lang, [Validators.required, Validators.pattern(environment.namesRegex)]),
+      lang: new FormControl(this.resource.lang, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
     })
 
     this.filteredCountries = this.country.valueChanges.pipe(
@@ -179,9 +179,18 @@ export class ConfigurationComponent implements OnInit {
   }
 
   getErrorMessage(field: any): any {
+    if(this.about.errors){
+      console.log(this.about.errors)
+    }
     if (field != null) {
       if (field.hasError('required')) {
         return 'validations.required-field'
+      }
+      if (field.hasError('maxlength')) {
+        return 'validations.maxlength'
+      }
+      if (field.hasError('minlength')) {
+        return 'validations.minlength'
       }
       if (field.hasError('email')) {
         return 'validations.invalid-field'
@@ -209,9 +218,9 @@ export class ConfigurationComponent implements OnInit {
   submit() {
     this.resource.company_name = this.company_name.value
     this.resource.slogan = this.slogan.value
-    this.resource.about = this.about.value
-    this.resource.mission = this.mission.value
-    this.resource.vision = this.vision.value
+    this.resource.about = this.about.value.replace(/\n/gi, '<br>')
+    this.resource.mission = this.mission.value.replace(/\n/gi, '<br>')
+    this.resource.vision = this.vision.value.replace(/\n/gi, '<br>')
     this.resource.contact_phone = this.contact_phone.value
     this.resource.contact_mail = this.contact_mail.value
     this.resource.address = this.address.value

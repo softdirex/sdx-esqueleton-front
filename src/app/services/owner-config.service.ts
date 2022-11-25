@@ -50,7 +50,7 @@ export class OwnerConfigService {
                 phone: phone,
                 email: email,
                 obs: obs,
-                receiver: 'jorgeleiva.17@gmail.com'
+                receiver: receiver
             })
         }
         return this.http.post<any>(url, request, options)
