@@ -1,4 +1,3 @@
-import { PersonalData } from "./personal-data";
 
 export interface CustomerRequest {
     lang: string

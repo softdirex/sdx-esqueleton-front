@@ -46,6 +46,7 @@ export const environment = {
   rrssRegex: '[a-zA-Z-.@_0-9]',
   obsRegex: '[a-zA-Z\u00C0-\u00ff-.,\'\n": 0-9]{20,1000}',
   aboutRegex: '[a-zA-Z\u00C0-\u00ff-.,\'\n": 0-9]{20,5000}',
+  sessionTimeMins: 10,
 };
 
 /*

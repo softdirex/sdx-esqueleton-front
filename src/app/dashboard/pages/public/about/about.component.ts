@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OwnerConfig } from 'src/app/public/models/core/OwnerConfig';
+import { OwnerConfig } from 'src/app/shared/interfaces/core/owner-config';
 import { OwnerConfigService } from 'src/app/services/owner-config.service';
 import { Commons } from 'src/app/shared/Commons';
 
@@ -12,9 +12,7 @@ export class AboutComponent implements OnInit {
 
 
   ownerDetail: OwnerConfig = {
-    id: 0,
     company_name: '',
-    owner_id: 0,
     slogan: '',
     about: '',
     mission: '',
@@ -26,8 +24,6 @@ export class AboutComponent implements OnInit {
     country: '',
     terms_filename: '',
     lang: '',
-    createdAt: null,
-    updatedAt: null
   }
 
   PATH_TERMS = '/' + Commons.PATH_TERMS + '/' + Commons.TERM_CODES[0].code

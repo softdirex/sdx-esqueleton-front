@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
-import { OwnerConfig } from 'src/app/public/models/core/OwnerConfig';
+import { OwnerConfig } from 'src/app/shared/interfaces/core/owner-config';
 import { OwnerConfigService } from 'src/app/services/owner-config.service';
 import { PublicResourcesService } from 'src/app/services/resources.service';
 import { Commons } from 'src/app/shared/Commons';
@@ -45,9 +45,7 @@ export class TermsComponent implements OnInit {
   modalRef: MdbModalRef<AlertModalComponent> | null = null;
 
   ownerDetail: OwnerConfig = {
-    id: 0,
     company_name: '',
-    owner_id: 0,
     slogan: '',
     about: '',
     mission: '',
@@ -59,8 +57,6 @@ export class TermsComponent implements OnInit {
     country: '',
     terms_filename: '',
     lang: '',
-    createdAt: null,
-    updatedAt: null
   }
 
   constructor(

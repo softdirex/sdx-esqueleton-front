@@ -23,6 +23,8 @@
     "@angular/router": "~13.3.0",
     "@material/grid-list": "^4.0.0",
     "@ng-bootstrap/ng-bootstrap": "12.0.1",
+    "@ng-idle/core": "^11.1.0",
+    "@ng-idle/keepalive": "^11.0.3",
     "@ngneat/transloco": "^4.1.1",
     "@ngneat/transloco-locale": "^4.0.0",
     "@ngneat/transloco-messageformat": "^4.0.0",

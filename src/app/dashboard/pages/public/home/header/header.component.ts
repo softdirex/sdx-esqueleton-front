@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
-import { OwnerConfig } from 'src/app/public/models/core/OwnerConfig';
+import { OwnerConfig } from 'src/app/shared/interfaces/core/owner-config';
 import { LanguageUtilService } from 'src/app/services/language-util.service';
 import { OwnerConfigService } from 'src/app/services/owner-config.service';
 import { SessionService } from 'src/app/services/session.service';
@@ -16,9 +16,7 @@ import { SelectLanguageModalComponent } from 'src/app/shared/modals/select-langu
 export class HeaderComponent implements OnInit {
 
    ownerDetail: OwnerConfig = {
-    id: 0,
     company_name: '',
-    owner_id: 0,
     slogan: '',
     about: '',
     mission: '',
@@ -30,8 +28,6 @@ export class HeaderComponent implements OnInit {
     country: '',
     terms_filename: '',
     lang: '',
-    createdAt: null,
-    updatedAt: null
   }
 
   PATH_ABOUT = '/'+Commons.PATH_ABOUT

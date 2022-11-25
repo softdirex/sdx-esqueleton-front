@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { BestDeals } from 'src/app/public/models/BestDeals';
-import { FooterDeal } from 'src/app/public/models/FooterDeal';
-import { Items } from 'src/app/public/models/Items';
-import { ItemsImage } from 'src/app/public/models/ItemsImage';
-import { Slider } from 'src/app/public/models/Slider';
+import { BestDeals } from 'src/app/shared/models/BestDeals';
+import { FooterDeal } from 'src/app/shared/models/FooterDeal';
+import { Items } from 'src/app/shared/models/Items';
+import { ItemsImage } from 'src/app/shared/models/ItemsImage';
+import { Slider } from 'src/app/shared/models/Slider';
 
 @Component({
   selector: 'app-home',

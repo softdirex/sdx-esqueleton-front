@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { CustomerRequest } from '../public/models/core/interfaces/CustomerRequest';
-import { ServiceResponse } from '../public/models/core/interfaces/ServiceResponse';
 import { Commons } from '../shared/Commons';
+import { CustomerRequest } from '../shared/interfaces/core/customer-request';
+import { ServiceResponse } from '../shared/interfaces/core/service-response';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +11,6 @@ import { Commons } from '../shared/Commons';
 export class CustomersService {
   myCustomerLoginUrl: string = environment.productBackendEndpoint + '/customers/login/'
   customersUrl: string = environment.productBackendEndpoint + '/customers'
-  myCustomersUrl: string = environment.coreBackendEndpoint + '/mycustomer'
-  personalDataUrl: string = environment.coreBackendEndpoint + '/personaldata/'
-  customersByCompanyUrl: string = environment.coreBackendEndpoint + '/company/'
 
   constructor(private http: HttpClient) { }
 
@@ -86,17 +83,6 @@ export class CustomersService {
     return this.http.get<any>(this.customersUrl + '/basic/' + type + '/' + value + '/' + country, options)
   }
 
-  getPersonalData(type: string, value: string, country: string) {
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Basic ' + Commons.sessionCredentials(),
-        'product-id': environment.productId + ''
-      })
-    }
-    return this.http.get<any>(this.personalDataUrl + type + '/' + value + '/' + country, options)
-  }
-
   getIndexFull(type: string, status: number, page: number, limit: number, filters: string | null) {
     const options = {
       headers: new HttpHeaders({
@@ -167,78 +153,6 @@ export class CustomersService {
       })
     }
     return this.http.put<any>(this.customersUrl + '/updateprofile/' + itemId, request, options)
-  }
-
-  delete(itemId: number) {
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Basic ' + Commons.sessionCredentials(),
-        'product-id': environment.productId + ''
-      })
-    }
-    return this.http.delete<any>(this.customersUrl + '/' + itemId, options)
-  }
-
-  getIndexCustomersByCompany(companyId: any, type: string, status: number, page: number, limit: number, filters: string | null) {
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'view': (Commons.sessionRol() != Commons.USER_ROL_BASIC) ? 'full' : 'basic',
-        Authorization: 'Basic ' + Commons.sessionCredentials(),
-        'product-id': environment.productId + ''
-      })
-    }
-    if (filters != null) {
-      return this.http.get<any>(this.customersByCompanyUrl + companyId + '/customers?status=' + status + '&type=' + type + '&page=' + page + '&limit=' + limit + '&filters=' + filters, options)
-    } else {
-      return this.http.get<any>(this.customersByCompanyUrl + companyId + '/customers?status=' + status + '&type=' + type + '&page=' + page + '&limit=' + limit, options)
-    }
-  }
-
-  getCustomerByCompany(companyId: any, itemId: number) {
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'view': (Commons.sessionRol() != Commons.USER_ROL_BASIC) ? 'full' : 'basic',
-        Authorization: 'Basic ' + Commons.sessionCredentials(),
-        'product-id': environment.productId + ''
-      })
-    }
-    return this.http.get<any>(this.customersByCompanyUrl + companyId + '/customers/' + itemId, options)
-  }
-
-  deleteCustomersByCompany(companyId: any, itemId: number) {
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Basic ' + Commons.sessionCredentials(),
-        'product-id': environment.productId + ''
-      })
-    }
-    return this.http.delete<any>(this.customersByCompanyUrl + companyId + '/customers/' + itemId, options)
-  }
-
-  updateCustomersByCompany(companyId: any, itemId: number, request: any) {
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Basic ' + Commons.sessionCredentials(),
-        'product-id': environment.productId + ''
-      })
-    }
-    return this.http.put<any>(this.customersByCompanyUrl + companyId + '/customers/' + itemId, request, options)
-  }
-
-  storeCustomersByCompany(companyId: any, request: any) {
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Basic ' + Commons.sessionCredentials(),
-        'product-id': environment.productId + ''
-      })
-    }
-    return this.http.post<any>(this.customersByCompanyUrl + companyId + '/customers', request, options)
   }
 
 }

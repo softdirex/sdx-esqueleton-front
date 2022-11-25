@@ -4,18 +4,18 @@
     </div>
     <div class="modal-body">
         <mat-grid-list cols="2">
-        <h2 class="mat-header-cell">{{ title | transloco }}</h2>
-        <h3>{{ message | transloco }}</h3>
-           
-    </mat-grid-list>
+            <h4>{{ title | transloco }}</h4>
+            <h5>{{ message | transloco }}</h5>
+
+        </mat-grid-list>
     </div>
-    
+
     <div class="modal-footer">
-        <button type="button" ngbAutofocus class="btn btn-danger" (click)="cancel()">
+        <button type="button" ngbAutofocus class="btn btn-danger btn-small" (click)="cancel()">
             {{ 'label.cancel' | transloco }}
         </button>
 
-        <button type="button" class="btn btn-primary" (click)="confirm()">
+        <button type="button" class="btn btn-primary btn-small" (click)="confirm()">
             {{ 'label.confirm' | transloco }}
         </button>
     </div>

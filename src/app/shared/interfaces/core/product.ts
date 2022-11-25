@@ -1,4 +1,3 @@
-import { AppRQ } from "./app-request"
 
 export interface Product {
     id: any
@@ -16,6 +15,5 @@ export interface Product {
     benefits:any
     usages:any
     attachments:any
-    app:AppRQ|null
     plans:any
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
-import { OwnerConfig } from 'src/app/public/models/core/OwnerConfig';
+import { OwnerConfig } from 'src/app/shared/interfaces/core/owner-config';
 import { OwnerConfigService } from 'src/app/services/owner-config.service';
 import { Commons } from 'src/app/shared/Commons';
 import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
@@ -19,9 +19,7 @@ export class ContactComponent implements OnInit {
 
 
   ownerDetail: OwnerConfig = {
-    id: 0,
     company_name: '',
-    owner_id: 0,
     slogan: '',
     about: '',
     mission: '',
@@ -33,8 +31,6 @@ export class ContactComponent implements OnInit {
     country: '',
     terms_filename: '',
     lang: '',
-    createdAt: null,
-    updatedAt: null
   }
 
   form: FormGroup = new FormGroup({})

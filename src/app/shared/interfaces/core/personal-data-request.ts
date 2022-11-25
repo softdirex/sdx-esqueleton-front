@@ -1,5 +1,3 @@
-import { ContactData } from "./contact-data"
-import { DocumentData } from "./document-data"
 
 export interface PersonalDataRequest {
     first_name: string

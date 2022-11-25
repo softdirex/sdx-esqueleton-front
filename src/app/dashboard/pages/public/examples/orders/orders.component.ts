@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Items } from 'src/app/public/models/Items';
+import { Items } from 'src/app/shared/models/Items';
 
 @Component({
-  selector: 'app-favorites',
-  templateUrl: './favorites.component.html',
-  styleUrls: ['./favorites.component.css']
+  selector: 'app-orders',
+  templateUrl: './orders.component.html',
+  styleUrls: ['./orders.component.css']
 })
-export class FavoritesComponent implements OnInit {
+export class OrdersComponent implements OnInit {
+
   itemstosale: Items[] = []
 
   constructor() { }
@@ -176,6 +177,5 @@ export class FavoritesComponent implements OnInit {
       }
     ]
   }
-
 
 }

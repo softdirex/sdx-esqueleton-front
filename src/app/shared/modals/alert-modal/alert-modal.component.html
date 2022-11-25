@@ -2,15 +2,15 @@
     <div class="modal-body">
         <img class="icon-alert" src="../../../../assets/img/png/{{icon}}.png">
         <mat-grid-list cols="2">
-        <h2 class="mat-header-cell">{{ title | transloco }}</h2>
-        <h3>{{ message | transloco }}</h3>
-           
-    </mat-grid-list>
+            <h4>{{ title | transloco }}</h4>
+            <h5>{{ message | transloco }}</h5>
+
+        </mat-grid-list>
     </div>
-    
+
     <div class="modal-footer">
 
-        <button type="button" class="btn btn-primary" (click)="modalRef.close()">
+        <button type="button" class="btn btn-primary btn-small" (click)="modalRef.close()">
             {{ 'label.accept' | transloco }}
         </button>
     </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OwnerConfig } from 'src/app/public/models/core/OwnerConfig';
+import { OwnerConfig } from 'src/app/shared/interfaces/core/owner-config';
 import { OwnerConfigService } from 'src/app/services/owner-config.service';
 import { Commons } from 'src/app/shared/Commons';
 import { environment } from 'src/environments/environment';
@@ -14,9 +14,7 @@ export class FooterComponent implements OnInit {
   version = environment.appVersion
 
   ownerDetail: OwnerConfig = {
-    id: 0,
     company_name: '',
-    owner_id: 0,
     slogan: '',
     about: '',
     mission: '',
@@ -28,8 +26,6 @@ export class FooterComponent implements OnInit {
     country: '',
     terms_filename: '',
     lang: '',
-    createdAt: null,
-    updatedAt: null
   }
 
   privacyPolicyPath: string = Commons.PATH_TERMS + '/' + Commons.TERM_CODES[0].code

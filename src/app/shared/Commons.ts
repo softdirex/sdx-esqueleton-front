@@ -3,7 +3,7 @@ import { environment } from 'src/environments/environment';
 import StatusTypeConfig from './config/status-type';
 import * as uuid from 'uuid';
 import { ProductType } from './config/product-type';
-import { OwnerConfig } from '../public/models/core/OwnerConfig';
+import { OwnerConfig } from './interfaces/core/owner-config';
 
 export interface FILTER {
     label: string
@@ -384,8 +384,6 @@ export class Commons {
         const result = this.decryptDataGlobal(sessionStorage.getItem(this.OWNER_KEY))
         if (result == null) {
             var ownerDetail: OwnerConfig = {
-                id: 0,
-                owner_id: 0,
                 company_name: environment.dfConfigCompanyName,
                 slogan: environment.dfConfigSlogan,
                 about: environment.dfConfigAbout,
@@ -397,9 +395,7 @@ export class Commons {
                 city: environment.dfConfigCity,
                 country: environment.dfConfigCountry,
                 terms_filename: environment.dfConfigTermsFilename,
-                lang: environment.dfConfigLang,
-                createdAt: null,
-                updatedAt: null
+                lang: environment.dfConfigLang
             }
             if (environment.ownerId != 0) {
 

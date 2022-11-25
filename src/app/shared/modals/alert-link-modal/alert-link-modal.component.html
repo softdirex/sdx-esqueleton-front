@@ -2,17 +2,17 @@
     <div class="modal-body">
         <img class="icon-alert" src="../../../../assets/img/png/{{icon}}.png">
         <mat-grid-list cols="2">
-            <h2 class="mat-header-cell">{{ title | transloco }}</h2>
-            <h3>{{ message | transloco }}</h3>
+            <h4>{{ title | transloco }}</h4>
+            <h5>{{ message | transloco }}</h5>
 
         </mat-grid-list>
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="goTo()">
+        <button type="button" class="btn btn-primary btn-small" (click)="goTo()">
             {{ linkName | transloco }}
         </button>
-        <button type="button" class="btn btn-danger" (click)="modalRef.close()">
+        <button type="button" class="btn btn-danger btn-small" (click)="modalRef.close()">
             {{ 'label.close' | transloco }}
         </button>
     </div>
