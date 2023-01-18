@@ -15,20 +15,7 @@ import { SelectLanguageModalComponent } from 'src/app/shared/modals/select-langu
 })
 export class HeaderComponent implements OnInit {
 
-   ownerDetail: OwnerConfig = {
-    company_name: '',
-    slogan: '',
-    about: '',
-    mission: '',
-    vision: '',
-    contact_phone: '',
-    contact_mail: '',
-    address: '',
-    city: '',
-    country: '',
-    terms_filename: '',
-    lang: '',
-  }
+  ownerDetail: OwnerConfig = Commons.emptyOwnerConfig()
 
   PATH_ABOUT = '/'+Commons.PATH_ABOUT
   PATH_CONTACT = '/'+Commons.PATH_CONTACT

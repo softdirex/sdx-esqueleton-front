@@ -18,20 +18,7 @@ export class ContactComponent implements OnInit {
   enableContactForm: boolean = false
 
 
-  ownerDetail: OwnerConfig = {
-    company_name: '',
-    slogan: '',
-    about: '',
-    mission: '',
-    vision: '',
-    contact_phone: '',
-    contact_mail: '',
-    address: '',
-    city: '',
-    country: '',
-    terms_filename: '',
-    lang: '',
-  }
+  ownerDetail: OwnerConfig = Commons.emptyOwnerConfig()
 
   form: FormGroup = new FormGroup({})
 

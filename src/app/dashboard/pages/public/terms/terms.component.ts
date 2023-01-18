@@ -44,20 +44,7 @@ export class TermsComponent implements OnInit {
 
   modalRef: MdbModalRef<AlertModalComponent> | null = null;
 
-  ownerDetail: OwnerConfig = {
-    company_name: '',
-    slogan: '',
-    about: '',
-    mission: '',
-    vision: '',
-    contact_phone: '',
-    contact_mail: '',
-    address: '',
-    city: '',
-    country: '',
-    terms_filename: '',
-    lang: '',
-  }
+  ownerDetail: OwnerConfig = Commons.emptyOwnerConfig()
 
   constructor(
     private route : ActivatedRoute,

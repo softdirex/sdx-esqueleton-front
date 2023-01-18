@@ -13,20 +13,7 @@ export class FooterComponent implements OnInit {
 
   version = environment.appVersion
 
-  ownerDetail: OwnerConfig = {
-    company_name: '',
-    slogan: '',
-    about: '',
-    mission: '',
-    vision: '',
-    contact_phone: '',
-    contact_mail: '',
-    address: '',
-    city: '',
-    country: '',
-    terms_filename: '',
-    lang: '',
-  }
+  ownerDetail: OwnerConfig = Commons.emptyOwnerConfig()
 
   privacyPolicyPath: string = Commons.PATH_TERMS + '/' + Commons.TERM_CODES[0].code
   termConditionsPath: string = Commons.PATH_TERMS + '/' + Commons.TERM_CODES[1].code

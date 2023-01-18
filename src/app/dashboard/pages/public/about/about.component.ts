@@ -11,20 +11,7 @@ import { Commons } from 'src/app/shared/Commons';
 export class AboutComponent implements OnInit {
 
 
-  ownerDetail: OwnerConfig = {
-    company_name: '',
-    slogan: '',
-    about: '',
-    mission: '',
-    vision: '',
-    contact_phone: '',
-    contact_mail: '',
-    address: '',
-    city: '',
-    country: '',
-    terms_filename: '',
-    lang: '',
-  }
+  ownerDetail: OwnerConfig = Commons.emptyOwnerConfig()
 
   PATH_TERMS = '/' + Commons.PATH_TERMS + '/' + Commons.TERM_CODES[0].code
   PATH_CONTACT = '/' + Commons.PATH_CONTACT
