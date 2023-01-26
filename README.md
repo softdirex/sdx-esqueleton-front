@@ -35,9 +35,47 @@ npm install
 ng serve
 ```
 
-## Project installation
+### Create github release
 
-Add backend information here...
+```
+rm -rf release
+
+mkdir release
+
+npm install
+
+ng build --configuration <environment>
+
+cp Dockerfile release/.
+
+cp nginx.conf release/.
+
+cp -r dist/. dist-<environment>
+
+mv dist-<environment> release
+
+tar -czvf sdx-<projectName>-front.tar.gz release
+```
+
+**Important:** Then upload tar.gz file to [release in github](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository) and recheckview the new ASSET_ID
+
+### Download release
+
+```
+export GIT_TOKEN=<token>
+
+export API_URL="https://$GIT_TOKEN:@api.github.com/repos/softdirex/sdx-<projectName>-front"
+
+export ASSET_ID=$(curl $API_URL/releases/latest | jq -r '.assets[0].id')
+
+curl -O -J -L -H "Accept: application/octet-stream" "$API_URL/releases/assets/$ASSET_ID"
+
+# This unzip a dist folder
+tar -xvf sdx-<projectName>-front.tar.gz
+
+cp -r release/dist-<environment>/. dist/
+```
+
 
 ## Authors
 

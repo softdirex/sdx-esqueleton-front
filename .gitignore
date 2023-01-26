@@ -6,6 +6,8 @@
 /out-tsc
 /bazel-out
 package-lock.json
+/release
+*.tar.gz
 
 # Node
 /node_modules
