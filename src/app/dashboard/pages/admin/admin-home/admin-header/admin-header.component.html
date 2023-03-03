@@ -7,7 +7,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse " id="main-navbar">
+    <div class="collapse navbar-collapse" id="main-navbar">
       <ul class="navbar-nav mx-auto">
         <li class="nav-item active">
           <a class="nav-link text-white" routerLink="{{PATH_PRODUCT}}">{{'label.plans'|transloco}}</a>
@@ -31,6 +31,10 @@
 
         <li *ngIf="getScreenWidth < mobileWidth && !withoutCompany" class="nav-item active">
           <a class="nav-link text-white" routerLink="{{PATH_CONFIG}}">{{'label.configuration'|transloco}}</a>
+        </li>
+
+        <li *ngIf="getScreenWidth < mobileWidth" class="nav-item active">
+          <a class="nav-link text-white" (click)="openLanguageModal()">{{'language.title'|transloco}}</a>
         </li>
 
         <li *ngIf="getScreenWidth >= mobileWidth" class="nav-item dropdown dropdown-slide">
@@ -66,16 +70,28 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown4">
             <li><a routerLink="{{PATH_MY_CUSTOMER}}">{{'label.profile'|transloco}}</a></li>
             <li><a (click)="toSupport()">{{'label.support'|transloco}}</a></li>
-            <li><a (click)="openLanguageModal()">{{ 'language.title' | transloco }}</a></li>
-            <li><a routerLink="{{PATH_MAIN}}" class="btn btn-small btn-transparent">{{'label.out-of-dash'|transloco}}</a></li>
-            <li *ngIf="!sessionIsOpen"><a routerLink="{{PATH_LOGIN}}" class="btn btn-small btn-main btn-block">{{'login.title'|transloco}}</a></li>
-            <li *ngIf="sessionIsOpen"><a (click)="closeSession()" class="btn btn-small btn-main btn-block">{{'label.close'|transloco}}</a></li>
+            <li><a routerLink="{{PATH_MAIN}}"
+                class="btn btn-small btn-transparent">{{'label.out-of-dash'|transloco}}</a></li>
+            <li *ngIf="!sessionIsOpen"><a routerLink="{{PATH_LOGIN}}"
+                class="btn btn-small btn-main btn-block">{{'login.title'|transloco}}</a></li>
+            <li *ngIf="sessionIsOpen"><a (click)="closeSession()"
+                class="btn btn-small btn-main btn-block">{{'label.close'|transloco}}</a></li>
           </ul>
         </li>
 
       </ul>
     </div>
     <!-- Navbar-collapse -->
+
+    <ul class="top-menu list-inline mb-0 d-none d-lg-block" id="top-menu">
+
+      <li class="list-inline-item"><a href="#"></a></li>
+      <li class="dropdown cart-nav dropdown-slide list-inline-item">
+        <a href="#" (click)="openLanguageModal()" class="dropdown-toggle cart-icon" data-toggle="dropdown" data-hover="dropdown">
+          <i class="tf-ion-ios-world mr-3"></i>
+        </a>
+      </li>
+    </ul>
 
     <ul class="top-menu list-inline mb-0 d-none d-lg-block" id="top-menu">
 
@@ -90,7 +106,6 @@
       </li>
       <li><a routerLink="{{PATH_MY_CUSTOMER}}">{{'label.profile'|transloco}}</a></li>
       <li><a (click)="toSupport()">{{'label.support'|transloco}}</a></li>
-      <li><a (click)="openLanguageModal()">{{ 'language.title' | transloco }}</a></li>
       <li><a routerLink="{{PATH_MAIN}}" class="btn btn-small btn-transparent">{{'label.out-of-dash'|transloco}}</a></li>
       <div *ngIf="!sessionIsOpen" class="text-center cart-buttons mt-3">
         <a routerLink="{{PATH_LOGIN}}" class="btn btn-small btn-main btn-block">{{'login.title'|transloco}}</a>
@@ -98,8 +113,8 @@
       <div *ngIf="sessionIsOpen" class="text-center cart-buttons mt-3">
         <a (click)="closeSession()" class="btn btn-small btn-main btn-block">{{'label.close'|transloco}}</a>
       </div>
-  </div>
-  </li>
-  </ul>
+      </div>
+      </li>
+    </ul>
   </div>
 </nav>

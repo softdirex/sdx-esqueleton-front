@@ -17,7 +17,7 @@ export const environment = {
   providerWeb: 'https://softdirex.cl/',
   // OWNER_ID Asociado al producto, si está en 0 carga datos de softdirex
   ownerId: 0,
-  productId: 1,
+  productId: 3,
   // BEGIN - Owner config default
   dfConfigCompanyName: 'Softdirex',
   dfConfigSlogan: 'Modernize your digital tools',
@@ -32,8 +32,7 @@ export const environment = {
   dfConfigTermsFilename: 'terms.json',
   dfConfigLang: 'en',
   // END - Owner config default
-  productBackendEndpoint: 'http://127.0.0.1:3334/v1',
-  coreBackendEndpoint: 'http://127.0.0.1:3333/v1',
+  productBackendEndpoint: 'http://0.0.0.0:3334/v1',
   coreFrontendEndpoint: 'http://localhost:4401/',
   pwdRegex: '^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$',
   rutRegex: '\\b[0-9|.]{1,10}\\-[K|k|0-9]',

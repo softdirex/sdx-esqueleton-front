@@ -1,6 +1,10 @@
+// This file can be replaced during build by using the `fileReplacements` array.
+// `ng build` replaces `environment.ts` with `environment.prod.ts`.
+// The list of file replacements can be found in `angular.json`.
+
 export const environment = {
   baseUrl: 'http://localhost:4200',
-  production: true,
+  production: false,
   appVersion: '1.0.0',
   coreTransactionKey: '2wR14ikRE9BadFkpfRb6',
   appName: 'APP_NAME',
@@ -28,7 +32,7 @@ export const environment = {
   dfConfigTermsFilename: 'terms.json',
   dfConfigLang: 'en',
   // END - Owner config default
-  productBackendEndpoint: 'http://0.0.0.0:3334/v1',
+  productBackendEndpoint: 'http://127.0.0.1:3334/v1',
   coreFrontendEndpoint: 'http://localhost:4401/',
   pwdRegex: '^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$',
   rutRegex: '\\b[0-9|.]{1,10}\\-[K|k|0-9]',
@@ -43,3 +47,12 @@ export const environment = {
   aboutRegex: '[a-zA-Z\u00C0-\u00ff-.,\'\n": 0-9]{20,5000}',
   sessionTimeMins: 10,
 };
+
+/*
+ * For easier debugging in development mode, you can import the following file
+ * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
+ *
+ * This import should be commented out in production mode because it will have a negative impact
+ * on performance if an error is thrown.
+ */
+// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
