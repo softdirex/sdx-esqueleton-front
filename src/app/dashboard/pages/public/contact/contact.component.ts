@@ -24,6 +24,7 @@ export class ContactComponent implements OnInit {
 
   PATH_ABOUT = '/' + Commons.PATH_ABOUT
   alertModal: MdbModalRef<AlertModalComponent> | null = null;
+  loading:boolean=false
 
   constructor(
     private ownerConfigService: OwnerConfigService,
@@ -59,11 +60,16 @@ export class ContactComponent implements OnInit {
     const validated = Commons.getOwnerConfig()
     if (validated == null) {
       //load from endpoint
+      this.loading = true
       this.ownerConfigService.getConfig().subscribe(
         {
           next: (v) => {
+            this.loading = false
             this.ownerDetail = v
             Commons.setOwnerConfig(v)
+          },
+          error: (e) => {
+            this.loading = false
           },
           complete: () => { }
         }
@@ -111,6 +117,7 @@ export class ContactComponent implements OnInit {
     if (Commons.validField(this.last_name.value)) {
       names = names + ' ' + this.nameFormat.transform(this.last_name.value)
     }
+    this.loading = true
     this.ownerConfigService.sendContactMail(
       this.ownerDetail.lang,
       names,
@@ -121,9 +128,11 @@ export class ContactComponent implements OnInit {
     ).subscribe(
       {
         next: (v) => {
+          this.loading = false
           this.openModal('label.request-sended', 'label.contact-sended', Commons.ICON_SUCCESS)
         },
         error: (e) => {
+          this.loading = false
           this.openModal('label.unknown-error', 'label.unknown-error-contact-retry', Commons.ICON_ERROR)
         },
         complete: () => { this.loadForm() }

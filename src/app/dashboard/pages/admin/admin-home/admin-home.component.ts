@@ -44,6 +44,7 @@ export class AdminHomeComponent implements OnInit {
   types: any[] = Commons.PLAN_TYPES
   confirmModal: MdbModalRef<ConfirmModalComponent> | null = null;
   alertLinkModal: MdbModalRef<AlertLinkModalComponent> | null = null;
+  loading:boolean = false
 
   constructor(
     private router: Router,
@@ -101,13 +102,16 @@ export class AdminHomeComponent implements OnInit {
 
   createLicence(planId: number, companyId: number) {
     if (this.sessionIsOpen) {
+      this.loading = true
       this.transaction.postMyLicence(planId, companyId).subscribe({
         next: async (v) => {
+          this.loading = false
           const trxId = v.code + '-' + v.id
           const path = Commons.PATH_PURCHASE + '/' + trxId
           this.openModalWithRedirection(this.title, 'label.redirection-information', Commons.ICON_SUCCESS, path)
         },
         error: (e) => {
+          this.loading = false
           this.openModal(this.title, 'validations.purchase-not-found', Commons.ICON_WARNING)
         },
         complete: () => { }
@@ -147,17 +151,21 @@ export class AdminHomeComponent implements OnInit {
 
   loadProduct() {
     const fullView = this.sessionIsOpen && Commons.sessionObject().customer.rol != Commons.USER_ROL_BASIC
-
+    this.loading = true
     this.service.get(fullView).subscribe({
       next: async (v) => {
+        this.loading = false
         this.resource = v
         this.title = v.name
+        this.loading = true
         this.storageService.getProductImage(v.logo).subscribe(
           {
             next: async (v) => {
+              this.loading = false
               this.logoUrl = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(v))
             },
             error: (e) => {
+              this.loading = false
               this.logoUrl = this.sanitizer.bypassSecurityTrustUrl(Commons.DF_PRODUCT_LOGO)
             },
             complete: () => { }
@@ -165,6 +173,7 @@ export class AdminHomeComponent implements OnInit {
         )
       },
       error: (e) => {
+        this.loading = false
         this.openModal(this.title, 'label.product-not-found', Commons.ICON_WARNING)
         this.goBack()
       },

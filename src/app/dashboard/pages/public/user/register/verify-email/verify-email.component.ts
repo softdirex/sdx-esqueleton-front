@@ -28,6 +28,7 @@ export class VerifyEmailComponent implements OnInit {
 
   getScreenWidth: any;
   mobileWidth: number = Commons.MOBILE_WIDTH
+  loading:boolean = false
 
   constructor(
     private customerService: CustomersService,
@@ -73,13 +74,16 @@ export class VerifyEmailComponent implements OnInit {
       this.router.navigate([Commons.PATH_LOGIN])
       this.openModal('label.unknown-error', 'label.unknown-error-contact-retry', Commons.ICON_ERROR)
     } else {
+      this.loading = true
       this.customerService.postCustomerSigned(this.flow, id, lang, sign, null)
         .subscribe({
           next: (v) => {
+            this.loading = false
             this.router.navigate([Commons.PATH_LOGIN])
             this.openModal('label.verify-success', 'label.verify-success-detail', Commons.ICON_SUCCESS)
           },
           error: (e) => {
+            this.loading = false
             if (e.error != null && e.error.detail != null && e.error.detail == 'Email forwarded') {
               this.router.navigate([Commons.PATH_LOGIN])
               this.openModal('label.request-expired', 'label.email-review', Commons.ICON_WARNING)

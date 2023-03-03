@@ -45,6 +45,7 @@ export class TermsComponent implements OnInit {
   modalRef: MdbModalRef<AlertModalComponent> | null = null;
 
   ownerDetail: OwnerConfig = Commons.emptyOwnerConfig()
+  loading:boolean=false
 
   constructor(
     private route : ActivatedRoute,
@@ -69,9 +70,11 @@ export class TermsComponent implements OnInit {
         this.termId = codeDetail.id
       }
 
+      this.loading = true
       this.resourceService.getTerms(this.OWNER_ID).subscribe(
         {
           next: async (v) => {
+            this.loading = false
             this.terms = v.terms
             for(let item of this.terms){
               if(item.id == this.termId){
@@ -79,7 +82,10 @@ export class TermsComponent implements OnInit {
               }
             }
           },
-          error: async (e) => this.openModal('label.about-our-policies','label.unknown-error', Commons.ICON_ERROR),
+          error: async (e) => {
+            this.loading = false
+            this.openModal('label.about-our-policies','label.unknown-error', Commons.ICON_ERROR)
+          },
           complete: () => {}
         }
       )
@@ -96,11 +102,16 @@ export class TermsComponent implements OnInit {
     const validated = Commons.getOwnerConfig()
     if (validated == null) {
       //load from endpoint
+      this.loading = true
       this.ownerConfigService.getConfig().subscribe(
         {
           next: (v) => {
+            this.loading = false
             this.ownerDetail = v
             Commons.setOwnerConfig(v)
+          },
+          error: (e) => {
+            this.loading = false
           },
           complete: () => { }
         }

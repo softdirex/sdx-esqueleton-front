@@ -32,7 +32,7 @@ export const environment = {
   dfConfigTermsFilename: 'terms.json',
   dfConfigLang: 'en',
   // END - Owner config default
-  productBackendEndpoint: 'http://127.0.0.1:3334/v1',
+  productBackendEndpoint: 'http://0.0.0.0:3334/v1',
   coreFrontendEndpoint: 'https://escritorio-dev.softdirex.com/',
   pwdRegex: '^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$',
   rutRegex: '\\b[0-9|.]{1,10}\\-[K|k|0-9]',

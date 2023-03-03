@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
 
   getScreenWidth: any;
   mobileWidth: number = Commons.MOBILE_WIDTH
+  loading:boolean = false
 
   constructor(
     private customerService: CustomersService,
@@ -78,10 +79,12 @@ export class LoginComponent implements OnInit {
       this.openModal('login.credentials-error', 'login.recovery-invite', Commons.ICON_WARNING)
     } else {
       let credentials = Buffer.from(this.email.value + ':' + this.pwd.value).toString('base64');
+      this.loading = true
       this.customerService.loginCustomer(this.email.value.toLowerCase(), credentials)
         .subscribe(
           {
             next: (v) => {
+              this.loading = false
               if (v != null) {
                 this.cleanForm()
                 this.sessionService.setUserLoggedIn(true)
@@ -92,6 +95,7 @@ export class LoginComponent implements OnInit {
               }
             },
             error: (e) => {
+              this.loading = false
               if (e.error != null && e.error.detail != null) {
                 switch (e.error.detail) {
                   case 'You must verify the email':

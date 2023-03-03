@@ -33,7 +33,7 @@ export const environment = {
   dfConfigLang: 'en',
   // END - Owner config default
   productBackendEndpoint: 'http://0.0.0.0:3334/v1',
-  coreFrontendEndpoint: 'http://localhost:4401/',
+  coreFrontendEndpoint: 'https://escritorio-dev.softdirex.com/',
   pwdRegex: '^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$',
   rutRegex: '\\b[0-9|.]{1,10}\\-[K|k|0-9]',
   passportRegex: '[a-zA-Z0-9-]{6,100}',

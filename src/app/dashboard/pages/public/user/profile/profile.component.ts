@@ -86,6 +86,7 @@ export class ProfileComponent implements OnInit {
       label: 'language.en-name'
     }
   ]
+  loading:boolean = false
 
   constructor(
     private service: CustomersService,
@@ -117,12 +118,15 @@ export class ProfileComponent implements OnInit {
     this.getScreenWidth = window.innerWidth
     this.loadForm()
     this.initCDForm()
+    this.loading = true
     this.service.getMyCustomer().subscribe({
       next: async (v) => {
+        this.loading = false
         this.customer = v
         this.loadForm()
       },
       error: (e) => {
+        this.loading = false
         this.openModal('label.customer-detail', 'label.customer-not-found', Commons.ICON_WARNING)
         this.goBack()
       },
@@ -223,10 +227,12 @@ export class ProfileComponent implements OnInit {
   /* --END-- STEP_REGISTER Get Controls */
 
   loadCountries() {
+    this.loading = true
     this.countriesService.getAllCountries()
       .subscribe(
         {
           next: (v) => {
+            this.loading = false
             if (Commons.validField(v) && Commons.validField(v.data)) {
               for (let cRs of v.data) {
                 this.optionsCountries.push(cRs)
@@ -240,7 +246,9 @@ export class ProfileComponent implements OnInit {
               );
             }
           },
-          error: (e) => { },
+          error: (e) => {
+            this.loading = false
+           },
           complete: () => { }
         }
       )
@@ -378,16 +386,19 @@ export class ProfileComponent implements OnInit {
     }
     this.customer.personal_data.contact_data = contact_data
     if (validToRequest) {
+      this.loading = true
       this.service.updateMyCustomer(this.customer.id, this.customer)
         .subscribe(
           {
             next: (v) => {
+              this.loading = false
               if (v != null) {
                 Commons.sessionReloadCustomer(v)
                 this.succesfullStep()
               }
             },
             error: (e) => {
+              this.loading = false
               this.mapServiceValidationResponse((e.error != null && e.error != undefined) ? e.error.detail : 'ERROR')
             },
             complete: () => { }

@@ -54,6 +54,7 @@ export class ConfigurationComponent implements OnInit {
     }
   ]
   PATH_PRODUCT = Commons.PATH_PRODUCT
+  loading:boolean=false
 
   constructor(
     private service: CompaniesService,
@@ -138,10 +139,12 @@ export class ConfigurationComponent implements OnInit {
   /* --END-- Get Controls */
 
   loadCountries() {
+    this.loading = true
     this.countriesService.getAllCountries()
       .subscribe(
         {
           next: (v) => {
+            this.loading = false
             if (Commons.validField(v) && Commons.validField(v.data)) {
               for (let cRs of v.data) {
                 this.optionsCountries.push(cRs)
@@ -155,7 +158,9 @@ export class ConfigurationComponent implements OnInit {
               );
             }
           },
-          error: (e) => { },
+          error: (e) => {
+            this.loading = false
+           },
           complete: () => { }
         }
       )
@@ -228,11 +233,12 @@ export class ConfigurationComponent implements OnInit {
     this.resource.country = this.country.value
     this.resource.terms_filename = this.terms_filename.value
     this.resource.lang = this.lang.value
-
+    this.loading = true
     this.service.updateConfig(this.resource)
       .subscribe(
         {
           next: (v) => {
+            this.loading = false
             if (v != null) {
               const customer = Commons.sessionObject().customer
               customer.owner.config = v
@@ -241,6 +247,7 @@ export class ConfigurationComponent implements OnInit {
             }
           },
           error: (e) => {
+            this.loading = false
             this.mapServiceValidationResponse((e.error != null && e.error != undefined) ? e.error.detail : 'ERROR')
           },
           complete: () => { }

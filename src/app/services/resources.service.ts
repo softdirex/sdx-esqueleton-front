@@ -19,4 +19,11 @@ export class PublicResourcesService {
         return this.http.get<any>(this.url + '/mycompany/terms/'+ownerId, options)
     }
 
+    getJsonFile(arg:string){
+        if(!arg.endsWith('.json')){
+            arg = arg + '.json'
+        }
+        return this.http.get("assets/json/"+arg)
+    }
+
 }

@@ -63,6 +63,7 @@ export class RegisterComponent implements OnInit {
   loginPath: string = Commons.PATH_LOGIN
   termsConditionsPath: string = Commons.PATH_TERMS
   model: any
+  loading: boolean = false
 
   constructor(
     private countriesService: CountriesService,
@@ -162,10 +163,12 @@ export class RegisterComponent implements OnInit {
   }
 
   loadCountries() {
+    this.loading = true
     this.countriesService.getAllCountries()
       .subscribe(
         {
           next: (v) => {
+            this.loading = false
             if (Commons.validField(v) && Commons.validField(v.data)) {
               for (let cRs of v.data) {
                 this.optionsCountries.push(cRs)
@@ -179,7 +182,9 @@ export class RegisterComponent implements OnInit {
               );
             }
           },
-          error: (e) => { },
+          error: (e) => {
+            this.loading = false
+           },
           complete: () => { }
         }
       )
@@ -338,10 +343,11 @@ export class RegisterComponent implements OnInit {
       sessionStorage.setItem('register', JSON.stringify(this.personalDataSession))
     }
 
-
+    this.loading = true
     this.customersService.getBasicPersonalData(this.docType.value, this.docValue.value, this.docCountry.value)
       .subscribe({
         next: (v) => {
+          this.loading = false
           if (v != null) {
             this.currentStep = this.STEP_OPTION_SELECT
             this.pdReq = v
@@ -351,6 +357,7 @@ export class RegisterComponent implements OnInit {
           }
         },
         error: (e) => {
+          this.loading = false
           this.currentStep = this.STEP_REGISTER
         },
         complete: () => console.info('request complete')
@@ -434,15 +441,18 @@ export class RegisterComponent implements OnInit {
     }
     sessionStorage.setItem('register', JSON.stringify(this.pdReq))
     customer.personal_data.birthday = this.formatBirthdayDate(this.birthday.value)
+    this.loading = true
     this.customersService.registerCustomer(customer)
       .subscribe(
         {
           next: (v) => {
+            this.loading = false
             if (v != null) {
               this.succesfullStep()
             }
           },
           error: (e) => {
+            this.loading = false
             this.mapServiceValidationResponse((e.error != null && e.error != undefined) ? e.error.detail : 'ERROR')
           },
           complete: () => { }
@@ -495,15 +505,18 @@ export class RegisterComponent implements OnInit {
       password: this.cusPwd.value,
       avatar: Commons.DF_AVATAR,
     }
+    this.loading = true
     this.customersService.registerCustomer(customer)
       .subscribe(
         {
           next: (v) => {
+            this.loading = false
             if (v != null) {
               this.succesfullStep()
             }
           },
           error: (e) => {
+            this.loading = false
             this.mapServiceValidationResponse((e.error != null && e.error != undefined) ? e.error.detail : 'ERROR')
           },
           complete: () => { }

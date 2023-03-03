@@ -15,6 +15,7 @@ export class AboutComponent implements OnInit {
 
   PATH_TERMS = '/' + Commons.PATH_TERMS + '/' + Commons.TERM_CODES[0].code
   PATH_CONTACT = '/' + Commons.PATH_CONTACT
+  loading:boolean = false
 
   constructor(private ownerConfigService: OwnerConfigService) { }
 
@@ -26,11 +27,16 @@ export class AboutComponent implements OnInit {
     const validated = Commons.getOwnerConfig()
     if (validated == null) {
       //load from endpoint
+      this.loading = true
       this.ownerConfigService.getConfig().subscribe(
         {
           next: (v) => {
+            this.loading = false
             this.ownerDetail = v
             Commons.setOwnerConfig(v)
+          },
+          error: (e) => {
+            this.loading = false
           },
           complete: () => { }
         }

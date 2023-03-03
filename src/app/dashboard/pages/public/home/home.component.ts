@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { BestDeals } from 'src/app/shared/models/BestDeals';
 import { FooterDeal } from 'src/app/shared/models/FooterDeal';
 import { Items } from 'src/app/shared/models/Items';
-import { ItemsImage } from 'src/app/shared/models/ItemsImage';
 import { Slider } from 'src/app/shared/models/Slider';
 
 @Component({
@@ -22,6 +21,7 @@ export class HomeComponent implements OnInit {
   titlepage: string = ''
   descriptionpage: string = ''
   footerdeal: FooterDeal | null = null
+  loading:boolean=false
 
   constructor() { }
 
