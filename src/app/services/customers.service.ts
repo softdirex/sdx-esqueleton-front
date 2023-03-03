@@ -145,4 +145,14 @@ export class CustomersService {
     return this.http.put<any>(this.customersUrl + '/updateprofile/' + itemId, request, options)
   }
 
+  createTransientAuth() {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Basic ' + Commons.sessionCredentials(),
+      })
+    }
+    return this.http.get<any>(this.customersUrl + '-transientauth', options)
+  }
+
 }

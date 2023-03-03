@@ -107,35 +107,10 @@ export class AdminHeaderComponent implements OnInit {
   }
 
   toMyCompany() {
-    if(this.withoutCompany){
-      this.customersService.loginCustomer(Commons.sessionObject().customer.email,Commons.sessionCredentials()).subscribe({
-        next: (v) => {
-          if (v != null) {
-            Commons.sessionReloadCustomer(v)
-            window.location.reload();
-            this.openNewWindow(this.PATH_MY_COMPANY)
-          }
-        },
-        error: (e) => {
-          if (e.error != null && e.error.detail != null) {
-            switch (e.error.detail) {
-              case 'You must verify the email':
-                this.openModal('login.button-tooltip', 'label.email-review', Commons.ICON_WARNING)
-                break
-              case 'User blocked':
-                this.openModal('login.credentials-locked', 'login.locked-msg', Commons.ICON_WARNING)
-                break
-              default:
-                this.openModal('label.unknown-error', 'label.unknown-error-contact-retry', Commons.ICON_ERROR)
-                break
-            }
+    if (this.withoutCompany) {
+      // cierra la sesion para volver a cargar la sesion en el login
+      this.openNewWindowWithoutCompany(this.PATH_MY_COMPANY)
           } else {
-            this.openModal('label.unknown-error', 'label.unknown-error-contact-retry', Commons.ICON_ERROR)
-          }
-        },
-        complete: () => { }
-      })
-    }else{
       this.openNewWindow(this.PATH_MY_COMPANY)
     }
   }
@@ -149,7 +124,46 @@ export class AdminHeaderComponent implements OnInit {
   }
 
   openNewWindow(path: string) {
-    Commons.openWithExternalToken(path)
+    this.customersService.createTransientAuth().subscribe({
+      next: (v) => {
+        Commons.openWithExternalToken(path, v.transient_auth)
+      },
+      error: (e) => {
+        this.openModal('label.unknown-error', 'label.unknown-error-contact-retry', Commons.ICON_ERROR)
+      },
+      complete: () => { }
+    })
+
+  }
+
+  getPlan() {
+    const planCategory = Commons.getPlan()
+    switch (planCategory) {
+      case Commons.LICENCE_TRIAL:
+        return 'label.trial-licence'
+      case Commons.LICENCE_BASIC:
+        return 'label.basic-licence'
+      case Commons.LICENCE_MEDIUM:
+        return 'label.medium-licence'
+      case Commons.LICENCE_PREMIUM:
+        return 'label.premium-licence'
+      default:
+        return 'label.without-licence'
+    }
+  }
+
+  openNewWindowWithoutCompany(path: string) {
+    this.customersService.createTransientAuth().subscribe({
+      next: (v) => {
+        Commons.openWithExternalToken(path, v.transient_auth)
+        this.closeSession()
+      },
+      error: (e) => {
+        this.openModal('label.unknown-error', 'label.unknown-error-contact-retry', Commons.ICON_ERROR)
+      },
+      complete: () => { }
+    })
+
   }
 
   openModalWithRedirection(title: string, message: string, icon: string, path: string) {
@@ -157,7 +171,7 @@ export class AdminHeaderComponent implements OnInit {
       data: { title: title, message: message, icon: icon },
     })
     this.alertModal.onClose.subscribe(() => {
-      Commons.openWithExternalToken(path)
+      this.openNewWindow(path)
     });
   }
 

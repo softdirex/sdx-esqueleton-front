@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CustomersService } from 'src/app/services/customers.service';
 import { Commons } from 'src/app/shared/Commons';
 import { environment } from 'src/environments/environment';
 
@@ -23,7 +24,9 @@ export class AdminFooterComponent implements OnInit {
 
   anio: Date = new Date();
 
-  constructor() { }
+  constructor(
+    private customersService: CustomersService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -55,13 +58,16 @@ export class AdminFooterComponent implements OnInit {
     this.openNewWindow(Commons.PATH_TERMS + '/cookie-policy')
   }
 
-  openNewWindow(path:string) {
-    Commons.openWithExternalToken(path)
-  }
+  openNewWindow(path: string) {
+    this.customersService.createTransientAuth().subscribe({
+      next: (v) => {
+        Commons.openWithExternalToken(path, v.transient_auth)
+      },
+      error: (e) => {
+      },
+      complete: () => { }
+    })
 
-  openNewWindowWhithoutToken(path:string){
-    Commons.openWithoutExternalToken(path)
   }
-
 
 }

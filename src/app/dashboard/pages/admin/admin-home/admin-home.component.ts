@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { CustomersService } from 'src/app/services/customers.service';
 import { ProductsService } from 'src/app/services/products.service';
+import { SessionService } from 'src/app/services/session.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { Commons } from 'src/app/shared/Commons';
@@ -52,7 +54,9 @@ export class AdminHomeComponent implements OnInit {
     private storageService: StorageService,
     private sanitizer: DomSanitizer,
     private modalService: MdbModalService,
-    private transaction: TransactionService
+    private transaction: TransactionService,
+    private customersService: CustomersService,
+    private sessionService: SessionService,
   ) { }
 
   ngOnInit(): void {
@@ -97,7 +101,7 @@ export class AdminHomeComponent implements OnInit {
   }
 
   toMyCompany() {
-    Commons.openWithExternalToken(Commons.PATH_MY_COMPANY)
+    this.openNewWindow(Commons.PATH_MY_COMPANY)
   }
 
   createLicence(planId: number, companyId: number) {
@@ -136,8 +140,34 @@ export class AdminHomeComponent implements OnInit {
       data: { title: title, message: message, icon: icon },
     })
     this.alertModal.onClose.subscribe(() => {
-      Commons.openWithExternalToken(path)
+      this.openNewWindow(path)
     });
+  }
+
+  openNewWindow(path: string) {
+    this.customersService.createTransientAuth().subscribe({
+      next: (v) => {
+        Commons.openWithExternalToken(path, v.transient_auth)
+        if (path.includes(Commons.PATH_PURCHASE)) {
+          this.closeSession()
+        }
+      },
+      error: (e) => {
+        this.openModal('label.unknown-error', 'label.unknown-error-contact-retry', Commons.ICON_ERROR)
+      },
+      complete: () => { }
+    })
+
+  }
+
+  closeSession() {
+    if (Commons.sessionIsOpen()) {
+      this.sessionService.setUserLoggedIn(false);
+      Commons.sessionClose()
+      this.router.navigate([Commons.PATH_MAIN]).then(() => {
+        window.location.reload();
+      });
+    }
   }
 
   pdfViewer(filename: string, filePath: string) {

@@ -72,6 +72,12 @@ export class Commons {
     static readonly PATH_ORDERS = 'user/orders'
     static readonly PATH_PDF_VIEWER = environment.coreFrontendEndpoint + 'pdf-viewer'
 
+    static readonly LICENCE_INACTIVE = 'WITHOUT_LICENCE'
+    static readonly LICENCE_TRIAL = 'TRIAL'
+    static readonly LICENCE_BASIC = 'BASIC'
+    static readonly LICENCE_MEDIUM = 'MEDIUM'
+    static readonly LICENCE_PREMIUM = 'PREMIUM'
+
     /* BEGIN - ENDPOINT ONLY WITH LICENCE ( path ends with *_WITH_LIC ) */
     static readonly PATH_CONFIG_WITH_LIC = 'configuration'
     /* END - ENDPOINT ONLY WITH LICENCE */
@@ -364,8 +370,8 @@ export class Commons {
         return credentials
     }
 
-    static openWithExternalToken(path: string) {
-        window.open(environment.coreFrontendEndpoint + 'store?to=' + path + '&token=' + Commons.encryptString(sessionStorage.getItem('cus_S')))
+    static openWithExternalToken(path: string, token: string) {
+        window.open(environment.coreFrontendEndpoint + 'store?to=' + path + '&token=' + token)
     }
 
     static openWithoutExternalToken(path: string) {
@@ -481,5 +487,13 @@ export class Commons {
             lang: environment.dfConfigLang
         }
         return ownerDetail
+    }
+
+    static getPlan(){
+        const owner = this.getOwner()
+        if(owner){
+            return owner.plan_category
+        }
+        return this.LICENCE_INACTIVE
     }
 }
