@@ -5,7 +5,9 @@ import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { CustomersService } from 'src/app/services/customers.service';
 import { LanguageUtilService } from 'src/app/services/language-util.service';
 import { Commons } from 'src/app/shared/Commons';
+import { OwnerConfig } from 'src/app/shared/interfaces/core/owner-config';
 import { Customer } from 'src/app/shared/interfaces/core/customer';
+import { TransientAuth } from 'src/app/shared/interfaces/core/transient-auth';
 import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
 import { environment } from 'src/environments/environment';
 
@@ -15,9 +17,12 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./password-change.component.css']
 })
 export class PasswordChangeComponent implements OnInit {
-  lang = ""
-  id = 0
-  sign = ""
+  transientData: TransientAuth = {
+    token: '',
+    flow: '',
+    pwd: '',
+    lang: ''
+  }
 
   LOADING_STEP = 1
   UPDATING_STEP = 2
@@ -29,8 +34,11 @@ export class PasswordChangeComponent implements OnInit {
 
   loginPath: string = Commons.PATH_LOGIN
   registerPath: string = Commons.PATH_REGISTER
+  PATH_TERMS = '/' + Commons.PATH_TERMS + '/' + Commons.TERM_CODES[0].code
+  PATH_CONTACT = '/' + Commons.PATH_CONTACT
 
   alertModal: MdbModalRef<AlertModalComponent> | null = null;
+  ownerDetail: OwnerConfig = Commons.emptyOwnerConfig()
 
   constructor(
     private customerService: CustomersService,
@@ -41,7 +49,7 @@ export class PasswordChangeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    this.ownerDetail = (Commons.getOwner() != null) ? Commons.getOwner().config : Commons.getDefaultConfig()
     this.form = new FormGroup({
       pwd1: new FormControl('', [Validators.required, Validators.pattern(environment.pwdRegex)]),
       pwd2: new FormControl('', [Validators.required, Validators.pattern(environment.pwdRegex)])
@@ -49,15 +57,13 @@ export class PasswordChangeComponent implements OnInit {
 
     this.pwd2.addValidators(this.sameValue())
 
-    this.route.queryParams
-      .subscribe(params => {
+    this.route.params.subscribe(params => {
         this.langService.setLanguage(params['lang'])
-        this.id = params['id']
-        this.lang = params['lang']
-        this.sign = params['sign']
+        this.transientData.lang = params['lang']
+        this.transientData.token = params['transientAuth']
       }
       );
-    this.sendRequestOnInit(this.id, this.lang, this.sign)
+    this.sendRequestOnInit()
   }
 
   sameValue(): ValidatorFn {
@@ -66,9 +72,10 @@ export class PasswordChangeComponent implements OnInit {
         ? null : { notSame: control.value };
   }
 
-  sendRequestOnInit(id: number, lang: string, sign: string) {
+  sendRequestOnInit() {
     this.step = this.LOADING_STEP
-    this.customerService.postCustomerSigned(this.FLOW_CHANGE_PASSWORD, id, lang, sign, null)
+    this.transientData.flow = this.FLOW_CHANGE_PASSWORD
+    this.customerService.postCustomerSigned(this.transientData)
       .subscribe(
         {
           next: (v) => {
@@ -132,7 +139,9 @@ export class PasswordChangeComponent implements OnInit {
   sendRequestUpdate(pwd: string) {
     this.step = this.LOADING_STEP
     if (this.customer) {
-      this.customerService.postCustomerSigned(this.FLOW_CHANGE_PASSWORD, this.id, this.lang, this.sign, pwd)
+      this.transientData.flow = this.FLOW_CHANGE_PASSWORD
+      this.transientData.pwd = pwd
+      this.customerService.postCustomerSigned(this.transientData)
         .subscribe(
           {
             next: (v) => {

@@ -4,6 +4,7 @@ import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { CustomersService } from 'src/app/services/customers.service';
 import { LanguageUtilService } from 'src/app/services/language-util.service';
 import { Commons } from 'src/app/shared/Commons';
+import { TransientAuth } from 'src/app/shared/interfaces/core/transient-auth';
 import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
 
 @Component({
@@ -13,13 +14,14 @@ import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-mod
 })
 export class VerifyEmailComponent implements OnInit {
 
-  lang = ""
-  id = 0
-  sign = ""
-  flow = ""
+  transientData: TransientAuth = {
+    token: '',
+    flow: '',
+    pwd: '',
+    lang: ''
+  }
 
   FLOW_REGISTER = 'REGISTER'
-  FLOW_REGISTER_SIGNED = 'REGISTER_SIGNED'
 
   alertModal: MdbModalRef<AlertModalComponent> | null = null;
 
@@ -40,13 +42,10 @@ export class VerifyEmailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getScreenWidth = window.innerWidth
-    this.route.queryParams
-      .subscribe(params => {
+    this.route.params.subscribe(params => {
         this.langService.setLanguage(params['lang'])
-        this.id = params['id']
-        this.lang = params['lang']
-        this.sign = params['sign']
-        this.flow = params['flow']
+      this.transientData.lang = params['lang']
+      this.transientData.token = params['transientAuth']
       }
       );
   }
@@ -56,26 +55,20 @@ export class VerifyEmailComponent implements OnInit {
     this.getScreenWidth = window.innerWidth
   }
 
-  verify() {
-    this.sendRequest(this.id, this.lang, this.sign)
-  }
-
   openModal(title: string, message: string, icon: string) {
     this.alertModal = this.modalService.open(AlertModalComponent, {
       data: { title: title, message: message, icon: icon },
     })
   }
 
-  sendRequest(id: number, lang: string, sign: string) {
-    if (this.flow == undefined || this.flow == null) {
-      this.flow = this.FLOW_REGISTER
-    }
-    if (id == 0 && sign == '') {
+  verify() {
+    this.transientData.flow = this.FLOW_REGISTER
+    if (!Commons.validField(this.transientData.token) && this.transientData.token == '') {
       this.router.navigate([Commons.PATH_LOGIN])
       this.openModal('label.unknown-error', 'label.unknown-error-contact-retry', Commons.ICON_ERROR)
     } else {
       this.loading = true
-      this.customerService.postCustomerSigned(this.flow, id, lang, sign, null)
+      this.customerService.postCustomerSigned(this.transientData)
         .subscribe({
           next: (v) => {
             this.loading = false
@@ -84,12 +77,16 @@ export class VerifyEmailComponent implements OnInit {
           },
           error: (e) => {
             this.loading = false
-            if (e.error != null && e.error.detail != null && e.error.detail == 'Email forwarded') {
-              this.router.navigate([Commons.PATH_LOGIN])
+            if(e.error != null && e.error.detail != null && e.error.detail == 'API_RESPONSE: Token not validated or expired'){
+              this.openModal('label.request-expired', 'label.email-review-expired-token', Commons.ICON_WARNING)
+            }else{
+              if (e.error != null && e.error.detail != null && e.error.detail == 'API_RESPONSE: Email forwarded') {
               this.openModal('label.request-expired', 'label.email-review', Commons.ICON_WARNING)
+              } else {
+                this.openModal('label.unknown-error', 'label.unknown-error-contact-retry', Commons.ICON_ERROR)
+              }
             }
             this.router.navigate([Commons.PATH_LOGIN])
-            this.openModal('label.unknown-error', 'label.unknown-error-contact-retry', Commons.ICON_ERROR)
           },
           complete: () => console.info('request complete')
         }

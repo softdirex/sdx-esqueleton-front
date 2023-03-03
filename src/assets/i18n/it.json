@@ -1,5 +1,6 @@
 {
   "label": {
+    "go": "Accedere",
     "wait": "Si prega di attendere un momento...",
     "request-sended": "Richiesta inviata",
     "request-expired": "Richiesta scaduta",
@@ -449,7 +450,8 @@
     "create-other-user": "Crea un altro utente",
     "register-verify-msg": "Congratulazioni! Sei ad un passo dalla conclusione, dopo aver premuto il pulsante il tuo utente verrà creato per poter accedere alla piattaforma",
     "confirm-email-title": "Conferma del email",
-    "confirm-email-question": "Vuoi confermare l'email di MAIL_VALUE?"
+    "confirm-email-question": "Vuoi confermare l'email di MAIL_VALUE?",
+    "try-in-ee-msg": "Prova questa operazione su Business Desktop"
   },
   "validations": {
     "required-email": "Devi inserire un valore",
@@ -485,7 +487,9 @@
     "logo-requied": "Il logo è obbligatorio",
     "notsame-email": "Le email non corrispondono",
     "maxlength": "Supera il numero massimo di caratteri consentito",
-    "minlength": "I caratteri inseriti sono troppo pochi"
+    "minlength": "I caratteri inseriti sono troppo pochi",
+    "emailinactive-inproduct": "Utente non registrato in questo prodotto",
+    "licenceinactive-inproduct": "Non hai licenze attive"
   },
   "password-update": {
     "title": "Aggiorna Password",

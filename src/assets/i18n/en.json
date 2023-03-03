@@ -1,5 +1,6 @@
 {
   "label": {
+    "go": "Go",
     "wait": "Please wait an moment...",
     "request-sended": "Request sended",
     "request-expired": "Expired request",
@@ -449,7 +450,8 @@
     "create-other-user": "Create another user",
     "register-verify-msg": "Congratulations! You are one step away from finishing, after pressing the button your user will be created so you can enter the platform",
     "confirm-email-title": "Email confirmation",
-    "confirm-email-question": "Do you want to confirm the email from MAIL_VALUE?"
+    "confirm-email-question": "Do you want to confirm the email from MAIL_VALUE?",
+    "try-in-ee-msg": "Try this operation on Business Desktop"
   },
   "validations": {
     "required-email": "You must enter a email",
@@ -485,7 +487,9 @@
     "logo-requied": "Logo is required",
     "notsame-email": "The emails do not match",
     "maxlength": "Exceeds the maximum characters allowed",
-    "minlength": "The characters entered are too few"
+    "minlength": "The characters entered are too few",
+    "emailinactive-inproduct": "User not registered in this product",
+    "licenceinactive-inproduct": "The client has no active licenses"
   },
   "password-update": {
     "title": "Update Password",

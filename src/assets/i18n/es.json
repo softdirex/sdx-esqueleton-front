@@ -1,5 +1,6 @@
 {
   "label": {
+    "go": "Ir",
     "wait": "Por favor espera un momento...",
     "request-sended": "Solicitud enviada",
     "request-expired": "Solicitud caducada",
@@ -449,7 +450,8 @@
     "create-other-user": "Crear otro usuario",
     "register-verify-msg": "¡Felicidades! Estás a un paso de terminar, luego de presionar el botón se creará tu usuario para que puedas ingresar a la plataforma",
     "confirm-email-title": "Confirmación de email",
-    "confirm-email-question": "Confirma que su email es MAIL_VALUE?"
+    "confirm-email-question": "Confirma que su email es MAIL_VALUE?",
+    "try-in-ee-msg": "Intente esta operación en Escritorio Empresas"
   },
   "validations": {
     "required-email": "Debes ingresar un valor",
@@ -485,7 +487,9 @@
     "logo-requied": "Se requiere logo",
     "notsame-email": "Los correos no coinciden",
     "maxlength": "Excede los caracteres máximos permitidos",
-    "minlength": "Los caracteres ingresados ​​son muy pocos"
+    "minlength": "Los caracteres ingresados ​​son muy pocos",
+    "emailinactive-inproduct": "Usuario no registrado en este producto",
+    "licenceinactive-inproduct": "Usted no tiene licencias activas"
   },
   "password-update": {
     "title": "Actualizar Contraseña",

@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Commons } from '../shared/Commons';
 import { CustomerRequest } from '../shared/interfaces/core/customer-request';
 import { ServiceResponse } from '../shared/interfaces/core/service-response';
+import { TransientAuth } from '../shared/interfaces/core/transient-auth';
 
 @Injectable({
   providedIn: 'root'
@@ -24,29 +25,18 @@ export class CustomersService {
     return this.http.get<ServiceResponse>(this.customersUrl + '/changepassword/' + email, options)
   }
 
-  postCustomerSigned(flow: string, id: number, lang: string, sign: string, pwd: string | null) {
+  postCustomerSigned(arg: TransientAuth) {
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'product-id': environment.productId + ''
       })
     }
-    var request
-    if (pwd != null) {
-      request = {
-        flow: flow,
-        id: id,
-        lang: lang,
-        sign: sign,
-        pwd: pwd
-      }
-    } else {
-      request = {
-        flow: flow,
-        id: id,
-        lang: lang,
-        sign: sign
-      }
+    var request = {
+      flow: arg.flow,
+      lang: arg.lang,
+      pwd: arg.pwd,
+      transientauth: arg.token
     }
 
     return this.http.post<any>(this.customersUrl + '/verify', request, options)

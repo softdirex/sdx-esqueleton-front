@@ -436,4 +436,50 @@ export class Commons {
             lang: '',
           }
     }
+
+    /**
+     * If result is null then call getConfig service
+     * @returns 
+     */
+    static getOwner(): any {
+        const result = this.decryptDataGlobal(sessionStorage.getItem(this.OWNER_KEY))
+        if (result == null) {
+            if (environment.ownerId != 0) {
+                const customer = (Commons.sessionIsOpen()) ? Commons.sessionObject().customer : null
+                if (Commons.validField(customer) && Commons.validField(customer.owner) && Commons.validField(customer.owner)) {
+                    const customer = Commons.sessionObject().customer
+                    return customer.owner
+                } else {
+                    return null
+                }
+            } else {
+                const customer = (Commons.sessionIsOpen()) ? Commons.sessionObject().customer : null
+                if (Commons.validField(customer) && Commons.validField(customer.owner) && Commons.validField(customer.owner)) {
+                    return customer.owner
+                }
+                return null
+            }
+        } else {
+            return result
+        }
+
+    }
+
+    static getDefaultConfig(){
+        var ownerDetail: OwnerConfig = {
+            company_name: environment.dfConfigCompanyName,
+            slogan: environment.dfConfigSlogan,
+            about: environment.dfConfigAbout,
+            mission: environment.dfConfigMission,
+            vision: environment.dfConfigVision,
+            contact_phone: environment.dfConfigContactPhone,
+            contact_mail: environment.dfConfigContactMail,
+            address: environment.dfConfigAddress,
+            city: environment.dfConfigCity,
+            country: environment.dfConfigCountry,
+            terms_filename: environment.dfConfigTermsFilename,
+            lang: environment.dfConfigLang
+        }
+        return ownerDetail
+    }
 }

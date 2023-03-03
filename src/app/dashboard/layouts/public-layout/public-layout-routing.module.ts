@@ -12,19 +12,56 @@ import { ProfileComponent } from '../../pages/public/user/profile/profile.compon
 import { RegisterComponent } from '../../pages/public/user/register/register.component';
 import { VerifyEmailComponent } from '../../pages/public/user/register/verify-email/verify-email.component';
 
+var owner = (Commons.getOwner()) ? Commons.getOwner().config : Commons.getDefaultConfig()
+var commonData = {
+    title: owner.company_name,
+    descrption: owner.about,
+    ogTitle: owner.company_name,
+    ogDescription: owner.about,
+    content: owner.tags,
+}
+
 export const PublicLayoutRoutes: Routes = [
-    { path: Commons.PATH_MAIN, component: HomeComponent },
-    { path: Commons.PATH_ABOUT, component: AboutComponent },
-    { path: Commons.PATH_CONTACT, component: ContactComponent },
-    { path: Commons.PATH_TERMS + '/:code', component: TermsComponent },
-    { path: Commons.PATH_MY_CUSTOMER, component: ProfileComponent },
-    //{ path: Commons.PATH_FAVORITES, component: FavoritesComponent },
-    { path: Commons.PATH_LOGIN, component: LoginComponent },
-    //{ path: Commons.PATH_ORDERS, component: OrdersComponent },
-    { path: Commons.PATH_PWD_REC, component: PasswordRecoveryComponent },
-    { path: Commons.PATH_PWD_CHN, component: PasswordChangeComponent },
-    { path: Commons.PATH_REGISTER, component: RegisterComponent },
-    { path: Commons.PATH_MAIL_VER, component: VerifyEmailComponent },
+    {
+        path: Commons.PATH_MAIN, component: HomeComponent,
+        data: commonData
+    },
+    {
+        path: Commons.PATH_ABOUT, component: AboutComponent,
+        data: commonData
+    },
+    {
+        path: Commons.PATH_CONTACT, component: ContactComponent,
+        data: commonData
+    },
+    {
+        path: Commons.PATH_TERMS + '/:code', component: TermsComponent,
+        data: commonData
+    },
+    {
+        path: Commons.PATH_MY_CUSTOMER, component: ProfileComponent,
+        data: commonData
+    },
+    {
+        path: Commons.PATH_LOGIN, component: LoginComponent,
+        data: commonData
+    },
+    {
+        path: Commons.PATH_PWD_REC, component: PasswordRecoveryComponent,
+        data: commonData
+    },
+    {
+        path: Commons.PATH_PWD_CHN + '/:transientAuth/:lang', component: PasswordChangeComponent,
+        data: commonData
+    },
+    {
+        path: Commons.PATH_REGISTER, component: RegisterComponent,
+        data: commonData
+    },
+    {
+        path: Commons.PATH_MAIL_VER + '/:transientAuth/:lang', component: VerifyEmailComponent,
+        data: commonData
+    }
 ];
 
 @NgModule({

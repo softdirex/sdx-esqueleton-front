@@ -1,5 +1,6 @@
 {
   "label": {
+    "go": "Ir",
     "wait": "Espere um momento...",
     "request-sended": "Solicitação enviada",
     "request-expired": "Solicitação expirada",
@@ -449,7 +450,8 @@
     "create-other-user": "Criar outro usuário",
     "register-verify-msg": "Parabéns! Você está a um passo de finalizar, após pressionar o botão seu usuário será criado para que você possa entrar na plataforma",
     "confirm-email-title": "Confirmação de e-mail",
-    "confirm-email-question": "Deseja confirmar o e-mail de MAIL_VALUE?"
+    "confirm-email-question": "Deseja confirmar o e-mail de MAIL_VALUE?",
+    "try-in-ee-msg": "Experimente esta operação no Escritorio Empresas"
   },
   "validations": {
     "required-email": "Você deve inserir um valor",
@@ -485,7 +487,9 @@
     "logo-requied": "O logotipo é obrigatório",
     "notsame-email": "Os e-mails não correspondem",
     "maxlength": "Excede o máximo de caracteres permitidos",
-    "minlength": "Os caracteres digitados são muito poucos"
+    "minlength": "Os caracteres digitados são muito poucos",
+    "emailinactive-inproduct": "Usuário não cadastrado neste produto",
+    "licenceinactive-inproduct": "Você não tem licenças ativas"
   },
   "password-update": {
     "title": "Atualizar senha",

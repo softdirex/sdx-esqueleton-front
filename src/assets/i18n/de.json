@@ -1,5 +1,6 @@
 {
   "label": {
+    "go": "Gehen",
     "wait": "Warten Sie bitte einen Moment...",
     "request-sended": "Anfrage gesendet",
     "request-expired": "Abgelaufene Anfrage",
@@ -449,7 +450,8 @@
     "create-other-user": "Erstellen Sie einen anderen Benutzer",
     "register-verify-msg": "Herzliche Glückwünsche! Sie sind nur noch einen Schritt vom Abschluss entfernt, nachdem Sie auf die Schaltfläche geklickt haben, wird Ihr Benutzer erstellt, damit Sie die Plattform betreten können",
     "confirm-email-title": "Email Bestätigung",
-    "confirm-email-question": "Möchten Sie die E-Mail von MAIL_VALUE bestätigen?"
+    "confirm-email-question": "Möchten Sie die E-Mail von MAIL_VALUE bestätigen?",
+    "try-in-ee-msg": "Probieren Sie diesen Vorgang auf Business Desktop aus"
   },
   "validations": {
     "required-email": "Sie müssen einen Wert eingeben",
@@ -485,7 +487,9 @@
     "logo-requied": "Logo ist erforderlich",
     "notsame-email": "Die E-Mails stimmen nicht überein",
     "maxlength": "Überschreitet die maximal zulässige Zeichenzahl",
-    "minlength": "Die eingegebenen Zeichen sind zu wenige"
+    "minlength": "Die eingegebenen Zeichen sind zu wenige",
+    "emailinactive-inproduct": "Benutzer ist in diesem Produkt nicht registriert",
+    "licenceinactive-inproduct": "Der Client hat keine aktiven Lizenzen"
   },
   "password-update": {
     "title": "Kennwort aktualisieren",
