@@ -53,7 +53,7 @@
                 (click)="toMyCompany()">{{(withoutCompany)?'label.create-company-header':'label.my-organization'|transloco}}</a>
             </li>
             <li *ngIf="!withoutCompany"><a (click)="toPurchases()">{{'label.payment-history'|transloco}}</a></li>
-            <li *ngIf="!withoutCompany"><a (click)="toLicences()">{{'label.subscriptions'|transloco}}</a></li>
+            <li *ngIf="!withoutCompany"><a (click)="toLicences()">{{getPlan()|transloco}}</a></li>
             <li *ngIf="!withoutCompany"><a routerLink="{{PATH_CONFIG}}">{{'label.configuration'|transloco}}</a></li>
           </ul>
         </li>
