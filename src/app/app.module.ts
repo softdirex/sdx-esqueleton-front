@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AlertModalComponent } from './shared/modals/alert-modal/alert-modal.component';4
+import { AlertModalComponent } from './shared/modals/alert-modal/alert-modal.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { SharedModule } from './shared/shared.module';
 import { AlertLinkModalComponent } from './shared/modals/alert-link-modal/alert-link-modal.component';
@@ -43,14 +43,14 @@ import { RecaptchaV3Module, RECAPTCHA_V3_SITE_KEY } from 'ng-recaptcha';
     FormsModule,
     BrowserAnimationsModule,
     NgIdleKeepaliveModule.forRoot(),
-    RecaptchaV3Module
+    RecaptchaV3Module,
   ],
   providers: [
     {
       provide: RECAPTCHA_V3_SITE_KEY,
       useValue: environment.recaptcha.siteKey,
-    }
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

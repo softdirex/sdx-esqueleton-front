@@ -31,8 +31,8 @@
                         <div class="col-lg-6">
                            <div class="form-group mb-4">
                               <label>{{ 'personal-data.name' | transloco }}</label>
-                              <input type="text" class="form-control" formControlName="first_name" placeholder="" [value]="first_name.value | nameformat"
-                                 required>
+                              <input type="text" class="form-control" formControlName="first_name" placeholder=""
+                                 [value]="first_name.value | nameformat" required>
                               <div *ngIf="first_name.errors">
                                  <span class="badge badge-danger">
                                     {{ getErrorMessage(first_name) | transloco }}
@@ -43,7 +43,8 @@
                         <div class="col-lg-6">
                            <div class="form-group mb-4">
                               <label for="last_name">{{ 'personal-data.last-name' | transloco }}</label>
-                              <input type="text" class="form-control" formControlName="last_name" placeholder="" [value]="last_name.value | nameformat">
+                              <input type="text" class="form-control" formControlName="last_name" placeholder=""
+                                 [value]="last_name.value | nameformat">
                               <div *ngIf="last_name.errors">
                                  <span class="badge badge-danger">
                                     {{ getErrorMessage(last_name) | transloco }}
@@ -51,51 +52,52 @@
                               </div>
                            </div>
                         </div>
-                     
 
-                     <div class="col-lg-12">
-                        <div class="form-group mb-4">
-                           <label>{{ 'personal-data.phone' | transloco }}</label>
-                           <input type="text" class="form-control" formControlName="phone" placeholder="">
-                           <div *ngIf="phone.errors">
-                              <span class="badge badge-danger">{{ getErrorMessage(phone) | transloco
-                                 }}</span>
+
+                        <div class="col-lg-12">
+                           <div class="form-group mb-4">
+                              <label>{{ 'personal-data.phone' | transloco }}</label>
+                              <input type="text" class="form-control" formControlName="phone" placeholder="">
+                              <div *ngIf="phone.errors">
+                                 <span class="badge badge-danger">{{ getErrorMessage(phone) | transloco
+                                    }}</span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-12">
+                           <div class="form-group mb-4">
+                              <label>{{ 'personal-data.email' | transloco }}</label>
+                              <input type="email" class="form-control" formControlName="email" placeholder="" required>
+                              <div *ngIf="email.errors">
+                                 <span class="badge badge-danger">
+                                    {{ getErrorMessage(email) | transloco }}
+                                 </span>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                           <div class="form-group mb-4">
+                              <label>{{ 'label.observations' | transloco }}</label>
+                              <textarea class="form-control" formControlName="obs" cols="30" rows="5"
+                                 placeholder="{{ 'label.obs-desc' | transloco }}" required></textarea>
+                              <div *ngIf="obs.errors">
+                                 <span class="badge badge-danger">
+                                    {{ getErrorMessage(obs) | transloco }}
+                                 </span>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                           <div class="form-group mb-4">
+                              <button type="button" class="btn btn-main btn-small" (click)="send()"
+                                 [disabled]="form.invalid">
+                                 {{ 'label.send' | transloco }}
+                              </button>
                            </div>
                         </div>
                      </div>
-                     <div class="col-lg-12">
-                        <div class="form-group mb-4">
-                           <label>{{ 'personal-data.email' | transloco }}</label>
-                           <input type="email" class="form-control" formControlName="email" placeholder="" required>
-                           <div *ngIf="email.errors">
-                              <span class="badge badge-danger">
-                                 {{ getErrorMessage(email) | transloco }}
-                              </span>
-                           </div>
-                        </div>
-                     </div>
-
-                     <div class="col-lg-12">
-                        <div class="form-group mb-4">
-                           <label>{{ 'label.observations' | transloco }}</label>
-                           <textarea class="form-control" formControlName="obs" cols="30" rows="5"
-                              placeholder="{{ 'label.obs-desc' | transloco }}" required></textarea>
-                           <div *ngIf="obs.errors">
-                              <span class="badge badge-danger">
-                                 {{ getErrorMessage(obs) | transloco }}
-                              </span>
-                           </div>
-                        </div>
-                     </div>
-
-                     <div class="col-lg-12">
-                        <div class="form-group mb-4">
-                           <button type="button" class="btn btn-main btn-small" (click)="send()" [disabled]="form.invalid">
-                              {{ 'label.send' | transloco }}
-                           </button>
-                        </div>
-                     </div>
-                  </div>
                   </form>
                </div>
             </div>
@@ -114,7 +116,7 @@
          </div>
          <div *ngIf="loading" class="row">
             <img class="img-loading" src="./assets/img/gif/loading.gif">
-        </div>
+         </div>
       </div>
    </div>
 </div>

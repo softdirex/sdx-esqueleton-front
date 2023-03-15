@@ -13,24 +13,22 @@ import { ReCaptchaV3Service } from 'ng-recaptcha';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-
   email = new UntypedFormControl('', [Validators.required, Validators.email]);
   pwd = new UntypedFormControl('', [Validators.required]);
 
-  linkRecoveryPw = Commons.PATH_PWD_REC
-  linkRegister = Commons.PATH_REGISTER
+  linkRecoveryPw = Commons.PATH_PWD_REC;
+  linkRegister = Commons.PATH_REGISTER;
 
   alertModal: MdbModalRef<AlertModalComponent> | null = null;
   alertLinkModal: MdbModalRef<AlertLinkModalComponent> | null = null;
 
-
   getScreenWidth: any;
-  mobileWidth: number = Commons.MOBILE_WIDTH
-  loading:boolean = false
-  reCAPTCHAToken: string = ''
+  mobileWidth: number = Commons.MOBILE_WIDTH;
+  loading: boolean = false;
+  reCAPTCHAToken: string = '';
 
   constructor(
     private customerService: CustomersService,
@@ -40,121 +38,146 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private langService: LanguageUtilService,
     private recaptchaV3Service: ReCaptchaV3Service
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.getScreenWidth = window.innerWidth
+    this.getScreenWidth = window.innerWidth;
     if (Commons.sessionIsOpen()) {
-      this.router.navigate([Commons.PATH_MAIN])
+      this.router.navigate([Commons.PATH_MAIN]);
     }
     // Entrada por queryParams
-    this.route.queryParams
-      .subscribe(params => {
-        const arg = params['arg']
-        if (arg != undefined && arg == 'closed') {
-          this.openModal('login.closed', 'login.closed-msg', Commons.ICON_WARNING)
-        }
+    this.route.queryParams.subscribe((params) => {
+      const arg = params['arg'];
+      if (arg != undefined && arg == 'closed') {
+        this.openModal(
+          'login.closed',
+          'login.closed-msg',
+          Commons.ICON_WARNING
+        );
       }
-      );
+    });
   }
 
   @HostListener('window:resize', ['$event'])
   onWindowResize() {
-    this.getScreenWidth = window.innerWidth
+    this.getScreenWidth = window.innerWidth;
   }
 
-  ngOnDestroy() {
-  }
+  ngOnDestroy() {}
 
   getErrorMessage() {
     if (this.email.hasError('required')) {
-      return 'validations.required-email'
+      return 'validations.required-email';
     }
 
     return this.email.hasError('email') ? 'validations.invalid-email' : '';
-
   }
 
   login() {
-    this.recaptchaV3Service.execute('esqueleton_login').subscribe((token: string) => {
-      this.reCAPTCHAToken = token
-      const pwd = this.pwd.value
-    if (pwd.length == 0) {
-      this.openModal('login.credentials-error', 'login.recovery-invite', Commons.ICON_WARNING)
-    } else {
-      let credentials = window.btoa(this.email.value + ':' + this.pwd.value)
-      this.loading = true
-      this.customerService.loginCustomer(this.email.value.toLowerCase(), credentials)
-        .subscribe(
-          {
-            next: (v) => {
-              this.loading = false
-              if (v != null) {
-                this.cleanForm()
-                this.sessionService.setUserLoggedIn(true)
-                this.langService.setLanguage(v.lang)
-                Commons.sessionOpenCustomer(v, credentials)
-                window.location.reload();
-                this.router.navigate([Commons.PATH_MAIN])
-              }
-            },
-            error: (e) => {
-              this.loading = false
-              if (e.error != null && e.error.detail != null) {
-                switch (e.error.detail) {
-                  case 'You must verify the email':
-                    this.cleanForm()
-                    this.openModal('login.button-tooltip', 'label.email-review', Commons.ICON_WARNING)
-                    break
-                  case 'User blocked':
-                    this.cleanForm()
-                    this.openModal('login.credentials-locked', 'login.locked-msg', Commons.ICON_WARNING)
-                    break
-                  case 'This user does not belong to the organization':
-                    this.cleanForm()
-                    this.openModal('login.credentials-locked', 'login.organization-wrong-msg', Commons.ICON_WARNING)
-                    break
-                  default:
-                    this.cleanPwd()
-                    this.alertLinkModal = this.modalService.open(AlertLinkModalComponent, {
-                      data: {
-                        title: 'login.credentials-error',
-                        message: 'login.recovery-invite',
-                        icon: Commons.ICON_WARNING,
-                        linkName: 'login.create-msg'
-                      }
-                    })
-                    this.alertLinkModal.onClose.subscribe((accept: any) => {
-                      if (accept) {
-                        this.router.navigate([Commons.PATH_REGISTER])
-                      }
-                    });
-                    break
+    this.recaptchaV3Service
+      .execute('esqueleton_login')
+      .subscribe((token: string) => {
+        this.reCAPTCHAToken = token;
+        const pwd = this.pwd.value;
+        if (pwd.length == 0) {
+          this.openModal(
+            'login.credentials-error',
+            'login.recovery-invite',
+            Commons.ICON_WARNING
+          );
+        } else {
+          let credentials = window.btoa(
+            this.email.value + ':' + this.pwd.value
+          );
+          this.loading = true;
+          this.customerService
+            .loginCustomer(this.email.value.toLowerCase(), credentials)
+            .subscribe({
+              next: (v) => {
+                this.loading = false;
+                if (v != null) {
+                  this.cleanForm();
+                  this.sessionService.setUserLoggedIn(true);
+                  this.langService.setLanguage(v.lang);
+                  Commons.sessionOpenCustomer(v, credentials);
+                  window.location.reload();
+                  this.router.navigate([Commons.PATH_MAIN]);
                 }
-              } else {
-                this.openModal('label.unknown-error', 'label.unknown-error-contact-retry', Commons.ICON_ERROR)
-              }
-            },
-            complete: () => { }
-          }
-        )
-    }
-    })
+              },
+              error: (e) => {
+                this.loading = false;
+                if (e.error != null && e.error.detail != null) {
+                  switch (e.error.detail) {
+                    case 'You must verify the email':
+                      this.cleanForm();
+                      this.openModal(
+                        'login.button-tooltip',
+                        'label.email-review',
+                        Commons.ICON_WARNING
+                      );
+                      break;
+                    case 'User blocked':
+                      this.cleanForm();
+                      this.openModal(
+                        'login.credentials-locked',
+                        'login.locked-msg',
+                        Commons.ICON_WARNING
+                      );
+                      break;
+                    case 'This user does not belong to the organization':
+                      this.cleanForm();
+                      this.openModal(
+                        'login.credentials-locked',
+                        'login.organization-wrong-msg',
+                        Commons.ICON_WARNING
+                      );
+                      break;
+                    default:
+                      this.cleanPwd();
+                      this.alertLinkModal = this.modalService.open(
+                        AlertLinkModalComponent,
+                        {
+                          data: {
+                            title: 'login.credentials-error',
+                            message: 'login.recovery-invite',
+                            icon: Commons.ICON_WARNING,
+                            linkName: 'login.create-msg',
+                          },
+                        }
+                      );
+                      this.alertLinkModal.onClose.subscribe((accept: any) => {
+                        if (accept) {
+                          this.router.navigate([Commons.PATH_REGISTER]);
+                        }
+                      });
+                      break;
+                  }
+                } else {
+                  this.openModal(
+                    'label.unknown-error',
+                    'label.unknown-error-contact-retry',
+                    Commons.ICON_ERROR
+                  );
+                }
+              },
+              complete: () => {},
+            });
+        }
+      });
   }
 
   openModal(title: string, message: string, icon: string) {
     this.alertModal = this.modalService.open(AlertModalComponent, {
       data: { title: title, message: message, icon: icon },
-    })
+    });
   }
 
   cleanPwd() {
-    this.pwd.setValue('')
+    this.pwd.setValue('');
   }
 
   cleanForm() {
-    this.email.setValue('')
-    this.pwd.setValue('')
+    this.email.setValue('');
+    this.pwd.setValue('');
   }
-
 }
