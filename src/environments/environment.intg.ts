@@ -46,6 +46,9 @@ export const environment = {
   obsRegex: '[a-zA-Z\u00C0-\u00ff-.,\'\n": 0-9]{20,1000}',
   aboutRegex: '[a-zA-Z\u00C0-\u00ff-.,\'\n": 0-9]{20,5000}',
   sessionTimeMins: 10,
+  recaptcha: {
+    siteKey: '6LcLKvEkAAAAAH_CqrEtTpJy3vqzM9Cd9WTm9yrS',
+  },
 };
 
 /*

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { CustomersService } from 'src/app/services/customers.service';
@@ -10,6 +10,7 @@ import { Customer } from 'src/app/shared/interfaces/core/customer';
 import { TransientAuth } from 'src/app/shared/interfaces/core/transient-auth';
 import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
 import { environment } from 'src/environments/environment';
+import { ReCaptchaV3Service } from 'ng-recaptcha';
 
 @Component({
   selector: 'app-password-change',
@@ -30,7 +31,7 @@ export class PasswordChangeComponent implements OnInit {
 
   FLOW_CHANGE_PASSWORD = 'CHANGE_PASSWORD'
   customer?: Customer
-  form!: FormGroup;
+  form!: UntypedFormGroup;
 
   loginPath: string = Commons.PATH_LOGIN
   registerPath: string = Commons.PATH_REGISTER
@@ -39,20 +40,22 @@ export class PasswordChangeComponent implements OnInit {
 
   alertModal: MdbModalRef<AlertModalComponent> | null = null;
   ownerDetail: OwnerConfig = Commons.emptyOwnerConfig()
+  reCAPTCHAToken: string = ''
 
   constructor(
     private customerService: CustomersService,
     private router: Router,
     private route: ActivatedRoute,
     private langService: LanguageUtilService,
-    private modalService: MdbModalService
+    private modalService: MdbModalService,
+    private recaptchaV3Service: ReCaptchaV3Service
   ) { }
 
   ngOnInit(): void {
     this.ownerDetail = (Commons.getOwner() != null) ? Commons.getOwner().config : Commons.getDefaultConfig()
-    this.form = new FormGroup({
-      pwd1: new FormControl('', [Validators.required, Validators.pattern(environment.pwdRegex)]),
-      pwd2: new FormControl('', [Validators.required, Validators.pattern(environment.pwdRegex)])
+    this.form = new UntypedFormGroup({
+      pwd1: new UntypedFormControl('', [Validators.required, Validators.pattern(environment.pwdRegex)]),
+      pwd2: new UntypedFormControl('', [Validators.required, Validators.pattern(environment.pwdRegex)])
     })
 
     this.pwd2.addValidators(this.sameValue())
@@ -110,7 +113,7 @@ export class PasswordChangeComponent implements OnInit {
   }
 
   getCustomerName() {
-    var name = 'NO-NAME'
+    let name = 'NO-NAME'
     if (this.customer) {
       name = this.customer.email
       if (this.customer.personal_data) {
@@ -137,7 +140,9 @@ export class PasswordChangeComponent implements OnInit {
   }
 
   sendRequestUpdate(pwd: string) {
-    this.step = this.LOADING_STEP
+    this.recaptchaV3Service.execute('esqueleton_password_change').subscribe((token: string) => {
+      this.reCAPTCHAToken = token
+      this.step = this.LOADING_STEP
     if (this.customer) {
       this.transientData.flow = this.FLOW_CHANGE_PASSWORD
       this.transientData.pwd = pwd
@@ -166,6 +171,7 @@ export class PasswordChangeComponent implements OnInit {
       this.return()
       this.openModal('label.unknown-error', 'label.unknown-error-contact-retry', Commons.ICON_ERROR)
     }
+    })
   }
 
   openModal(title: string, message: string, icon: string) {

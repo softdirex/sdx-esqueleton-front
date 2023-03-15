@@ -12,8 +12,8 @@ import { ProfileComponent } from '../../pages/public/user/profile/profile.compon
 import { RegisterComponent } from '../../pages/public/user/register/register.component';
 import { VerifyEmailComponent } from '../../pages/public/user/register/verify-email/verify-email.component';
 
-var owner = (Commons.getOwner()) ? Commons.getOwner().config : Commons.getDefaultConfig()
-var commonData = {
+let owner = (Commons.getOwner()) ? Commons.getOwner().config : Commons.getDefaultConfig()
+let commonData = {
     title: owner.company_name,
     descrption: owner.about,
     ogTitle: owner.company_name,

@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { map, Observable, startWith } from 'rxjs';
@@ -36,7 +36,7 @@ export class ConfigurationComponent implements OnInit {
     lang: 'en',
   }
 
-  form: FormGroup = new FormGroup({})
+  form: UntypedFormGroup = new UntypedFormGroup({})
 
   alertModal: MdbModalRef<AlertModalComponent> | null = null;
   filteredCountries: Observable<Country[]> | null = null
@@ -98,19 +98,19 @@ export class ConfigurationComponent implements OnInit {
   }
 
   loadForm() {
-    this.form = new FormGroup({
-      company_name: new FormControl(this.resource.company_name, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
-      slogan: new FormControl(this.resource.slogan, [Validators.required, Validators.pattern(environment.obsRegex), Validators.maxLength(1000), Validators.minLength(20)]),
-      about: new FormControl(this.resource.about.replace(/<br>/gi, '\n'), [Validators.required, Validators.pattern(environment.aboutRegex), Validators.maxLength(5000), Validators.minLength(20)]),
-      mission: new FormControl(this.resource.mission.replace(/<br>/gi, '\n'), [Validators.required, Validators.pattern(environment.aboutRegex), Validators.maxLength(5000), Validators.minLength(20)]),
-      vision: new FormControl(this.resource.vision.replace(/<br>/gi, '\n'), [Validators.required, Validators.pattern(environment.aboutRegex), Validators.maxLength(5000), Validators.minLength(20)]),
-      contact_phone: new FormControl(this.resource.contact_phone, [Validators.pattern(environment.phonesRegex), Validators.maxLength(35), Validators.minLength(8)]),
-      contact_mail: new FormControl(this.resource.contact_mail, [Validators.required, Validators.email]),
-      address: new FormControl(this.resource.address, [Validators.pattern(environment.addressRegex), Validators.maxLength(90), Validators.minLength(2)]),
-      country: new FormControl(this.resource.country, [Validators.required, Validators.pattern(environment.addressRegex), Validators.maxLength(90), Validators.minLength(2)]),
-      city: new FormControl(this.resource.city, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
-      terms_filename: new FormControl(this.resource.terms_filename, [Validators.required]),
-      lang: new FormControl(this.resource.lang, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
+    this.form = new UntypedFormGroup({
+      company_name: new UntypedFormControl(this.resource.company_name, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
+      slogan: new UntypedFormControl(this.resource.slogan, [Validators.required, Validators.pattern(environment.obsRegex), Validators.maxLength(1000), Validators.minLength(20)]),
+      about: new UntypedFormControl(this.resource.about.replace(/<br>/gi, '\n'), [Validators.required, Validators.pattern(environment.aboutRegex), Validators.maxLength(5000), Validators.minLength(20)]),
+      mission: new UntypedFormControl(this.resource.mission.replace(/<br>/gi, '\n'), [Validators.required, Validators.pattern(environment.aboutRegex), Validators.maxLength(5000), Validators.minLength(20)]),
+      vision: new UntypedFormControl(this.resource.vision.replace(/<br>/gi, '\n'), [Validators.required, Validators.pattern(environment.aboutRegex), Validators.maxLength(5000), Validators.minLength(20)]),
+      contact_phone: new UntypedFormControl(this.resource.contact_phone, [Validators.pattern(environment.phonesRegex), Validators.maxLength(35), Validators.minLength(8)]),
+      contact_mail: new UntypedFormControl(this.resource.contact_mail, [Validators.required, Validators.email]),
+      address: new UntypedFormControl(this.resource.address, [Validators.pattern(environment.addressRegex), Validators.maxLength(90), Validators.minLength(2)]),
+      country: new UntypedFormControl(this.resource.country, [Validators.required, Validators.pattern(environment.addressRegex), Validators.maxLength(90), Validators.minLength(2)]),
+      city: new UntypedFormControl(this.resource.city, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
+      terms_filename: new UntypedFormControl(this.resource.terms_filename, [Validators.required]),
+      lang: new UntypedFormControl(this.resource.lang, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
     })
 
     this.filteredCountries = this.country.valueChanges.pipe(

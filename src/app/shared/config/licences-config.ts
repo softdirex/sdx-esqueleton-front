@@ -10,7 +10,7 @@ export class LicencesConfig {
    * @returns 
    */
      public expirationStatus(licence: any): number {
-        var licencePeriods = licence.type
+        let licencePeriods = licence.type
         const now: any = new Date()
         if (licence.expired_at != null) {
           const date = new Date(licence.expired_at).getTime()

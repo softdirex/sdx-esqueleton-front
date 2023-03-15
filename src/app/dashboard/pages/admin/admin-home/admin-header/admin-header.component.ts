@@ -75,7 +75,7 @@ export class AdminHeaderComponent implements OnInit {
   }
 
   getCustomerName() {
-    var name = 'NO-NAME'
+    let name = 'NO-NAME'
     if (this.sessionObject.customer) {
       name = this.sessionObject.customer.email
       if (this.sessionObject.customer.personal_data) {
@@ -89,7 +89,7 @@ export class AdminHeaderComponent implements OnInit {
   }
 
   getCompanyName() {
-    var name = 'NO-NAME'
+    let name = 'NO-NAME'
     if (this.sessionObject.customer) {
       if (this.sessionObject.customer.company) {
         name = this.sessionObject.customer.company.name

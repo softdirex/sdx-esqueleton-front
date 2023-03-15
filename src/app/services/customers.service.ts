@@ -32,7 +32,7 @@ export class CustomersService {
         'product-id': environment.productId + ''
       })
     }
-    var request = {
+    let request = {
       flow: arg.flow,
       lang: arg.lang,
       pwd: arg.pwd,

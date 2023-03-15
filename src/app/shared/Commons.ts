@@ -214,7 +214,7 @@ export class Commons {
     }
 
     static getCusRol(arg: string) {
-        var item = this.USER_ROLES.find(item => item.value === arg.toUpperCase())
+        let item = this.USER_ROLES.find(item => item.value === arg.toUpperCase())
         if (item == undefined) {
             return this.USER_ROLES[0].name
         } else {
@@ -223,7 +223,7 @@ export class Commons {
     }
 
     static getCusType(arg: string) {
-        var item = this.USER_TYPES.find(item => item.value === arg.toUpperCase())
+        let item = this.USER_TYPES.find(item => item.value === arg.toUpperCase())
         if (item == undefined) {
             return this.USER_TYPES[0].name
         } else {
@@ -247,7 +247,7 @@ export class Commons {
      */
     static decryptDataGlobal(encryptedData: string | null): any {
         if (encryptedData != null && encryptedData != undefined) {
-            var bytes = CryptoJS.AES.decrypt(encryptedData, environment.coreTransactionKey);
+            let bytes = CryptoJS.AES.decrypt(encryptedData, environment.coreTransactionKey);
             return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
         }
         return null
@@ -311,7 +311,7 @@ export class Commons {
 
     static sessionReloadCustomer(customer: any) {
         const now: Date = new Date()
-        var sessionSign = this.decryptDataGlobal(sessionStorage.getItem(this.SESSION_KEY))
+        let sessionSign = this.decryptDataGlobal(sessionStorage.getItem(this.SESSION_KEY))
         sessionSign.customer = customer
         sessionSign.time = now.getTime()
         sessionStorage.setItem(this.SESSION_KEY, this.encryptDataGlobal(sessionSign))
@@ -341,7 +341,7 @@ export class Commons {
     }
 
     static sessionIsSuperUser(): any {
-        var isSuper: boolean = false
+        let isSuper: boolean = false
         const sessionSign: any = this.decryptDataGlobal(sessionStorage.getItem(this.SESSION_KEY))
 
         if (sessionSign != null && this.validField(sessionSign.customer.rol)) {
@@ -351,7 +351,7 @@ export class Commons {
     }
 
     static sessionRol(): string {
-        var rol: string = this.USER_ROL_BASIC
+        let rol: string = this.USER_ROL_BASIC
         const sessionSign: any = this.decryptDataGlobal(sessionStorage.getItem(this.SESSION_KEY))
 
         if (sessionSign != null && this.validField(sessionSign.customer.rol)) {
@@ -361,7 +361,7 @@ export class Commons {
     }
 
     static sessionCredentials(): string {
-        var credentials: string = ''
+        let credentials: string = ''
         const sessionSign: any = this.decryptDataGlobal(sessionStorage.getItem(this.SESSION_KEY))
 
         if (sessionSign != null && this.validField(sessionSign.key)) {
@@ -389,7 +389,7 @@ export class Commons {
     static getOwnerConfig(): OwnerConfig | null {
         const result = this.decryptDataGlobal(sessionStorage.getItem(this.OWNER_KEY))
         if (result == null) {
-            var ownerDetail: OwnerConfig = {
+            let ownerDetail: OwnerConfig = {
                 company_name: environment.dfConfigCompanyName,
                 slogan: environment.dfConfigSlogan,
                 about: environment.dfConfigAbout,
@@ -472,7 +472,7 @@ export class Commons {
     }
 
     static getDefaultConfig(){
-        var ownerDetail: OwnerConfig = {
+        let ownerDetail: OwnerConfig = {
             company_name: environment.dfConfigCompanyName,
             slogan: environment.dfConfigSlogan,
             about: environment.dfConfigAbout,

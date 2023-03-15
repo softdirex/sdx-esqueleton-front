@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { map, Observable, startWith } from 'rxjs';
@@ -16,6 +16,7 @@ import { ConfirmModalComponent } from 'src/app/shared/modals/confirm-modal/confi
 import { NameFormatPipe } from 'src/app/shared/pipes/name-format.pipe';
 import { RutPipe } from 'src/app/shared/pipes/rut.pipe';
 import { environment } from 'src/environments/environment';
+import { ReCaptchaV3Service } from 'ng-recaptcha';
 
 @Component({
   selector: 'app-register',
@@ -39,12 +40,12 @@ export class RegisterComponent implements OnInit {
 
   /* -BEGIN- STEP_DOCUMENT_DATA Fields */
   documentDataTypes: any[] = Commons.DOCUMENT_DATA_TYPES
-  fDocumentData!: FormGroup
+  fDocumentData!: UntypedFormGroup
   personalDataSession?: PersonalData
   filteredCountriesDocumentData: Observable<Country[]> | null = null
   /* --END-- STEP_DOCUMENT_DATA Fields */
   /* -BEGIN- STEP_REGISTER Fields */
-  fPersonalData!: FormGroup
+  fPersonalData!: UntypedFormGroup
   pdReq?: PersonalDataRequest
   totalCustomers: number = 0
   genderTypes: any[] = Commons.GENDER_TYPES
@@ -58,12 +59,13 @@ export class RegisterComponent implements OnInit {
   validNames: string = ''
   /* --END-- STEP_REGISTER Fields */
   /* -BEGIN- STEP_CUSTOMER Fields */
-  fCustomer!: FormGroup
+  fCustomer!: UntypedFormGroup
   /* --END-- STEP_CUSTOMER Fields */
   loginPath: string = Commons.PATH_LOGIN
   termsConditionsPath: string = Commons.PATH_TERMS
   model: any
   loading: boolean = false
+  reCAPTCHAToken: string = ''
 
   constructor(
     private countriesService: CountriesService,
@@ -71,7 +73,8 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private langService: LanguageUtilService,
     private modalService: MdbModalService,
-    private nameFormat: NameFormatPipe
+    private nameFormat: NameFormatPipe,
+    private recaptchaV3Service: ReCaptchaV3Service
   ) { }
 
   ngOnInit() {
@@ -79,7 +82,7 @@ export class RegisterComponent implements OnInit {
       this.router.navigate([Commons.PATH_MAIN])
     }
     /* -BEGIN- STEP_DOCUMENT_DATA Instances */
-    var transientPDSession = sessionStorage.getItem('register')
+    let transientPDSession = sessionStorage.getItem('register')
     if (transientPDSession != null) {
       this.personalDataSession = JSON.parse(transientPDSession)
     } else {
@@ -87,14 +90,14 @@ export class RegisterComponent implements OnInit {
     }
 
     this.currentStep = this.STEP_DOCUMENT_DATA
-    this.fDocumentData = new FormGroup({
-      docType: new FormControl((this.personalDataSession != undefined &&
+    this.fDocumentData = new UntypedFormGroup({
+      docType: new UntypedFormControl((this.personalDataSession != undefined &&
         this.personalDataSession.document_data != null) ?
         this.personalDataSession.document_data[0].type : '', [Validators.required]),
-      docValue: new FormControl((this.personalDataSession != undefined &&
+      docValue: new UntypedFormControl((this.personalDataSession != undefined &&
         this.personalDataSession.document_data != null) ?
         this.personalDataSession.document_data[0].value : '', [Validators.required, Validators.pattern(environment.documentDataRegex)]),
-      docCountry: new FormControl((this.personalDataSession != undefined &&
+      docCountry: new UntypedFormControl((this.personalDataSession != undefined &&
         this.personalDataSession.document_data != null) ?
         this.personalDataSession.document_data[0].country : '', [Validators.required, Validators.minLength(4)])
     })
@@ -108,34 +111,34 @@ export class RegisterComponent implements OnInit {
     );
     /* --END-- STEP_DOCUMENT_DATA Instances */
     /* -BEGIN- STEP_REGISTER Instances */
-    this.fPersonalData = new FormGroup({
-      name: new FormControl(
+    this.fPersonalData = new UntypedFormGroup({
+      name: new UntypedFormControl(
         (this.personalDataSession != undefined && this.personalDataSession.first_name != null)
           ? this.personalDataSession.first_name : '',
         [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
-      lastName: new FormControl(
+      lastName: new UntypedFormControl(
         (this.personalDataSession != undefined && this.personalDataSession.last_name != null)
           ? this.personalDataSession.last_name : '',
         [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
-      email: new FormControl(this.getContactDataFromSession('MAIL'), [Validators.required, Validators.email]),
-      phone: new FormControl(this.getContactDataFromSession('PHONE'), [Validators.required, Validators.pattern(environment.phonesRegex), Validators.maxLength(35), Validators.minLength(8)]),
-      gender: new FormControl((this.personalDataSession != undefined && this.personalDataSession.sex != null)
+      email: new UntypedFormControl(this.getContactDataFromSession('MAIL'), [Validators.required, Validators.email]),
+      phone: new UntypedFormControl(this.getContactDataFromSession('PHONE'), [Validators.required, Validators.pattern(environment.phonesRegex), Validators.maxLength(35), Validators.minLength(8)]),
+      gender: new UntypedFormControl((this.personalDataSession != undefined && this.personalDataSession.sex != null)
         ? this.personalDataSession.sex + '' : '', [Validators.required]),
-      birthday: new FormControl(
+      birthday: new UntypedFormControl(
         (this.personalDataSession != undefined && this.personalDataSession.birthday != null)
           ? new Date(this.personalDataSession.birthday) : '', [Validators.required]),
-      address: new FormControl((this.personalDataSession != undefined && this.personalDataSession.address != null)
+      address: new UntypedFormControl((this.personalDataSession != undefined && this.personalDataSession.address != null)
         ? this.personalDataSession.address : '', [Validators.required, Validators.pattern(environment.addressRegex), Validators.maxLength(90), Validators.minLength(2)]),
-      city: new FormControl(
+      city: new UntypedFormControl(
         (this.personalDataSession != undefined && this.personalDataSession.city != null)
           ? this.personalDataSession.city : '', [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
-      country: new FormControl(
+      country: new UntypedFormControl(
         (this.personalDataSession != undefined && this.personalDataSession.country != null)
           ? this.personalDataSession.country : '', [Validators.required, Validators.minLength(4), Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
-      pwd: new FormControl('', [Validators.required, Validators.pattern(environment.pwdRegex)]),
-      pwd2: new FormControl('', [Validators.required, Validators.pattern(environment.pwdRegex)]),
-      tcCheck: new FormControl(false, [Validators.required, Validators.requiredTrue]),
-      ppCheck: new FormControl(false, [Validators.required, Validators.requiredTrue]),
+      pwd: new UntypedFormControl('', [Validators.required, Validators.pattern(environment.pwdRegex)]),
+      pwd2: new UntypedFormControl('', [Validators.required, Validators.pattern(environment.pwdRegex)]),
+      tcCheck: new UntypedFormControl(false, [Validators.required, Validators.requiredTrue]),
+      ppCheck: new UntypedFormControl(false, [Validators.required, Validators.requiredTrue]),
     })
 
     this.filteredCountriesPersonalData = this.country.valueChanges.pipe(
@@ -150,12 +153,12 @@ export class RegisterComponent implements OnInit {
     this.pwd2.addValidators(this.sameValue(this.pwd))
     /* --END-- STEP_REGISTER Instances */
     /* -BEGIN- STEP_CUSTOMER Instances */
-    this.fCustomer = new FormGroup({
-      cusEmail: new FormControl('', [Validators.required, Validators.email]),
-      cusPwd: new FormControl('', [Validators.required, Validators.pattern(environment.pwdRegex)]),
-      cusPwd2: new FormControl('', [Validators.required, Validators.pattern(environment.pwdRegex)]),
-      cusTcCheck: new FormControl('', [Validators.required, Validators.requiredTrue]),
-      cusPpCheck: new FormControl('', [Validators.required, Validators.requiredTrue]),
+    this.fCustomer = new UntypedFormGroup({
+      cusEmail: new UntypedFormControl('', [Validators.required, Validators.email]),
+      cusPwd: new UntypedFormControl('', [Validators.required, Validators.pattern(environment.pwdRegex)]),
+      cusPwd2: new UntypedFormControl('', [Validators.required, Validators.pattern(environment.pwdRegex)]),
+      cusTcCheck: new UntypedFormControl('', [Validators.required, Validators.requiredTrue]),
+      cusPpCheck: new UntypedFormControl('', [Validators.required, Validators.requiredTrue]),
     })
     this.cusPwd2.addValidators(this.sameValue(this.cusPwd))
     /* --END-- STEP_CUSTOMER Instances */
@@ -245,7 +248,7 @@ export class RegisterComponent implements OnInit {
   get email() { return this.fPersonalData.get('email')!; }
   get phone() { return this.fPersonalData.get('phone')!; }
   get gender() { return this.fPersonalData.get('gender')!; }
-  get birthday() { return this.fPersonalData.get('birthday') as FormControl; }
+  get birthday() { return this.fPersonalData.get('birthday') as UntypedFormControl; }
   get address() { return this.fPersonalData.get('address')!; }
   get city() { return this.fPersonalData.get('city')!; }
   get country() { return this.fPersonalData.get('country')!; }
@@ -328,41 +331,44 @@ export class RegisterComponent implements OnInit {
   }
 
   toStep2() {
-    if (this.personalDataSession != undefined) {
-      this.personalDataSession.country = this.docCountry.value
-      this.country.setValue(this.docCountry.value)
-      this.personalDataSession.document_data = [{
-        id: null,
-        type: this.docType.value.toUpperCase(),
-        value: this.docValue.value,
-        country: this.docCountry.value,
-        status: null,
-        created_at: null,
-        updates_at: null
-      }]
-      sessionStorage.setItem('register', JSON.stringify(this.personalDataSession))
-    }
-
-    this.loading = true
-    this.customersService.getBasicPersonalData(this.docType.value, this.docValue.value, this.docCountry.value)
-      .subscribe({
-        next: (v) => {
-          this.loading = false
-          if (v != null) {
-            this.currentStep = this.STEP_OPTION_SELECT
-            this.pdReq = v
-            this.totalCustomers = v.total_customers
-          } else {
-            this.currentStep = this.STEP_REGISTER
-          }
-        },
-        error: (e) => {
-          this.loading = false
-          this.currentStep = this.STEP_REGISTER
-        },
-        complete: () => console.info('request complete')
+    this.recaptchaV3Service.execute('esqueleton_create_personaldata').subscribe((token: string) => {
+      this.reCAPTCHAToken = token
+      if (this.personalDataSession != undefined) {
+        this.personalDataSession.country = this.docCountry.value
+        this.country.setValue(this.docCountry.value)
+        this.personalDataSession.document_data = [{
+          id: null,
+          type: this.docType.value.toUpperCase(),
+          value: this.docValue.value,
+          country: this.docCountry.value,
+          status: null,
+          created_at: null,
+          updates_at: null
+        }]
+        sessionStorage.setItem('register', JSON.stringify(this.personalDataSession))
       }
-      )
+  
+      this.loading = true
+      this.customersService.getBasicPersonalData(this.docType.value, this.docValue.value, this.docCountry.value)
+        .subscribe({
+          next: (v) => {
+            this.loading = false
+            if (v != null) {
+              this.currentStep = this.STEP_OPTION_SELECT
+              this.pdReq = v
+              this.totalCustomers = v.total_customers
+            } else {
+              this.currentStep = this.STEP_REGISTER
+            }
+          },
+          error: (e) => {
+            this.loading = false
+            this.currentStep = this.STEP_REGISTER
+          },
+          complete: () => console.info('request complete')
+        }
+        )
+    })
   }
 
   getCustomerName(): string {
@@ -399,72 +405,74 @@ export class RegisterComponent implements OnInit {
   }
 
   createCustomerWithPersonalData() {
-
-    this.pdReq = {
-      first_name: this.nameFormat.transform(this.name.value),
-      last_name: this.nameFormat.transform(this.lastName.value),
-      address: this.nameFormat.transform(this.address.value),
-      city: this.nameFormat.transform(this.city.value),
-      province_type: Commons.PROVINCE_TYPES[0].value,
-      province_value: '',
-      country: this.country.value,
-      sex: Number.parseInt(this.gender.value),
-      birthday: this.formatBirthdayDate(this.birthday.value),
-      status: null,
-      document_data: [
-        {
-          type: this.docType.value.toUpperCase(),
-          value: this.docValue.value.toUpperCase(),
-          country: this.docCountry.value.toUpperCase()
-        }
-      ],
-      contact_data: [
-        {
-          type: 'PHONE',
-          value: this.phone.value.toUpperCase()
-        },
-        {
-          type: 'MAIL',
-          value: this.email.value.toLowerCase()
-        }
-      ]
-    }
-    const customer: CustomerRequest = {
-      lang: this.langService.getLangActive(),
-      email: this.email.value.toLowerCase(),
-      status: Commons.STATUS_ACTIVE,
-      personal_data: this.pdReq,
-      type: Commons.USER_TYPE_BASIC,
-      rol: Commons.USER_ROL_BASIC,
-      password: this.pwd.value,
-      avatar: Commons.DF_AVATAR
-    }
-    sessionStorage.setItem('register', JSON.stringify(this.pdReq))
-    customer.personal_data.birthday = this.formatBirthdayDate(this.birthday.value)
-    this.loading = true
-    this.customersService.registerCustomer(customer)
-      .subscribe(
-        {
-          next: (v) => {
-            this.loading = false
-            if (v != null) {
-              this.succesfullStep()
-            }
+    this.recaptchaV3Service.execute('esqueleton_register').subscribe((token: string) => {
+      this.reCAPTCHAToken = token
+      this.pdReq = {
+        first_name: this.nameFormat.transform(this.name.value),
+        last_name: this.nameFormat.transform(this.lastName.value),
+        address: this.nameFormat.transform(this.address.value),
+        city: this.nameFormat.transform(this.city.value),
+        province_type: Commons.PROVINCE_TYPES[0].value,
+        province_value: '',
+        country: this.country.value,
+        sex: Number.parseInt(this.gender.value),
+        birthday: this.formatBirthdayDate(this.birthday.value),
+        status: null,
+        document_data: [
+          {
+            type: this.docType.value.toUpperCase(),
+            value: this.docValue.value.toUpperCase(),
+            country: this.docCountry.value.toUpperCase()
+          }
+        ],
+        contact_data: [
+          {
+            type: 'PHONE',
+            value: this.phone.value.toUpperCase()
           },
-          error: (e) => {
-            this.loading = false
-            this.mapServiceValidationResponse((e.error != null && e.error != undefined) ? e.error.detail : 'ERROR')
-          },
-          complete: () => { }
-        }
-      )
+          {
+            type: 'MAIL',
+            value: this.email.value.toLowerCase()
+          }
+        ]
+      }
+      const customer: CustomerRequest = {
+        lang: this.langService.getLangActive(),
+        email: this.email.value.toLowerCase(),
+        status: Commons.STATUS_ACTIVE,
+        personal_data: this.pdReq,
+        type: Commons.USER_TYPE_BASIC,
+        rol: Commons.USER_ROL_BASIC,
+        password: this.pwd.value,
+        avatar: Commons.DF_AVATAR
+      }
+      sessionStorage.setItem('register', JSON.stringify(this.pdReq))
+      customer.personal_data.birthday = this.formatBirthdayDate(this.birthday.value)
+      this.loading = true
+      this.customersService.registerCustomer(customer)
+        .subscribe(
+          {
+            next: (v) => {
+              this.loading = false
+              if (v != null) {
+                this.succesfullStep()
+              }
+            },
+            error: (e) => {
+              this.loading = false
+              this.mapServiceValidationResponse((e.error != null && e.error != undefined) ? e.error.detail : 'ERROR')
+            },
+            complete: () => { }
+          }
+        )
+    })
   }
 
   formatBirthdayDate(arg: any): string | null {
 
     if (Commons.validField(arg)) {
-      var month = arg.month + ''
-      var day = arg.day + ''
+      let month = arg.month + ''
+      let day = arg.day + ''
       return arg.year + '-' + month.padStart(2, '0') + '-' + day.padStart(2, '0')
     }
     return null
@@ -494,35 +502,36 @@ export class RegisterComponent implements OnInit {
   }
 
   createCustomer() {
-
-    const customer: CustomerRequest = {
-      lang: this.langService.getLangActive(),
-      email: this.cusEmail.value.toLowerCase(),
-      status: Commons.STATUS_ACTIVE,
-      personal_data: this.pdReq,
-      type: Commons.USER_TYPE_BASIC,
-      rol: Commons.USER_ROL_BASIC,
-      password: this.cusPwd.value,
-      avatar: Commons.DF_AVATAR,
-    }
-    this.loading = true
-    this.customersService.registerCustomer(customer)
-      .subscribe(
-        {
-          next: (v) => {
-            this.loading = false
-            if (v != null) {
-              this.succesfullStep()
-            }
-          },
-          error: (e) => {
-            this.loading = false
-            this.mapServiceValidationResponse((e.error != null && e.error != undefined) ? e.error.detail : 'ERROR')
-          },
-          complete: () => { }
-        }
-      )
-
+    this.recaptchaV3Service.execute('esqueleton_create_customer').subscribe((token: string) => {
+      this.reCAPTCHAToken = token
+      const customer: CustomerRequest = {
+        lang: this.langService.getLangActive(),
+        email: this.cusEmail.value.toLowerCase(),
+        status: Commons.STATUS_ACTIVE,
+        personal_data: this.pdReq,
+        type: Commons.USER_TYPE_BASIC,
+        rol: Commons.USER_ROL_BASIC,
+        password: this.cusPwd.value,
+        avatar: Commons.DF_AVATAR,
+      }
+      this.loading = true
+      this.customersService.registerCustomer(customer)
+        .subscribe(
+          {
+            next: (v) => {
+              this.loading = false
+              if (v != null) {
+                this.succesfullStep()
+              }
+            },
+            error: (e) => {
+              this.loading = false
+              this.mapServiceValidationResponse((e.error != null && e.error != undefined) ? e.error.detail : 'ERROR')
+            },
+            complete: () => { }
+          }
+        )
+    })
   }
 
   succesfullStep() {

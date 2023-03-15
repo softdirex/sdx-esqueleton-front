@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { map, Observable, startWith } from 'rxjs';
@@ -55,7 +55,7 @@ export class ProfileComponent implements OnInit {
     company: {}
   }
   avatarFormValue: string = ''
-  form: FormGroup = new FormGroup({})
+  form: UntypedFormGroup = new UntypedFormGroup({})
   genderTypes: any[] = Commons.GENDER_TYPES
   provinceTypes: any[] = Commons.PROVINCE_TYPES
 
@@ -70,7 +70,7 @@ export class ProfileComponent implements OnInit {
   customerTypes: any[] = Commons.USER_TYPES
   customerRoles: any[] = Commons.USER_ROLES
 
-  cdForm: FormGroup = new FormGroup({})
+  cdForm: UntypedFormGroup = new UntypedFormGroup({})
   getScreenWidth: any;
   mobileWidth: number = Commons.MOBILE_WIDTH
 
@@ -144,21 +144,21 @@ export class ProfileComponent implements OnInit {
   }
 
   loadForm() {
-    this.form = new FormGroup({
-      lang: new FormControl(this.customer.lang, [Validators.required]),
-      email: new FormControl(this.customer.email, [Validators.required, Validators.email]),
-      type: new FormControl(this.customer.type, [Validators.required]),
-      rol: new FormControl(this.customer.rol, [Validators.required]),
-      avatar: new FormControl(this.customer.avatar, [Validators.required]),
-      first_name: new FormControl(this.personalData.first_name, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
-      last_name: new FormControl(this.personalData.last_name, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
-      address: new FormControl(this.personalData.address, [Validators.required, Validators.pattern(environment.addressRegex), Validators.maxLength(90), Validators.minLength(2)]),
-      city: new FormControl(this.personalData.city, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
-      provinceType: new FormControl(this.personalData.province_type, [Validators.required]),
-      provinceValue: new FormControl(this.personalData.province_value, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
-      country: new FormControl(this.personalData.country, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
-      gender: new FormControl(this.personalData.sex, [Validators.required]),
-      birthday: new FormControl(this.dateToForm(this.personalData.birthday), [Validators.required])
+    this.form = new UntypedFormGroup({
+      lang: new UntypedFormControl(this.customer.lang, [Validators.required]),
+      email: new UntypedFormControl(this.customer.email, [Validators.required, Validators.email]),
+      type: new UntypedFormControl(this.customer.type, [Validators.required]),
+      rol: new UntypedFormControl(this.customer.rol, [Validators.required]),
+      avatar: new UntypedFormControl(this.customer.avatar, [Validators.required]),
+      first_name: new UntypedFormControl(this.personalData.first_name, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
+      last_name: new UntypedFormControl(this.personalData.last_name, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
+      address: new UntypedFormControl(this.personalData.address, [Validators.required, Validators.pattern(environment.addressRegex), Validators.maxLength(90), Validators.minLength(2)]),
+      city: new UntypedFormControl(this.personalData.city, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
+      provinceType: new UntypedFormControl(this.personalData.province_type, [Validators.required]),
+      provinceValue: new UntypedFormControl(this.personalData.province_value, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
+      country: new UntypedFormControl(this.personalData.country, [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
+      gender: new UntypedFormControl(this.personalData.sex, [Validators.required]),
+      birthday: new UntypedFormControl(this.dateToForm(this.personalData.birthday), [Validators.required])
     })
 
 
@@ -184,15 +184,15 @@ export class ProfileComponent implements OnInit {
   }
 
   initCDForm() {
-    this.cdForm = new FormGroup({
-      cdField: new FormControl('', [Validators.required]),
-      cdValue: new FormControl('', [Validators.required])
+    this.cdForm = new UntypedFormGroup({
+      cdField: new UntypedFormControl('', [Validators.required]),
+      cdValue: new UntypedFormControl('', [Validators.required])
     })
   }
 
   dateToForm(date: any) {
     const splitter = date.split('-', 3)
-    var result = {
+    let result = {
       year: Number(splitter[0]),
       month: Number(splitter[1]),
       day: Number(splitter[2])
@@ -202,8 +202,8 @@ export class ProfileComponent implements OnInit {
 
   dateToJson(date: any) {
     if (Commons.validField(date)) {
-      var month = date.month + ''
-      var day = date.day + ''
+      let month = date.month + ''
+      let day = date.day + ''
       return date.year + '-' + month.padStart(2, '0') + '-' + day.padStart(2, '0')
     }
     return null
@@ -218,7 +218,7 @@ export class ProfileComponent implements OnInit {
   get first_name() { return this.form.get('first_name')!; }
   get last_name() { return this.form.get('last_name')!; }
   get gender() { return this.form.get('gender')!; }
-  get birthday() { return this.form.get('birthday') as FormControl; }
+  get birthday() { return this.form.get('birthday') as UntypedFormControl; }
   get address() { return this.form.get('address')!; }
   get provinceType() { return this.form.get('provinceType')!; }
   get provinceValue() { return this.form.get('provinceValue')!; }
@@ -338,7 +338,7 @@ export class ProfileComponent implements OnInit {
   }
 
   get companyName() {
-    var companyName = this.langService.translate('label.basic-view')
+    let companyName = this.langService.translate('label.basic-view')
     if (Commons.validField(this.customer) && Commons.validField(this.customer.id) && this.customer.id != 0) {
       companyName = this.langService.translate('label.customer-without-company')
     }
@@ -358,7 +358,7 @@ export class ProfileComponent implements OnInit {
   }
 
   editCustomer() {
-    var validToRequest = true
+    let validToRequest = true
     this.customer.lang = this.lang.value
     this.langService.setLanguage(this.lang.value)
     this.customer.type = this.type.value
@@ -375,7 +375,7 @@ export class ProfileComponent implements OnInit {
     this.customer.personal_data.sex = this.gender.value
     this.customer.personal_data.birthday = this.dateToJson(this.birthday.value)
     this.customer.personal_data.sex = this.gender.value
-    var contact_data = []
+    let contact_data = []
     for (let cdItem of this.contactTypeInSelect) {
       if (cdItem.enabled) {
         contact_data.push({
@@ -448,8 +448,8 @@ export class ProfileComponent implements OnInit {
     const field = this.cdField.value
     const fieldValue = this.cdValue.value
 
-    var valid = true
-    var regexp = new RegExp(environment.rrssRegex)
+    let valid = true
+    let regexp = new RegExp(environment.rrssRegex)
     if (field.startsWith('PHONE')) {
       regexp = new RegExp(environment.phonesRegex)
       valid = regexp.test(fieldValue);

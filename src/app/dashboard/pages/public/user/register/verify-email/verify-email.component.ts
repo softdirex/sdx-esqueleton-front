@@ -6,6 +6,7 @@ import { LanguageUtilService } from 'src/app/services/language-util.service';
 import { Commons } from 'src/app/shared/Commons';
 import { TransientAuth } from 'src/app/shared/interfaces/core/transient-auth';
 import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
+import { ReCaptchaV3Service } from 'ng-recaptcha';
 
 @Component({
   selector: 'app-verify-email',
@@ -31,13 +32,15 @@ export class VerifyEmailComponent implements OnInit {
   getScreenWidth: any;
   mobileWidth: number = Commons.MOBILE_WIDTH
   loading:boolean = false
+  reCAPTCHAToken: string = ''
 
   constructor(
     private customerService: CustomersService,
     private route: ActivatedRoute,
     private langService: LanguageUtilService,
     private modalService: MdbModalService,
-    private router: Router
+    private router: Router,
+    private recaptchaV3Service: ReCaptchaV3Service
   ) { }
 
   ngOnInit(): void {
@@ -62,7 +65,9 @@ export class VerifyEmailComponent implements OnInit {
   }
 
   verify() {
-    this.transientData.flow = this.FLOW_REGISTER
+    this.recaptchaV3Service.execute('esqueleton_verify_email').subscribe((token: string) => {
+      this.reCAPTCHAToken = token
+      this.transientData.flow = this.FLOW_REGISTER
     if (!Commons.validField(this.transientData.token) && this.transientData.token == '') {
       this.router.navigate([Commons.PATH_LOGIN])
       this.openModal('label.unknown-error', 'label.unknown-error-contact-retry', Commons.ICON_ERROR)
@@ -92,7 +97,7 @@ export class VerifyEmailComponent implements OnInit {
         }
         )
     }
-
+    })
   }
 
 }

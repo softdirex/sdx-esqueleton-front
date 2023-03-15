@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { CustomersService } from 'src/app/services/customers.service';
 import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
 import { AlertLinkModalComponent } from 'src/app/shared/modals/alert-link-modal/alert-link-modal.component';
@@ -9,6 +9,7 @@ import { OwnerConfig } from 'src/app/shared/interfaces/core/owner-config';
 import { Commons } from 'src/app/shared/Commons';
 import { ServiceResponse } from 'src/app/shared/interfaces/core/service-response';
 import { environment } from 'src/environments/environment';
+import { ReCaptchaV3Service } from 'ng-recaptcha';
 
 @Component({
   selector: 'app-password-recovery',
@@ -17,7 +18,7 @@ import { environment } from 'src/environments/environment';
 })
 export class PasswordRecoveryComponent implements OnInit {
 
-  form!: FormGroup;
+  form!: UntypedFormGroup;
 
   ownerDetail: OwnerConfig = Commons.emptyOwnerConfig()
 
@@ -35,24 +36,28 @@ export class PasswordRecoveryComponent implements OnInit {
   registerPath: string = Commons.PATH_REGISTER
   PATH_TERMS = '/' + Commons.PATH_TERMS + '/' + Commons.TERM_CODES[0].code
   PATH_CONTACT = '/' + Commons.PATH_CONTACT
+  reCAPTCHAToken: string = ''
 
   constructor(
     private customerService: CustomersService,
     private router: Router,
-    private modalService: MdbModalService
+    private modalService: MdbModalService,
+    private recaptchaV3Service: ReCaptchaV3Service
   ) { }
 
   ngOnInit(): void {
     this.ownerDetail = (Commons.getOwner() != null) ? Commons.getOwner().config : Commons.getDefaultConfig()
-    this.form = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email])
+    this.form = new UntypedFormGroup({
+      email: new UntypedFormControl('', [Validators.required, Validators.email])
     })
   }
 
   get email() { return this.form.get('email')!; }
 
   sendRequest(email: string) {
-    this.step = this.STEP_LOADING
+    this.recaptchaV3Service.execute('esqueleton_password_recovery').subscribe((token: string) => {
+      this.reCAPTCHAToken = token
+      this.step = this.STEP_LOADING
     this.customerService.sendPasswordRecoveryRequest(email)
       .subscribe({
         next: (v) => {
@@ -122,6 +127,7 @@ export class PasswordRecoveryComponent implements OnInit {
         complete: () => console.info('complete')
       }
       )
+    })
   }
 
   return() {

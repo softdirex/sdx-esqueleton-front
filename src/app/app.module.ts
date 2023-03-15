@@ -17,6 +17,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+import { environment } from 'src/environments/environment';
+import { RecaptchaV3Module, RECAPTCHA_V3_SITE_KEY } from 'ng-recaptcha';
 
 @NgModule({
   declarations: [
@@ -40,9 +42,15 @@ import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
-    NgIdleKeepaliveModule.forRoot()
+    NgIdleKeepaliveModule.forRoot(),
+    RecaptchaV3Module
   ],
-  providers: [],
+  providers: [
+    {
+      provide: RECAPTCHA_V3_SITE_KEY,
+      useValue: environment.recaptcha.siteKey,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

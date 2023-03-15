@@ -87,7 +87,7 @@ export class HeaderComponent implements OnInit {
   }
 
   getCustomerName() {
-    var name = 'NO-NAME'
+    let name = 'NO-NAME'
     if (this.sessionObject.customer) {
       name = this.sessionObject.customer.email
       if (this.sessionObject.customer.personal_data) {

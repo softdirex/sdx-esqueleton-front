@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { CustomersService } from 'src/app/services/customers.service';
 import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from 'src/app/services/session.service';
 import { LanguageUtilService } from 'src/app/services/language-util.service';
 import { Commons } from 'src/app/shared/Commons';
-import { Buffer } from 'buffer';
+import { ReCaptchaV3Service } from 'ng-recaptcha';
 
 @Component({
   selector: 'app-login',
@@ -17,8 +17,8 @@ import { Buffer } from 'buffer';
 })
 export class LoginComponent implements OnInit {
 
-  email = new FormControl('', [Validators.required, Validators.email]);
-  pwd = new FormControl('', [Validators.required]);
+  email = new UntypedFormControl('', [Validators.required, Validators.email]);
+  pwd = new UntypedFormControl('', [Validators.required]);
 
   linkRecoveryPw = Commons.PATH_PWD_REC
   linkRegister = Commons.PATH_REGISTER
@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
   getScreenWidth: any;
   mobileWidth: number = Commons.MOBILE_WIDTH
   loading:boolean = false
+  reCAPTCHAToken: string = ''
 
   constructor(
     private customerService: CustomersService,
@@ -38,6 +39,7 @@ export class LoginComponent implements OnInit {
     private sessionService: SessionService,
     private router: Router,
     private langService: LanguageUtilService,
+    private recaptchaV3Service: ReCaptchaV3Service
   ) { }
 
   ngOnInit(): void {
@@ -74,11 +76,13 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    const pwd = this.pwd.value
+    this.recaptchaV3Service.execute('esqueleton_login').subscribe((token: string) => {
+      this.reCAPTCHAToken = token
+      const pwd = this.pwd.value
     if (pwd.length == 0) {
       this.openModal('login.credentials-error', 'login.recovery-invite', Commons.ICON_WARNING)
     } else {
-      let credentials = Buffer.from(this.email.value + ':' + this.pwd.value).toString('base64');
+      let credentials = window.btoa(this.email.value + ':' + this.pwd.value)
       this.loading = true
       this.customerService.loginCustomer(this.email.value.toLowerCase(), credentials)
         .subscribe(
@@ -135,7 +139,7 @@ export class LoginComponent implements OnInit {
           }
         )
     }
-    //this.router.navigate(['dashboard'])
+    })
   }
 
   openModal(title: string, message: string, icon: string) {

@@ -23,7 +23,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "allowedCommonJsDependencies": [
-              "lodash"
+              "flat",
+              "@ckeditor/ckeditor5-build-decoupled-document"
             ],
             "assets": [
               "src/favicon.ico",
@@ -144,5 +145,7 @@
       }
     }
   },
-  "defaultProject": "sdxFront"
+  "cli": {
+    "analytics": false
+  }
 }

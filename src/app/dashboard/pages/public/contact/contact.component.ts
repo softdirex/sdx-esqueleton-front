@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { OwnerConfig } from 'src/app/shared/interfaces/core/owner-config';
 import { OwnerConfigService } from 'src/app/services/owner-config.service';
@@ -7,6 +7,7 @@ import { Commons } from 'src/app/shared/Commons';
 import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
 import { NameFormatPipe } from 'src/app/shared/pipes/name-format.pipe';
 import { environment } from 'src/environments/environment';
+import { ReCaptchaV3Service } from 'ng-recaptcha';
 
 @Component({
   selector: 'app-contact',
@@ -15,21 +16,20 @@ import { environment } from 'src/environments/environment';
 })
 export class ContactComponent implements OnInit {
 
-  enableContactForm: boolean = false
-
-
   ownerDetail: OwnerConfig = Commons.emptyOwnerConfig()
 
-  form: FormGroup = new FormGroup({})
+  form: UntypedFormGroup = new UntypedFormGroup({})
 
   PATH_ABOUT = '/' + Commons.PATH_ABOUT
   alertModal: MdbModalRef<AlertModalComponent> | null = null;
   loading:boolean=false
+  reCAPTCHAToken: string = ''
 
   constructor(
     private ownerConfigService: OwnerConfigService,
     private nameFormat: NameFormatPipe,
-    private modalService: MdbModalService
+    private modalService: MdbModalService,
+    private recaptchaV3Service: ReCaptchaV3Service
   ) { }
 
   ngOnInit(): void {
@@ -38,12 +38,12 @@ export class ContactComponent implements OnInit {
   }
 
   loadForm() {
-    this.form = new FormGroup({
-      first_name: new FormControl('', [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
-      last_name: new FormControl('', [Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
-      phone: new FormControl('', [Validators.pattern(environment.phonesRegex), Validators.maxLength(35), Validators.minLength(8)]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      obs: new FormControl('', [Validators.pattern(environment.obsRegex)])
+    this.form = new UntypedFormGroup({
+      first_name: new UntypedFormControl('', [Validators.required, Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
+      last_name: new UntypedFormControl('', [Validators.pattern(environment.namesRegex), Validators.maxLength(90), Validators.minLength(2)]),
+      phone: new UntypedFormControl('', [Validators.pattern(environment.phonesRegex), Validators.maxLength(35), Validators.minLength(8)]),
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      obs: new UntypedFormControl('', [Validators.pattern(environment.obsRegex), Validators.maxLength(255), Validators.minLength(8)])
     })
 
   }
@@ -98,6 +98,12 @@ export class ContactComponent implements OnInit {
     if (field.hasError('validCountry')) {
       return 'validations.invalid-country'
     }
+    if (field.hasError('maxlength')) {
+      return 'validations.maxlength'
+    }
+    if (field.hasError('minlength')) {
+      return 'validations.minlength'
+    }
     if (field.errors != null && field.errors.pattern != null &&
       field.errors.pattern.requiredPattern === environment.pwdRegex
     ) {
@@ -107,13 +113,10 @@ export class ContactComponent implements OnInit {
     return field.hasError('pattern') ? 'validations.invalid-field' : '';
   }
 
-  enable() {
-    this.enableContactForm = !this.enableContactForm
-  }
-
   send() {
-    this.enable()
-    var names = this.nameFormat.transform(this.first_name.value)
+    this.recaptchaV3Service.execute('esqueleton_contact').subscribe((token: string) => {
+      this.reCAPTCHAToken = token
+      let names = this.nameFormat.transform(this.first_name.value)
     if (Commons.validField(this.last_name.value)) {
       names = names + ' ' + this.nameFormat.transform(this.last_name.value)
     }
@@ -138,6 +141,7 @@ export class ContactComponent implements OnInit {
         complete: () => { this.loadForm() }
       }
     )
+    })
   }
 
   openModal(title: string, message: string, icon: string) {

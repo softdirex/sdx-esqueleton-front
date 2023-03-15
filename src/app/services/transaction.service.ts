@@ -18,7 +18,7 @@ export class TransactionService {
         Authorization: 'Basic ' + Commons.sessionCredentials()
       })
     }
-    var request = {
+    let request = {
       plan: { id: planId },
       company: { id: companyId },
       status: 2
