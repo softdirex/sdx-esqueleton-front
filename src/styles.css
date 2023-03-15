@@ -9,3 +9,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin-right: auto;
     width: 10%;
 }
+
+.grecaptcha-badge {
+    visibility: hidden !important;
+}
