@@ -1,0 +1,100 @@
+<div *ngIf="!loading" class="col-12">
+    <div class="row">
+        <div class="col-12 mt-2 text-right">
+            <button class="btn btn-warning btn-extra-small" (click)="close()" placement="bottom"
+                ngbTooltip="Cerrar menú">Cerrar</button>
+        </div>
+        <div class="col-12">
+            <h5 class="text-center">Cotizacion</h5>
+        </div>
+
+        <div class="col-12">
+            <hr class="card-header">
+            <div class="card-header">
+
+                <div class="row">
+                    <div *ngIf="!loadingFile" class="col-{{isMobile?'12':'6'}} text-left card">
+                        <h6 class="mt-2 ">Exportar</h6>
+                        <div class="row">
+                            <div class="col-6 text-center mb-2">
+                                <button class="btn btn-danger btn-extra-small"
+                                    (click)="downloadFile('pdf')">PDF</button>
+                            </div>
+                            <div class="col-6 text-center mb-2">
+                                <button class="btn btn-success btn-extra-small"
+                                    (click)="downloadFile('excel')">EXCEL</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="loadingFile" class="col-{{isMobile?'12':'6'}} text-left card">
+                        <img class="img-loading" src="./assets/img/gif/loading.gif">
+                    </div>
+                    <div *ngIf="!loadingSent" class="col-{{isMobile?'12':'6'}} text-left card">
+                        <h6 class="mt-2">Enviar a</h6>
+                        <div class="row">
+                            <div class="col-6 text-center mb-2 form-group">
+                                <mat-form-field class="w-100">
+                                    <input matInput placeholder="Seleccionar proveedor" [formControl]="providerControl"
+                                        [matAutocomplete]="auto">
+                                    <mat-autocomplete #auto="matAutocomplete">
+                                        <mat-option *ngFor="let provider of filteredProviders | async"
+                                            [value]="provider.email">
+                                            {{ provider.name }}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-6 mt-1">
+                                <button class="btn btn-success btn-small" (click)="sendQuote()">Enviar</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div *ngIf="loadingSent" class="col-{{isMobile?'12':'6'}} text-left card">
+                        <img class="img-loading" src="./assets/img/gif/loading.gif">
+                    </div>
+                </div>
+            </div>
+
+            <table class="table shop_table shop_table_responsive cart">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Producto</th>
+                        <th>Categoria</th>
+                        <th>Ubicación</th>
+                        <th>Información</th>
+                        <th>Cantidad</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let info of products">
+                        <hr *ngIf="isMobile" class="card-header border-0" />
+                        <td data-title="Código">{{info.item.bar_code}}</td>
+                        <td data-title="Producto">{{info.item.name}}</td>
+                        <td data-title="Categoria">{{info.item.category}}</td>
+                        <td data-title="Ubicación">{{info.item.location_desc}}</td>
+                        <td data-title="Información" [innerHTML]="getAlert(info)"></td>
+                        <td data-title="Cantidad"><input type="number" class="form-control-sm"
+                                [(ngModel)]="info.quantity">
+                        </td>
+                        <td class="product-quantity" data-title="Acción"><a class="btn btn-danger btn-extra-small ml-2"
+                                (click)="remove(info)" placement="bottom" ngbTooltip="Quitar producto de la lista"><i
+                                    class="tf-ion-ios-trash"></i></a><a class="btn btn-info btn-extra-small"
+                                (click)="openItem(info.item)" placement="bottom"
+                                ngbTooltip="Detalle del producto">Ver</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-12 mt-2" *ngIf="products && products.length > 0">
+            <ngb-pagination [collectionSize]="totalItems" [pageSize]="limit" [(page)]="page" [maxSize]="5"
+                [boundaryLinks]="true" (pageChange)="loadItems()" aria-label="Default pagination" />
+        </div>
+    </div>
+</div>
+
+<div *ngIf="loading" class="row">
+    <img class="img-loading" src="./assets/img/gif/loading.gif">
+</div>

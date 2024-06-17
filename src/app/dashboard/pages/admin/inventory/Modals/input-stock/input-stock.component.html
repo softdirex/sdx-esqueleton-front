@@ -1,0 +1,38 @@
+<div *ngIf="!loading" class="grid-container">
+    <h4 class="text-center mt-3">{{product.name}}</h4>
+    <h5 class="text-center mt-3">{{product.location_desc}}</h5>
+    <h6 *ngIf="option==INCREASE" class="text-center mt-3">Aumentar stock</h6>
+    <h6 *ngIf="option==DECREASE" class="text-center mt-3">Reducir stock</h6>
+    <div class="row ml-3 mr-3 mt-3 mb-3">
+        <div class="col-6">
+            <label>Stock actual</label>
+            <input class="form-control" type="number" [value]="product.stock" disabled>
+        </div>
+        <div class="col-6">
+            <label>Ingresar stock a {{option==INCREASE ? 'aumentar':'reducir'}}</label>
+            <input class="form-control" type="number" [(ngModel)]="quantity">
+        </div>
+        <div class="col-12 mb-3">
+            <label>Nota adicional</label>
+            <textarea class="form-control" rows="3" cols="100" maxlength="255"
+                [(ngModel)]="note"></textarea><!--formControlName="notes"-->
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <div *ngIf="errorMessage" class="col-12">
+            <h6 class="alert-warning text-center">{{errorMessage}}</h6>
+        </div>
+        <button type="button" class="btn btn-success btn-extra-small" (click)="onSubmit()">Guardar</button>
+        <button type="button" ngbAutofocus class="btn btn-danger btn-extra-small" (click)="cancel()">
+            {{ 'label.cancel' | transloco }}
+        </button>
+    </div>
+</div>
+
+<div *ngIf="loading" class="grid-container">
+    <div class="modal-body">
+        <h5 class="text-center">Espere un momento...</h5>
+        <img class="img-loading" src="./assets/img/gif/loading.gif">
+    </div>
+</div>

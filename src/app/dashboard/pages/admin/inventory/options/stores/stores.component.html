@@ -1,0 +1,87 @@
+<div *ngIf="!loading" class="col-12">
+    <div class="row">
+        <div class="col-12 mt-2 text-right">
+            <button class="btn btn-warning btn-extra-small ml-2" (click)="close()" placement="bottom" ngbTooltip="Cerrar menú">Cerrar</button>
+        </div>
+        <div class="col-12">
+            <h5 class="text-center">Control de bodegas</h5>
+        </div>
+    </div>
+    
+    
+    <app-open-store [store]="store" (closed)="onChangedStore($event)"></app-open-store>
+    <hr>
+    <div class="text-center mb-2">
+        <button *ngIf="!showMore && store" class="btn btn-main-transparent align-center" (click)="show()">Más bodegas <i
+                class="tf-ion-android-arrow-dropdown"></i></button>
+        <button *ngIf="showMore && store" class="btn btn-main-transparent" (click)="show()">Más bodegas <i
+                class="tf-ion-android-arrow-dropup"></i></button>
+    </div>
+
+    <div  *ngIf="showMore" class="row justify-content-center" >
+        <div *ngIf="isMobile" class="col-12 mb-2 mt-2 text-right">
+            <button class="btn btn-success btn-extra-small ml-2" (click)="add()" placement="bottom" ngbTooltip="Agregar bodega">Agregar</button>
+        </div>
+        <div class="col-{{isMobile ? '12':'8'}} mb-2 text-right">
+            <input type="search" class="form-control" (search)="loadStores()" [formControl]="inputSearch"
+                [attr.placeholder]="'label.search-by-name' | transloco" />
+        </div>
+        <div *ngIf="!isMobile" class="col-2 mb-2 mt-2 text-right">
+            <button class="btn btn-success btn-extra-small ml-2" (click)="add()" placement="bottom" ngbTooltip="Agregar bodega">Agregar</button>
+        </div>
+        <div class="card col-{{(isMobile) ? '12 mb-2':((isSmallScreen)?'4':'2 ml-2')}}" *ngFor="let store of stores">
+            <div class="mt-3">
+                <h5 class="card-title text-center ">{{store.name}}</h5>
+            </div>
+            <div class="mt-0">
+                <p class="card-text text-center mt-0 pt-0">Dirección: {{store.address}}</p>
+            </div>
+            <div class="mt-3">
+                <h5 class="card-title text-center ">{{store.description}}</h5>
+            </div>
+
+
+            <div class="card-body">
+                <p>Productos: {{(store.summary) ? store.summary.total_items:0}}</p>
+                <p>Monto:</p>
+                <p class="text-right"><b>{{((store.summary) ? store.summary.total_price:0) | currency: 'CLP'}}</b></p>
+            </div>
+            <button class="btn btn-default btn-extra-small text-right" (click)="remove(store,stores)"
+                placement="bottom" ngbTooltip="Eliminar {{store.name}}">
+                <i class="tf-ion-ios-trash active-red"></i>
+            </button>
+            <div *ngIf="store.summary && store.summary.alerts === ''" class="alert-success border-0">
+                <h6 class="mt-2 text-center"><i class="tf-ion-ios-checkmark"></i> Stock óptimo</h6>
+            </div>
+            <div *ngIf="store.summary && store.summary.alerts === MINSTOCK_ALERT" class="alert-danger border-0">
+                <h6 class="mt-2 text-center"><i class="tf-ion-ios-information"></i> Stock mínimo</h6>
+            </div>
+            <div *ngIf="store.summary && store.summary.alerts === MAXSTOCK_ALERT" class="alert-warning border-0">
+                <h6 class="mt-2 text-center"><i class="tf-ion-ios-information"></i> Stock máximo</h6>
+            </div>
+            <div *ngIf="store.summary && store.summary.alerts === DUESTOCK_ALERT" class="alert-danger border-0">
+                <h6 class="mt-2 text-center"><i class="tf-ion-ios-information"></i> Expiración</h6>
+            </div>
+            <div *ngIf="store.summary && store.summary.alerts === EMPTYSTOCK_ALERT" class="alert-warning border-0">
+                <h6 class="mt-2 text-center"><i class="tf-ion-ios-information"></i> Sin stock</h6>
+            </div>
+            <button class="btn btn-main btn-extra-small btn-block mb-2" (click)="select(store)">Abrir</button>
+        </div>
+        <h6 *ngIf="!stores || (stores && stores.length == 0)" class="alert-warning">No existen bodegas para mostrar</h6>
+
+        <div class="col-12 mt-2" *ngIf="stores && stores.length > 0">
+            <ngb-pagination 
+            [collectionSize]="totalItems" 
+            [pageSize]="limit" 
+            [(page)]="page" 
+            [maxSize]="5" 
+            [boundaryLinks]="true"
+            (pageChange)="loadStores()" 
+            aria-label="Default pagination" />
+        </div>
+    </div>
+</div>
+
+<div *ngIf="loading" class="row">
+    <img class="img-loading" src="./assets/img/gif/loading.gif">
+</div>

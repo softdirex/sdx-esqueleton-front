@@ -514,7 +514,8 @@
     "medium-licence": "Medium licence",
     "premium-licence": "Premium licence",
     "email-review-expired-token": "Token expired, check your last activation email",
-    "image-wrong-size": "Image exceeds the size"
+    "image-wrong-size": "Image exceeds the size",
+    "inventory": "Inventory"
   },
   "input": {
     "email": "Enter a email",

@@ -1,0 +1,27 @@
+<div class="grid-container">
+    <h2 *ngIf="modalOption == ADD" class="text-center mt-3">Agregar area a {{area ? area.name : store.name}}</h2>
+    <h2 *ngIf="modalOption == EDIT" class="text-center mt-3">Editar {{area.name}}</h2>
+    <div *ngIf="!loading" class="modal-body">
+        <div class="col-12">
+            <div class="form-group">
+                <input class="form-control" type="text" [formControl]="inputName" placeholder="Nombre de area">
+            </div>
+        </div>
+        <div class="col-12">
+            <h6 class="alert-warning text-center">{{errorMessage|transloco}}</h6>
+        </div>
+    </div>
+
+    <div *ngIf="!loading" class="modal-footer">
+        <button *ngIf="modalOption == ADD" class="btn btn-info btn-extra-small" (click)="add()">Agregar</button>
+        <button *ngIf="modalOption == EDIT" class="btn btn-info btn-extra-small" (click)="update()">Actualizar</button>
+        <button type="button" ngbAutofocus class="btn btn-danger btn-extra-small" (click)="cancel()">
+            {{ 'label.cancel' | transloco }}
+        </button>
+    </div>
+
+    <div *ngIf="loading" class="modal-body">
+        <h5 class="text-center">Espere un momento...</h5>
+        <img class="img-loading" src="./assets/img/gif/loading.gif">
+    </div>
+</div>

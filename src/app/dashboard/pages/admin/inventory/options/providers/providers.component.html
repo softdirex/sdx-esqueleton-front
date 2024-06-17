@@ -1,0 +1,63 @@
+<div class="col-12">
+    <div class="row">
+        <div class="col-12 mt-2 text-right">
+            <button class="btn btn-warning btn-extra-small" (click)="close()" placement="bottom"
+                ngbTooltip="Cerrar menú">Cerrar</button>
+        </div>
+        <div class="col-12">
+            <h5 class="text-center">Proveedores</h5>
+        </div>
+
+        <div class="col-12">
+            <app-common-filter [filtersInSelect]="filtersInSelect" [paginator]="paginator"
+                (paginatorChange)="onFilterSelected($event)"></app-common-filter>
+
+            <hr *ngIf="!isMobile" class="card-header">
+            <div *ngIf="isMobile" class="card-header text-center">
+                <a class="btn btn-success btn-small">Agregar</a>
+            </div>
+
+            <table class="table shop_table shop_table_responsive cart">
+                <thead>
+                    <tr>
+                        <th>Documento</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th><a class="btn btn-success btn-extra-small" (click)="add()" placement="bottom"
+                                ngbTooltip="Agregar Proveedor">Agregar</a></th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="!loading">
+                    <tr *ngFor="let item of providers">
+                        <hr *ngIf="isMobile" class="card-header border-0" />
+                        <td data-title="Documento">{{item.doc_number}}</td>
+                        <td data-title="Nombre">{{item.name}}</td>
+                        <td data-title="Email">{{item.email}}</td>
+                        <td data-title="Teléfono">{{item.phone}}</td>
+                        <td data-title="Acción"><a class="btn btn-info btn-extra-small" (click)="openProvider(item)">Ver</a>
+                            <button class="btn btn-default btn-extra-small text-right" (click)="remove(item,providers)"
+                                placement="bottom" ngbTooltip="Eliminar {{item.name}}">
+                                <i class="tf-ion-ios-trash active-red"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-12 mt-2" *ngIf="providers && providers.length > 0">
+            <ngb-pagination 
+            [collectionSize]="totalItems" 
+            [pageSize]="limit" 
+            [(page)]="page" 
+            [maxSize]="5" 
+            [boundaryLinks]="true"
+            (pageChange)="loadProviders()" 
+            aria-label="Default pagination" />
+        </div>
+    </div>
+</div>
+
+<div *ngIf="loading" class="row">
+    <img class="img-loading" src="./assets/img/gif/loading.gif">
+</div>

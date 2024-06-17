@@ -1,0 +1,21 @@
+.mat-calendar-body-cell, .mat-calendar-previous-button, .mat-calendar-next-button .mat-datepicker-toggle-default-icon {
+    background-color: rgb(49, 26, 255) !important;
+}
+
+.mat-calendar-body-selected {
+    color: white;
+    background-color: #000034;
+}
+
+.mat-form-field.mat-focused .mat-form-field-label {
+    color: black;
+}
+
+.mat-form-field{
+    margin-top: -12px;
+}
+
+svg {
+    color: black;
+    fill: currentColor;
+  }

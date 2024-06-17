@@ -1,0 +1,66 @@
+<div class="grid-container">
+    <h4 *ngIf="option==ADD" class="text-center mt-3">Agregar Nuevo Proveedor</h4>
+    <h4 *ngIf="option==EDIT" class="text-center mt-3">Editar Proveedor</h4>
+    <form *ngIf="!loading" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="name">Nombre:</label>
+                        <input type="text" id="name" name="name" [(ngModel)]="fProvider.name" [disabled]="option!=ADD"
+                            required class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="document">Documento:</label>
+                        <input type="text" id="document" name="document" [(ngModel)]="fProvider.doc_number"
+                            [disabled]="option!=ADD" required class="form-control">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="country">Pais:</label>
+                        <input type="text" id="country" name="country" [(ngModel)]="fProvider.country"
+                            [disabled]="option!=ADD" required class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="text" id="email" name="email" [(ngModel)]="fProvider.email"
+                            [disabled]="option==RESTORE" required class="form-control">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="phone">Telefono:</label>
+                        <input type="text" id="phone" name="phone" [(ngModel)]="fProvider.phone"
+                            [disabled]="option==RESTORE" required class="form-control">
+                    </div>
+                </div>
+                <div class="col-12">
+                    <h6 class="alert-warning text-center">{{errorMessage|transloco}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button *ngIf="option!=RESTORE" type="submit" class="btn btn-success btn-extra-small">Guardar</button>
+            <button *ngIf="option==RESTORE" type="button" ngbAutofocus class="btn btn-warning btn-extra-small"
+                (click)="restore()">
+                {{ 'label.restore' | transloco }}
+            </button>
+            <button type="button" ngbAutofocus class="btn btn-danger btn-extra-small" (click)="cancel()">
+                {{ 'label.cancel' | transloco }}
+            </button>
+        </div>
+    </form>
+    <div *ngIf="loading" class="modal-body">
+        <h5 class="text-center">Espere un momento...</h5>
+        <img class="img-loading" src="./assets/img/gif/loading.gif">
+    </div>
+</div>

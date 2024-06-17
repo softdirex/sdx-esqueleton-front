@@ -1,0 +1,64 @@
+<div *ngIf="!loading" class="grid-container">
+    <div class="modal-body">
+        <h2 class="text-center">Historial de acciones</h2>
+        <h4 class="text-center">Usuario: {{user.name}} | Email: {{user.email}}</h4>
+        <div class="row mt-3 mb-3">
+            <div class="col-8 text-right">
+                <select class="form-control" [(ngModel)]="role" [disabled]="disableUpdateBtn">
+                    <option value="" selected disabled>Seleccione el rol
+                    </option>
+                    <option *ngFor="let item of roles" value="{{ item.value }}">
+                        {{ item.name }}
+                    </option>
+                </select>
+            </div>
+            <div class="col-4 text-center">
+                <button class="btn btn-primary btn-small" (click)="update()" [disabled]="disableUpdateBtn">Modificar</button>
+            </div>
+            
+        </div>
+        <div class="row card-header" *ngFor="let hisDetail of history">
+            <div class="col-6">
+                <b>{{hisDetail.action}}</b>
+            </div>
+            <div class="col-12">
+                <div class="row card ml-2 mr-2">
+                    <div class="col-12">
+                        <small><b>Fecha:</b> {{hisDetail.date | date:'dd-MM-yyyy HH:mm'}}</small>
+                    </div>
+                    <div *ngIf="hisDetail.note" class="col-12">
+                        <small><b>Nota:</b> {{hisDetail.note}}</small>
+                    </div>
+                    <div class="col-sm-4">
+                        <small><b>Cantidad:</b> {{hisDetail.quantity}}</small>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="col text-center mt-3" *ngIf="history.length > 0">
+            <ngb-pagination [collectionSize]="totalItems" [pageSize]="limit" [(page)]="page" [maxSize]="5"
+                [boundaryLinks]="true" (pageChange)="loadData()" aria-label="Default pagination" />
+        </div>
+        
+        <div class="row card-header" *ngIf="history.length == 0">
+            <h5>Sin registro de acciones para mostrar aún</h5>
+        </div>
+    </div>
+
+    <div class="modal-footer" *ngIf="!loadingFile">
+        <button class="btn btn-info btn-extra-small" (click)="exportPdf()">Exportar PDF</button>
+        <button class="btn btn-info btn-extra-small" (click)="exportExcel()">Exportar EXCEL</button>
+        <button type="button" ngbAutofocus class="btn btn-danger btn-extra-small" (click)="close()">
+            Cerrar
+        </button>
+    </div>
+    <div class="modal-footer" *ngIf="loadingFile">
+        <img class="img-loading" src="./assets/img/gif/loading.gif">
+    </div>
+</div>
+
+<div *ngIf="loading" class="row">
+    <img class="img-loading" src="./assets/img/gif/loading.gif">
+</div>

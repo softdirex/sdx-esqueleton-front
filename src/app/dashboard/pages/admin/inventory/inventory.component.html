@@ -1,0 +1,52 @@
+<section class="page-header-inventory">
+    <div class="overly"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="content text-center">
+                    <h1 class="mb-3">{{ 'label.inventory' | transloco | titlecase }}</h1>
+                    <p>{{ 'label.inventory-desc' | transloco }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section *ngIf="!selectedOption" class="cart shopping page-wrapper">
+    <div class="container">
+        <h4 class="text-center">Menú principal</h4>
+        <hr class="card-header border-0">
+        <div class="row justify-content-center">
+            <div class="card col-{{isMobile ? '6':'2'}} mt-2 ml-2" *ngFor="let option of options">
+                <div class="card-body text-center">
+                    <i class="active-blue {{option.icon}}"></i>
+                    <h5>{{option.menu}}</h5>
+                </div>
+                <div class="card-footer border-0 text-center">
+                    <h5 *ngIf="!option.enabled" class="alert-warning">Disabled</h5>
+                    <button *ngIf="option.enabled" class="btn btn-main btn-extra-small" (click)="onSelectOption(option)">Ir</button>
+                </div>
+            </div>
+        </div>
+        <hr class="card-header border-0">
+    </div>
+</section>
+
+<section *ngIf="selectedOption" class="cart shopping page-wrapper">
+    <div class="container justify-content-center">
+        <app-products *ngIf="selectedOption.router === 'products'" 
+            (selectedOption)="onSelectedOption($event)"></app-products>
+        <app-scan-product *ngIf="selectedOption.router === 'scan'" 
+            (selectedOption)="onSelectedOption($event)"></app-scan-product>
+        <app-stores *ngIf="selectedOption.router === 'stores'" 
+            (selectedOption)="onSelectedOption($event)" (selectedStore)="onSelectedStore($event)"></app-stores>
+        <app-reports *ngIf="selectedOption.router === 'reports'" 
+            (selectedOption)="onSelectedOption($event)"></app-reports>
+        <app-buy-order *ngIf="selectedOption.router === 'buy-order'" 
+            (selectedOption)="onSelectedOption($event)"></app-buy-order>
+        <app-action-history *ngIf="selectedOption.router === 'action-history'"
+            (selectedOption)="onSelectedOption($event)"></app-action-history>
+        <app-providers *ngIf="selectedOption.router === 'providers'"
+            (selectedOption)="onSelectedOption($event)"></app-providers>
+    </div>
+</section>

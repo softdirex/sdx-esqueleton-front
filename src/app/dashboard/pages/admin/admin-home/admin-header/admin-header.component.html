@@ -22,6 +22,10 @@
         </li>
 
         <li *ngIf="getScreenWidth < mobileWidth && !withoutCompany" class="nav-item active">
+          <a class="nav-link text-white" routerLink="{{PATH_ADMIN_INVENTORY}}">{{'label.inventory'|transloco}}</a>
+        </li>
+
+        <li *ngIf="getScreenWidth < mobileWidth && !withoutCompany" class="nav-item active">
           <a class="nav-link text-white" (click)="toPurchases()">{{'label.payment-history'|transloco}}</a>
         </li>
 
@@ -35,6 +39,10 @@
 
         <li *ngIf="getScreenWidth < mobileWidth" class="nav-item active">
           <a class="nav-link text-white" (click)="openLanguageModal()">{{'language.title'|transloco}}</a>
+        </li>
+
+        <li *ngIf="getScreenWidth >= mobileWidth" class="nav-item dropdown dropdown-slide">
+          <a *ngIf="sessionIsOpen && !withoutCompany" class="nav-link text-white" routerLink="{{PATH_ADMIN_INVENTORY}}">{{'label.inventory'|transloco}}</a>
         </li>
 
         <li *ngIf="getScreenWidth >= mobileWidth" class="nav-item dropdown dropdown-slide">

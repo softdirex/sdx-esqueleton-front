@@ -1,0 +1,20 @@
+<div class="modal-header">
+    <h4 class="modal-title">Seleccionar Tienda</h4>
+</div>
+<div class="modal-body" *ngIf="!loading">
+    <label for="storeSelect">Seleccione una tienda:</label>
+    <select id="storeSelect" class="form-control" [(ngModel)]="selectedStore">
+        <option *ngFor="let store of stores" [value]="store.id">{{ store.name }}</option>
+    </select>
+</div>
+<div class="modal-footer" *ngIf="!loading">
+    <div *ngIf="errorMessage" class="col-12">
+        <h6 class="alert-warning text-center">{{errorMessage}}</h6>
+    </div>
+    <button type="button" class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="download()">Descargar</button>
+</div>
+<div *ngIf="loading" class="modal-body">
+    <h5 class="text-center">Espere un momento...</h5>
+    <img class="img-loading" src="./assets/img/gif/loading.gif">
+</div>

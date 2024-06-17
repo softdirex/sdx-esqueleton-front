@@ -25,6 +25,7 @@ export class AdminHeaderComponent implements OnInit {
   PATH_MAIN = Commons.PATH_MAIN
   PATH_MY_CUSTOMER = Commons.PATH_MY_CUSTOMER
   PATH_LOGIN = Commons.PATH_LOGIN
+  PATH_ADMIN_INVENTORY = Commons.PATH_ADMIN_INVENTORY
 
   PATH_CONFIG = Commons.PATH_CONFIG_WITH_LIC
 

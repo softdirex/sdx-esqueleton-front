@@ -513,7 +513,8 @@
     "medium-licence": "licença média",
     "premium-licence": "Licença Premium",
     "email-review-expired-token": "Token expirado, verifique seu último e-mail de ativação",
-    "image-wrong-size": "A imagem excede o tamanho"
+    "image-wrong-size": "A imagem excede o tamanho",
+    "inventory": "Inventário"
   },
   "input": {
     "email": "Digite seu e-mail",

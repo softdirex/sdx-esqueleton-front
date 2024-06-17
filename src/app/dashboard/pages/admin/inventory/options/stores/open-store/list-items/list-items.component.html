@@ -1,0 +1,50 @@
+<hr>
+<div *ngIf="loading" class="row">
+    <img class="img-loading" src="./assets/img/gif/loading.gif">
+</div>
+<div *ngIf="!loading" class="row justify-content-center">
+    <div class="card col-6 text-center" *ngIf="items.length == 0">
+        <div class="alert-warning border-0">
+            <h6 class="mt-2 text-center"><i class="tf-ion-ios-information"></i> Sin stock</h6>
+        </div>
+    </div>
+    <div class="card col-{{isMobile?'12 mb-2':'4'}}" *ngFor="let item of items">
+        <div class="card-header border-0">
+            <h6>{{item.name}}<a class="btn btn-default btn-extra-small text-right" (click)="openItem(item)"
+                    placement="bottom" ngbTooltip="Editar {{item.name}}"><i class="tf-ion-edit active-blue"></i></a>
+                <a class="btn btn-default btn-extra-small text-right" (click)="delete(item,items)" placement="bottom"
+                    ngbTooltip="Eliminar {{item.name}}"><i class="tf-ion-ios-trash active-red"></i></a>
+            </h6>
+            <h6><small>cod: {{item.bar_code}}</small></h6>
+            <h6><small><b>ubicación: {{item.location_desc}}</b></small></h6>
+        </div>
+        <div class="card-body">
+            <img class="img-fluid w-50" [src]="item.image">
+            <p>{{item.category}}</p>
+            <p class="paragraph-text"><small>{{item.description}}</small></p>
+            <p *ngIf="item.due_date" class="card text-right">Fecha de expiración: {{item.due_date|date:'dd-MM-yyyy'}}
+            </p>
+        </div>
+        <div class="card-footer border-0">
+            <div [innerHTML]="getAlert(item)"></div>
+            <div class="row">
+                <div class="col-6">
+                    <p><small>Valor unitario:</small> {{item.price|currency: 'CLP'}}</p>
+                </div>
+                <div class="col-6">
+                    <p><small>Cantidad:</small> {{item.stock}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 mt-3" *ngIf="items && items.length > 0">
+        <ngb-pagination 
+        [collectionSize]="totalItems" 
+        [pageSize]="limit" 
+        [(page)]="page"
+        [maxSize]="5" 
+        [boundaryLinks]="true" 
+        (pageChange)="onPageChange()" 
+        aria-label="Default pagination" />
+    </div>
+</div>

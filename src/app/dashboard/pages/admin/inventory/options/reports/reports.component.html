@@ -1,0 +1,56 @@
+<div class="col-12">
+    <div class="row">
+        <div class="col-12 mt-2 text-right">
+            <button class="btn btn-warning btn-extra-small" (click)="close()" placement="bottom" ngbTooltip="Cerrar menú">Cerrar</button>
+        </div>
+        <div class="col-12 mb-2">
+            <h5 class="text-center">Reporte</h5>
+            <div class="row justify-content-center">
+                <div class="col-6 text-{{isMobile?'center':'right'}}">
+                    <button class="btn btn-danger btn-extra-small">Exportar</button>
+                </div>
+                <div class="col-6 text-{{isMobile?'center':'left'}}">
+                    <button class="btn btn-info btn-extra-small">Histórico</button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <hr>
+
+    <h5 class="text-center">Bodegas</h5>
+    <div class="row justify-content-center">
+        
+        <div class="card col-{{(isMobile) ? '12 mb-2':'2 ml-2'}}" *ngFor="let store of stores">
+            <div class="mt-3">
+                <h5 class="card-title text-center">{{store.name}}</h5>
+            </div>
+            <div class="card-body">
+                <p>Productos: {{store.summary.total_items}}</p>
+                <p>Monto:</p>
+                <p class="text-right"><b>{{store.summary.total_price | currency: 'CLP'}}</b></p>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row justify-content-center mt-2">
+        <div class="col-12">
+            <h6 class="text-center">Alertas de stock</h6>
+        </div>
+        <div class="card col-{{(isMobile) ? '12 mb-2':'2 ml-2'}}" *ngFor="let itemS of summaryAlerts">
+            <div class="mt-3">
+                <div [innerHTML]="itemS.type"></div>
+            </div>
+            <div class="card-body">
+                <p>Productos: {{itemS.total}}</p>
+                <p>Monto total:</p>
+                <p class="text-right"><b>{{itemS.amount | currency: 'CLP'}}</b></p>
+            </div>
+        </div>
+        <div class="col-4  mt-3 card col-{{(isMobile) ? '12 mb-2':'2 ml-2'}}">
+            <h6 class="text-center mt-2">Monto total de stocks:</h6>
+            <p class="text-center"><b>{{sumaTotal | currency: 'CLP'}}</b></p>
+        </div>
+    </div>
+</div>

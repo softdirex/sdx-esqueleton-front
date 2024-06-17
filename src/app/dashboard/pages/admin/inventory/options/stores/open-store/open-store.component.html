@@ -1,0 +1,265 @@
+<div *ngIf="store" class="text-center">
+    <hr>
+    <div class="row">
+        <div class="col-{{isMobile ? '8':'10'}} text-left">
+            <h1>{{store.name}}
+                <button class="btn btn-default btn-extra-small" (click)="editStore()" placement="bottom"
+                    ngbTooltip="Cambiar nombre a {{store.name}}">
+                    <i class="tf-ion-edit active-blue"></i>
+                </button>
+                <button *ngIf="!isMobile" class="btn btn-default btn-small" (click)="seeStoreItems(store)"
+                    placement="bottom" ngbTooltip="Mostrar productos de {{store.name}}">
+                    <i class="tf-ion-android-list active-green"></i>
+                </button>
+            </h1>
+        </div>
+        <div *ngIf="isMobile" class="col-6 text-left">
+            <button class="btn btn-default btn-small text-left" (click)="seeStoreItems(store)" placement="bottom"
+                ngbTooltip="Mostrar productos de {{store.name}}">
+                <i class="tf-ion-android-list active-green"></i>
+            </button>
+        </div>
+
+        <div class="col-{{isMobile?'6':'2 mt-2'}} text-right">
+            <button class="btn" (click)="close()" placement="bottom" ngbTooltip="Cerrar {{store.name}}"><i
+                    class="tf-ion-ios-close active-red"></i></button>
+        </div>
+        <div class="col-{{isMobile?'6':'5'}} text-left">
+            <h2>Areas</h2>
+        </div>
+        <div *ngIf="!isMobile" class="col-5 text-center">
+            <input type="search" class="form-control" (search)="search()" [formControl]="inputSearch"
+            [attr.placeholder]="'label.search-by-name' | transloco" />
+        </div>
+        <div class="col-{{isMobile?'6':'2 mt-2'}} text-right">
+            <button class="btn btn-info btn-extra-small" (click)="addArea()" placement="bottom"
+                ngbTooltip="Agregar un área a {{store.name}}">Agregar area
+            </button>
+        </div>
+        <div *ngIf="isMobile" class="col-12 text-center">
+            <input type="search" class="form-control" (search)="search()" [formControl]="inputSearch"
+            [attr.placeholder]="'label.search-by-name' | transloco" />
+        </div>
+    </div>
+    <hr>
+
+    <div *ngIf="loading" class="row">
+        <img class="img-loading" src="./assets/img/gif/loading.gif">
+    </div>
+    <div *ngIf="!loading" ngbAccordion [closeOthers]="false" class="row justify-content-center mb-2">
+        <div *ngIf="store.areas && store.areas.length == 0">
+            <h4>Sin areas registradas</h4>
+        </div>
+        <div class="card col-{{(isMobile)?'12':'3'}} color-lvl1 mt-2" ngbAccordionItem *ngFor="let area of areas">
+            <h2 ngbAccordionHeader class="text-left mt-2 ml-2 mr-2">
+                {{area.name}}
+                <button class="btn btn-default btn-extra-small text-right" (click)="edit(store.id,null,area)"
+                    placement="bottom" ngbTooltip="Cambiar nombre a {{area.name}}">
+                    <i class="tf-ion-edit active-blue"></i>
+                </button>
+                <button class="btn btn-default btn-extra-small text-right" (click)="addSubarea(area)" placement="bottom"
+                    ngbTooltip="Agregar una subárea a {{area.name}}">
+                    <i class="tf-ion-ios-plus active-blue"></i>
+                </button>
+            </h2>
+            <div class="row">
+                <div class="col-12">
+                    <button class="btn btn-info btn-extra-small" (click)="createProduct(area)" placement="bottom"
+                        ngbTooltip="Agrega un nuevo producto a {{area.name}}">Agregar
+                        Producto</button>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-default btn-extra-small text-left" (click)="openSelected(area)"
+                        placement="bottom" ngbTooltip="Mostrar productos de {{area.name}}">
+                        <i class="tf-ion-android-list active-green"></i>
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-default btn-extra-small text-right" (click)="remove(area,areas)"
+                        placement="bottom" ngbTooltip="Eliminar {{area.name}}">
+                        <i class="tf-ion-ios-trash active-red"></i>
+                    </button>
+                </div>
+            </div>
+            <button *ngIf="area.subareas && area.subareas.length > 0" ngbAccordionButton class="btn btn-main btn-extra-small text-right mb-2"><i
+                    class="tf-ion-android-arrow-dropdown"></i></button>
+            <div ngbAccordionCollapse>
+                <div ngbAccordionBody>
+                    <ng-template>
+                        <div ngbAccordion [closeOthers]="false" class="row justify-content-center">
+                            <div class="card col-12 color-lvl2 mt-2" ngbAccordionItem *ngFor="let lvl2 of area.subareas">
+                                <h3 ngbAccordionHeader class="text-left mt-2 ml-2">
+                                    {{lvl2.name}}
+                                    <button class="btn btn-default btn-extra-small text-right"
+                                        (click)="edit(null,area.id,lvl2)" placement="bottom"
+                                        ngbTooltip="Cambiar nombre a {{lvl2.name}}">
+                                        <i class="tf-ion-edit active-blue"></i>
+                                    </button>
+                                    <button class="btn btn-default btn-extra-small text-right"
+                                        (click)="addSubarea(lvl2)" placement="bottom"
+                                        ngbTooltip="Agregar una subárea a {{lvl2.name}}">
+                                        <i class="tf-ion-ios-plus active-blue"></i>
+                                    </button>
+                                </h3>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button class="btn btn-info btn-extra-small" (click)="createProduct(lvl2)"
+                                            placement="bottom"
+                                            ngbTooltip="Agrega un nuevo producto a {{lvl2.name}}">Agregar
+                                            Producto</button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button class="btn btn-default btn-extra-small text-left"
+                                            (click)="openSelected(lvl2)" placement="bottom"
+                                            ngbTooltip="Mostrar productos de {{lvl2.name}}">
+                                            <i class="tf-ion-android-list active-green"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button class="btn btn-default btn-extra-small text-right"
+                                            (click)="remove(lvl2,area.subareas)" placement="bottom"
+                                            ngbTooltip="Eliminar {{lvl2.name}}">
+                                            <i class="tf-ion-ios-trash active-red"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button *ngIf="lvl2.subareas && lvl2.subareas.length > 0" ngbAccordionButton class="btn btn-main btn-extra-small text-right mb-2"><i
+                                        class="tf-ion-android-arrow-dropdown"></i></button>
+                                <div ngbAccordionCollapse>
+                                    <div ngbAccordionBody>
+                                        <ng-template>
+                                            <div ngbAccordion [closeOthers]="false" class="row justify-content-center">
+                                                <div class="card col-12 color-lvl3 mt-2" ngbAccordionItem
+                                                    *ngFor="let lvl3 of lvl2.subareas">
+                                                    <h4 ngbAccordionHeader class="text-left mt-2 ">
+                                                        {{lvl3.name}}
+                                                        <button class="btn btn-default btn-extra-small text-right"
+                                                            (click)="edit(null,lvl2.id,lvl3)" placement="bottom"
+                                                            ngbTooltip="Cambiar nombre a {{lvl3.name}}">
+                                                            <i class="tf-ion-edit active-blue"></i>
+                                                        </button>
+                                                        <button class="btn btn-default btn-extra-small text-right"
+                                                            (click)="addSubarea(lvl3)" placement="bottom"
+                                                            ngbTooltip="Agregar una subárea a {{lvl3.name}}">
+                                                            <i class="tf-ion-ios-plus active-blue"></i>
+                                                        </button>
+                                                    </h4>
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <button class="btn btn-info btn-extra-small"
+                                                                (click)="createProduct(lvl3)" placement="bottom"
+                                                                ngbTooltip="Agrega un nuevo producto a {{lvl3.name}}">Agregar
+                                                                Producto</button>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <button class="btn btn-default btn-extra-small text-left"
+                                                                (click)="openSelected(lvl3)" placement="bottom"
+                                                                ngbTooltip="Mostrar productos de {{lvl3.name}}">
+                                                                <i class="tf-ion-android-list active-green"></i>
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <button class="btn btn-default btn-extra-small text-right"
+                                                                (click)="remove(lvl3,lvl2.subareas)" placement="bottom"
+                                                                ngbTooltip="Eliminar {{lvl3.name}}">
+                                                                <i class="tf-ion-ios-trash active-red"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <button *ngIf="lvl3.subareas && lvl3.subareas.length > 0" ngbAccordionButton
+                                                        class="btn btn-main btn-extra-small text-right mb-2"><i
+                                                            class="tf-ion-android-arrow-dropdown"></i></button>
+                                                    <div ngbAccordionCollapse>
+                                                        <div ngbAccordionBody>
+                                                            <ng-template>
+                                                                <div ngbAccordion [closeOthers]="false"
+                                                                    class="row justify-content-center">
+                                                                    <div class="card col-12 color-lvl4 mt-2" ngbAccordionItem
+                                                                        *ngFor="let lvl4 of lvl3.subareas">
+                                                                        <h5 ngbAccordionHeader class="text-left mt-2">
+                                                                            {{lvl4.name}}
+                                                                            <button
+                                                                                class="btn btn-default btn-extra-small text-right"
+                                                                                (click)="edit(null,lvl3.id,lvl4)"
+                                                                                placement="bottom"
+                                                                                ngbTooltip="Cambiar nombre a {{lvl4.name}}">
+                                                                                <i class="tf-ion-edit active-blue"></i>
+                                                                            </button>
+                                                                            <button
+                                                                                class="btn btn-default btn-extra-small text-right"
+                                                                                (click)="addSubarea(lvl4)"
+                                                                                placement="bottom"
+                                                                                ngbTooltip="Agregar una subárea a {{lvl4.name}}">
+                                                                                <i
+                                                                                    class="tf-ion-ios-plus active-blue"></i>
+                                                                            </button>
+                                                                        </h5>
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <button
+                                                                                    class="btn btn-info btn-extra-small"
+                                                                                    (click)="createProduct(lvl4)"
+                                                                                    placement="bottom"
+                                                                                    ngbTooltip="Agrega un nuevo producto a {{lvl4.name}}">Agregar
+                                                                                    Producto</button>
+                                                                            </div>
+                                                                            <div class="col-6">
+                                                                                <button
+                                                                                    class="btn btn-default btn-extra-small text-left"
+                                                                                    (click)="openSelected(lvl4)"
+                                                                                    placement="bottom"
+                                                                                    ngbTooltip="Mostrar productos de {{lvl4.name}}">
+                                                                                    <i
+                                                                                        class="tf-ion-android-list active-green"></i>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="col-6">
+                                                                                <button
+                                                                                    class="btn btn-default btn-extra-small text-right"
+                                                                                    (click)="remove(lvl4,lvl3.subareas)"
+                                                                                    placement="bottom"
+                                                                                    ngbTooltip="Eliminar {{lvl4.name}}">
+                                                                                    <i
+                                                                                        class="tf-ion-ios-trash active-red"></i>
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div ngbAccordionCollapse>
+                                                                            <div ngbAccordionBody>
+                                                                                <ng-template>
+
+                                                                                </ng-template>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </ng-template>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mt-2" *ngIf="areas && areas.length > 0">
+            <ngb-pagination 
+            [collectionSize]="totalItems" 
+            [pageSize]="limit" 
+            [(page)]="page" 
+            [maxSize]="5" 
+            [boundaryLinks]="true"
+            (pageChange)="onPageChange()" 
+            aria-label="Default pagination" />
+        </div>
+    </div>
+    <app-list-items *ngIf="!loadingItems" [items]="itemsToLoad" [meta]="metaToLoad"></app-list-items>
+    <div *ngIf="loadingItems" class="row">
+        <img class="img-loading" src="./assets/img/gif/loading.gif">
+    </div>
+</div>

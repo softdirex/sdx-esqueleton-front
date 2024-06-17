@@ -1,0 +1,102 @@
+<div class="col-12" *ngIf="!loading">
+    <div class="row">
+        <div class="col-12 mt-2 text-right">
+            <button class="btn btn-warning btn-extra-small" (click)="close()" placement="bottom"
+                ngbTooltip="Cerrar menú">Cerrar</button>
+        </div>
+        <div class="col-12">
+            <h5 class="text-center">Productos</h5>
+            <hr>
+        </div>
+
+        <div class="col-12 text-right mb-3">
+            <button class="btn btn-success btn-extra-small" (click)="addItem()">Agregar</button>
+        </div>
+        <div class="col-12">
+            <app-common-filter [filtersInSelect]="filtersInSelect" [paginator]="paginator"
+                (paginatorChange)="onFilterSelected($event)"></app-common-filter>
+            <hr class="card-header">
+            <div class="card-header">
+
+                <div class="row">
+                    <div class="col-{{isMobile ? '12':'6'}} text-left card">
+                        <h6 class="mt-2 ">Exportar</h6>
+                        <div class="row">
+                            <div class="col-6 text-{{isMobile?'left':'center'}} mb-2">
+                                <button class="btn btn-danger btn-extra-small">PDF</button>
+                            </div>
+                            <div class="col-6 text-{{isMobile?'right':'center'}} mb-2">
+                                <button class="btn btn-success btn-extra-small">EXCEL</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-{{isMobile ? '12':'6'}} text-left card">
+                        <h6 class="mt-2 ">Importar</h6>
+                        <div class="row">
+                            <div class="col-6 text-center mb-2">
+                                <input type="file" #fileInput style="display: none;" (change)="onFileSelected($event)">
+                                <button class="btn btn-info btn-extra-small" (click)="fileInput.click()">Cargar
+                                    archivo</button>
+                            </div>
+                            <div class="col-6 text-center mb-2">
+                                <button class="btn btn-info btn-extra-small" (click)="openModalExcel()">Descargar
+                                    Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table shop_table shop_table_responsive cart">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Producto</th>
+                        <th>Categoria</th>
+                        <th>Ubicación</th>
+                        <th>Información</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of products">
+                        <hr *ngIf="isMobile" class="card-header border-0" />
+                        <td data-title="Código">{{product.bar_code}}</td>
+                        <td data-title="Producto">{{product.name}}</td>
+                        <td data-title="Categoria">{{product.category}}</td>
+                        <td data-title="Ubicación">{{product.location_desc}}</td>
+                        <td data-title="Información" [innerHTML]="getAlert(product)"></td>
+                        <td class="product-quantity" data-title="Acción"><a class="btn btn-info btn-extra-small"
+                                (click)="openItem(product)">Ver</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-12 mt-2" *ngIf="products && products.length > 0">
+            <ngb-pagination [collectionSize]="totalItems" [pageSize]="limit" [(page)]="page" [maxSize]="5"
+                [boundaryLinks]="true" (pageChange)="loadItems()" aria-label="Default pagination" />
+        </div>
+    </div>
+
+    <div class="row" *ngIf="importResults">
+        <div class="col-12">
+            <h3>Import Results</h3>
+            <p>Status: {{ importResults.status }}</p>
+            <p>Rows Successful: {{ importResults.rows_successful }}</p>
+            <p>Rows Error: {{ importResults.rows_error }}</p>
+
+            <div *ngIf="importResults.summary && importResults.summary.length > 0">
+                <h4>Details</h4>
+                <ul>
+                    <li *ngFor="let item of importResults.summary">
+                        Row: {{ item.row }} - Detail: {{ item.detail }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="loading" class="row">
+    <img class="img-loading" src="./assets/img/gif/loading.gif">
+</div>

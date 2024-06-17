@@ -1,0 +1,17 @@
+.paragraph-text {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.btn-border {
+    background: rgb(226, 226, 226);
+    color: #fff !important;
+    border: 1px solid gray;
+}
+
+.btn-border:hover {
+    background: transparent;
+    border-color: blue;
+    color: #000 !important;
+    border: 1px solid blue;
+}

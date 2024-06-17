@@ -1,0 +1,6 @@
+export enum AlertTypeEnum {
+    DUESTOCK_ALERT,
+    MINSTOCK_ALERT,
+    MAXSTOCK_ALERT,
+    EMPTYSTOCK_ALERT
+} 

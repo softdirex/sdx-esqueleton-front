@@ -1,0 +1,46 @@
+<div class="grid-container">
+    <h4 *ngIf="option==ADD" class="text-center mt-3">Nueva bodega</h4>
+    <h4 *ngIf="option==EDIT" class="text-center mt-3">Editar bodega</h4>
+    <form *ngIf="!loading" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="name">Nombre de bodega:</label>
+                        <input type="text" id="name" name="name" [(ngModel)]="fStore.name" [disabled]="option==RESTORE" required
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+                        <input type="text" id="address" name="address" [(ngModel)]="fStore.address" [disabled]="option==RESTORE" required
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="description">Descripción:</label>
+                        <textarea class="form-control" [(ngModel)]="fStore.description" [disabled]="option==RESTORE" rows="5" cols="100" maxlength="255"></textarea>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <h6 class="alert-warning text-center">{{errorMessage|transloco}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button *ngIf="option!=RESTORE" type="submit" class="btn btn-success btn-extra-small">Guardar</button>
+            <button *ngIf="option==RESTORE" type="button" ngbAutofocus class="btn btn-warning btn-extra-small" (click)="restore()">
+                {{ 'label.restore' | transloco }}
+            </button>
+            <button type="button" ngbAutofocus class="btn btn-danger btn-extra-small" (click)="cancel()">
+                {{ 'label.cancel' | transloco }}
+            </button>
+        </div>
+    </form>
+    <div *ngIf="loading" class="modal-body">
+        <h5 class="text-center">Espere un momento...</h5>
+        <img class="img-loading" src="./assets/img/gif/loading.gif">
+    </div>
+</div>
