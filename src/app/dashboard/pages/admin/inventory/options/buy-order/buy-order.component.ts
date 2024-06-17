@@ -10,7 +10,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Commons } from 'src/app/shared/Commons';
 import { InventoryService } from '../../services/inventory.service';
-import { BrowserModule } from '@angular/platform-browser';
 import { MatInputModule } from '@angular/material/input';
 import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
 import { saveAs } from 'file-saver';
