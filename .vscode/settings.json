@@ -2,5 +2,6 @@
     "i18n-ally.localesPaths": [
         "src/assets/i18n",
         "src/assets/img/languages"
-    ]
+    ],
+    "i18n-ally.keystyle": "nested"
 }

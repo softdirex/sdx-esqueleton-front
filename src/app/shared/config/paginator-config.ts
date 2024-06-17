@@ -3,6 +3,7 @@ import { Commons } from "../Commons"
 export class PaginatorConfig {
     public status: number = Commons.STATUS_ACTIVE
     public sizes: number[] = [5, 10, 25, 50, 100, 200]
+    public currentSizes: number[] = []
     public page: number = 1
     public limit: number = this.sizes[0]
     public total: number = 0

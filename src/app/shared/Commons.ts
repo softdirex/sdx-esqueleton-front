@@ -10,6 +10,12 @@ export interface FILTER {
     field: string
     value: string
     enabled: boolean
+    type: FilterType
+}
+
+export enum FilterType {
+    STRING,
+    DATE
 }
 
 export class Commons {
@@ -29,6 +35,11 @@ export class Commons {
     static readonly USER_TYPE_MEDIUM = 'USU'
     static readonly USER_TYPE_APP = 'APP'
 
+    static readonly F_SEPARATOR = '__';
+    static readonly F_EQUAL = '--';
+    static readonly INCREASE = 1
+    static readonly DECREASE = 2
+
     static readonly STATUS_DELETED_INACTIVE = StatusTypeConfig.DELETED_INACTIVE.id
     static readonly STATUS_DELETED_ACTIVE = StatusTypeConfig.DELETED_ACTIVE.id
     static readonly STATUS_ACTIVE = StatusTypeConfig.ACTIVE.id
@@ -36,6 +47,7 @@ export class Commons {
     static readonly STATUS_IN_PROCESS = StatusTypeConfig.IN_PROCESS.id
 
     static readonly ICON_ERROR = 'error'
+    static readonly ICON_INFO = 'info'
     static readonly ICON_WARNING = 'warning'
     static readonly ICON_SUCCESS = 'success'
     static readonly DF_AVATAR = './assets/img/png/df_avatar.png'
@@ -53,6 +65,7 @@ export class Commons {
     static readonly PATH_PRODUCT_SINGLE = 'product-single'
     static readonly PATH_CART = 'cart'
     static readonly PATH_CHECKOUT = 'checkout'
+    static readonly PATH_ADMIN_INVENTORY = 'inventory'
 
     /* BEGIN - ENDPOINT NECESSARY FOR EMAIL DIRECT LINK */
     static readonly PATH_LOGIN = 'login'
