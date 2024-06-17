@@ -34,7 +34,7 @@ export class OwnerConfigService {
         return this.http.get<any>(url, options)
     }
 
-    sendContactMail(lang: string, names: string, phone: string, email: string, obs: string, receiver: string) {
+    sendContactMail(trxEnc: string) {
         const url = this.myCompanyUrl + '/contact'
         const options = {
             headers: new HttpHeaders({
@@ -42,17 +42,11 @@ export class OwnerConfigService {
                 'product-id': environment.productId + ''
             })
         }
+
         const request = {
-            trx: Commons.encryptDataGlobal({
-                host: environment.baseUrl,
-                lang: lang,
-                names: names,
-                phone: phone,
-                email: email,
-                obs: obs,
-                receiver: receiver
-            })
+            trx: trxEnc
         }
+
         return this.http.post<any>(url, request, options)
     }
 

@@ -110,10 +110,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "sdxFront:build:production"
+              "buildTarget": "sdxFront:build:production"
             },
             "development": {
-              "browserTarget": "sdxFront:build:development"
+              "buildTarget": "sdxFront:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -121,7 +121,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "sdxFront:build"
+            "buildTarget": "sdxFront:build"
           }
         },
         "test": {

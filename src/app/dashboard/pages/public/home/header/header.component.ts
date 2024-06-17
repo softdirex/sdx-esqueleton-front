@@ -3,10 +3,12 @@ import { Router } from '@angular/router';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { OwnerConfig } from 'src/app/shared/interfaces/core/owner-config';
 import { LanguageUtilService } from 'src/app/services/language-util.service';
-import { OwnerConfigService } from 'src/app/services/owner-config.service';
 import { SessionService } from 'src/app/services/session.service';
 import { Commons } from 'src/app/shared/Commons';
 import { SelectLanguageModalComponent } from 'src/app/shared/modals/select-language-modal/select-language-modal.component';
+import { CdkService } from 'src/app/services/cdk.service';
+import { environment } from 'src/environments/environment';
+import { CompaniesService } from 'src/app/services/companies.service';
 
 @Component({
   selector: 'app-header',
@@ -17,12 +19,12 @@ export class HeaderComponent implements OnInit {
 
   ownerDetail: OwnerConfig = Commons.emptyOwnerConfig()
 
-  PATH_ABOUT = '/'+Commons.PATH_ABOUT
-  PATH_CONTACT = '/'+Commons.PATH_CONTACT
-  PATH_MY_CUSTOMER = '/'+Commons.PATH_MY_CUSTOMER
-  PATH_PRODUCT = '/'+Commons.PATH_PRODUCT
-  PATH_LOGIN = '/'+Commons.PATH_LOGIN
-  PATH_REGISTER = '/'+Commons.PATH_REGISTER
+  PATH_ABOUT = '/' + Commons.PATH_ABOUT
+  PATH_CONTACT = '/' + Commons.PATH_CONTACT
+  PATH_MY_CUSTOMER = '/' + Commons.PATH_MY_CUSTOMER
+  PATH_PRODUCT = '/' + Commons.PATH_PRODUCT
+  PATH_LOGIN = '/' + Commons.PATH_LOGIN
+  PATH_REGISTER = '/' + Commons.PATH_REGISTER
 
   getScreenWidth: any;
   mobileWidth: number = Commons.MOBILE_WIDTH
@@ -33,10 +35,11 @@ export class HeaderComponent implements OnInit {
   constructor(
     private sessionService: SessionService,
     private router: Router,
-    private ownerConfigService: OwnerConfigService,
     private modalService: MdbModalService,
     private langService: LanguageUtilService,
-    ) { }
+    private cdkService: CdkService,
+    private service: CompaniesService,
+  ) { }
 
   ngOnInit(): void {
     this.loadOwnerConfig()
@@ -48,21 +51,28 @@ export class HeaderComponent implements OnInit {
     this.getScreenWidth = window.innerWidth
   }
 
-  loadOwnerConfig(){
-    const validated = Commons.getOwnerConfig()
+  loadOwnerConfig() {
+    const validated = Commons.getOwner()
     if (validated == null) {
       //load from endpoint
-      this.ownerConfigService.getConfig().subscribe(
-        {
-          next: (v) => {
-            this.ownerDetail = v
-            Commons.setOwnerConfig(v)
-          },
-          complete: () => { }
-        }
-      )
+      if (environment.ownerId != 0) {
+        this.service.getOwner(environment.ownerId + '').subscribe(
+          {
+            next: async (v) => {
+              const owner = await this.cdkService.getTrxDec(v.trx)
+              this.ownerDetail = owner.config
+              Commons.setOwner(owner)
+              window.location.reload();
+            },
+            error: () => {
+              this.ownerDetail = Commons.getDefaultConfig()
+            },
+            complete: () => { }
+          }
+        )
+      }
     } else {
-      this.ownerDetail = validated
+      this.ownerDetail = validated.config
     }
   }
 

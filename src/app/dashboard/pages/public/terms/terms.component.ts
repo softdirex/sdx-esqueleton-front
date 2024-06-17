@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { OwnerConfig } from 'src/app/shared/interfaces/core/owner-config';
-import { OwnerConfigService } from 'src/app/services/owner-config.service';
 import { PublicResourcesService } from 'src/app/services/resources.service';
 import { Commons } from 'src/app/shared/Commons';
 import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
 import { environment } from 'src/environments/environment.prod';
+import { CdkService } from 'src/app/services/cdk.service';
+import { CompaniesService } from 'src/app/services/companies.service';
 
 export interface Term {
   id: number;
@@ -26,10 +27,10 @@ export interface TermDetail {
 })
 export class TermsComponent implements OnInit {
 
-  terms:Term[] = []
+  terms: Term[] = []
 
-  termSelected:Term = {
-    id:0,
+  termSelected: Term = {
+    id: 0,
     name: "UNSELECTED CONTENT",
     detail: []
   }
@@ -40,33 +41,34 @@ export class TermsComponent implements OnInit {
   termSalesPath: string = Commons.PATH_TERMS + '/' + Commons.TERM_CODES[2].code
   cookiePolicyPath: string = Commons.PATH_TERMS + '/' + Commons.TERM_CODES[3].code
 
-  termId:number = 0
+  termId: number = 0
 
   modalRef: MdbModalRef<AlertModalComponent> | null = null;
 
   ownerDetail: OwnerConfig = Commons.emptyOwnerConfig()
-  loading:boolean=false
+  loading: boolean = false
 
   constructor(
-    private route : ActivatedRoute,
-    private resourceService:PublicResourcesService,
+    private route: ActivatedRoute,
+    private resourceService: PublicResourcesService,
     private modalService: MdbModalService,
-    private router:Router,
-    private ownerConfigService: OwnerConfigService
-    ) { }
+    private router: Router,
+    private cdkService: CdkService,
+    private service: CompaniesService,
+  ) { }
 
   ngOnInit(): void {
     this.loadOwnerConfig()
-    if(this.OWNER_ID == 0 && Commons.sessionIsOpen()){
+    if (this.OWNER_ID == 0 && Commons.sessionIsOpen()) {
       this.OWNER_ID = Commons.sessionObject().customer.owner.id
     }
     // Entrada por parametros
     this.route.params.subscribe(params => {
       const code = params['code']
       const codeDetail = Commons.TERM_CODES.find(item => item.code == code)
-      if(codeDetail == undefined){
+      if (codeDetail == undefined) {
         this.router.navigate([Commons.PATH_MAIN])
-      }else{
+      } else {
         this.termId = codeDetail.id
       }
 
@@ -76,48 +78,50 @@ export class TermsComponent implements OnInit {
           next: async (v) => {
             this.loading = false
             this.terms = v.terms
-            for(let item of this.terms){
-              if(item.id == this.termId){
+            for (let item of this.terms) {
+              if (item.id == this.termId) {
                 this.termSelected = item
               }
             }
           },
           error: async (e) => {
             this.loading = false
-            this.openModal('label.about-our-policies','label.unknown-error', Commons.ICON_ERROR)
+            this.openModal('label.about-our-policies', 'label.unknown-error', Commons.ICON_ERROR)
           },
-          complete: () => {}
+          complete: () => { }
         }
       )
     })
   }
 
-  openModal(title:string,message: string, icon: string) {
+  openModal(title: string, message: string, icon: string) {
     this.modalRef = this.modalService.open(AlertModalComponent, {
       data: { title: title, message: message, icon: icon },
     })
   }
 
-  loadOwnerConfig(){
-    const validated = Commons.getOwnerConfig()
+  loadOwnerConfig() {
+    const validated = Commons.getOwner()
     if (validated == null) {
       //load from endpoint
-      this.loading = true
-      this.ownerConfigService.getConfig().subscribe(
-        {
-          next: (v) => {
-            this.loading = false
-            this.ownerDetail = v
-            Commons.setOwnerConfig(v)
-          },
-          error: (e) => {
-            this.loading = false
-          },
-          complete: () => { }
-        }
-      )
+      if (environment.ownerId != 0) {
+        this.service.getOwner(environment.ownerId + '').subscribe(
+          {
+            next: async (v) => {
+              const owner = await this.cdkService.getTrxDec(v.trx)
+              this.ownerDetail = owner.config
+              Commons.setOwner(owner)
+              window.location.reload();
+            },
+            error: () => {
+              this.ownerDetail = Commons.getDefaultConfig()
+            },
+            complete: () => { }
+          }
+        )
+      }
     } else {
-      this.ownerDetail = validated
+      this.ownerDetail = validated.config
     }
   }
 

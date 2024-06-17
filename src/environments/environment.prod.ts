@@ -2,7 +2,7 @@ export const environment = {
   baseUrl: 'http://localhost:4200',
   production: true,
   appVersion: '1.0.0',
-  coreTransactionKey: '2wR14ikRE9BadFkpfRb6',
+  localeKey: 'aAbvwgTzjulECDvIPBAVzTZ8G13K',
   appName: 'APP_NAME',
   footerInfo: 'Softdirex - Innovate your digital tools',
   officeLocation: 'La Serena - Chile',

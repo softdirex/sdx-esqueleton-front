@@ -14,4 +14,13 @@ cp -r dist/. dist-integration
 
 mv dist-integration release
 
-tar -czvf sdx-publinex-front.tar.gz release
+file="release/dist-integration/.htaccess"
+echo "<IfModule mod_rewrite.c>" > $file
+echo "  RewriteEngine On" >> $file
+echo "  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]" >> $file
+echo "  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d" >> $file
+echo '  RewriteRule ^ - [L]' >> $file
+echo '  ' >> $file
+echo '  RewriteRule ^ /index.html [L]' >> $file
+echo "</IfModule>" >> $file
+cat $file

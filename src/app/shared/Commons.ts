@@ -1,4 +1,4 @@
-import * as CryptoJS from 'crypto-js';
+import * as CryptoTS from 'crypto-ts';
 import { environment } from 'src/environments/environment';
 import StatusTypeConfig from './config/status-type';
 import * as uuid from 'uuid';
@@ -14,8 +14,8 @@ export interface FILTER {
 
 export class Commons {
     static readonly SDX = 'Softdirex'
-    static readonly SESSION_KEY = 'cus_S'
-    static readonly OWNER_KEY = 'own_S'
+    static readonly KEY_SESSION = 'cus_S'
+    static readonly KEY_OWNER = 'own_S'
     // CUSTOMER's roles
     static readonly USER_ROL_BASIC = 'V'
     static readonly USER_ROL_RW = 'RW'
@@ -245,22 +245,17 @@ export class Commons {
      * @param encryptedData 
      * @returns 
      */
-    static decryptDataGlobal(encryptedData: string | null): any {
+    static decryptDataLocal(encryptedData: string | null): any {
         if (encryptedData != null && encryptedData != undefined) {
-            let bytes = CryptoJS.AES.decrypt(encryptedData, environment.coreTransactionKey);
-            return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+            let bytes = CryptoTS.AES.decrypt(encryptedData, environment.localeKey);
+            return JSON.parse(bytes.toString(CryptoTS.enc.Utf8));
         }
         return null
     }
 
-    /**
-     * Encrypt json object
-     * @param jsonData 
-     * @returns 
-     */
-    static encryptDataGlobal(jsonData: any) {
+    static encryptDataLocal(jsonData: any) {
         if (this.validField(jsonData)) {
-            return CryptoJS.AES.encrypt(JSON.stringify(jsonData), environment.coreTransactionKey).toString();
+            return CryptoTS.AES.encrypt(JSON.stringify(jsonData), environment.localeKey).toString();
         }
         return ''
     }
@@ -306,43 +301,43 @@ export class Commons {
             key: credentials,
             time: now.getTime()
         }
-        sessionStorage.setItem(this.SESSION_KEY, this.encryptDataGlobal(sessionSign))
+        sessionStorage.setItem(this.KEY_SESSION, this.encryptDataLocal(sessionSign))
     }
 
     static sessionReloadCustomer(customer: any) {
         const now: Date = new Date()
-        let sessionSign = this.decryptDataGlobal(sessionStorage.getItem(this.SESSION_KEY))
+        let sessionSign = this.decryptDataLocal(sessionStorage.getItem(this.KEY_SESSION))
         sessionSign.customer = customer
         sessionSign.time = now.getTime()
-        sessionStorage.setItem(this.SESSION_KEY, this.encryptDataGlobal(sessionSign))
+        sessionStorage.setItem(this.KEY_SESSION, this.encryptDataLocal(sessionSign))
     }
 
     static sessionIsOpen(): boolean {
-        return this.decryptDataGlobal(sessionStorage.getItem(this.SESSION_KEY)) != null
+        return this.decryptDataLocal(sessionStorage.getItem(this.KEY_SESSION)) != null
     }
 
     static sessionRenew() {
         const now: Date = new Date()
-        const sessionSign: any = this.decryptDataGlobal(sessionStorage.getItem(this.SESSION_KEY))
+        const sessionSign: any = this.decryptDataLocal(sessionStorage.getItem(this.KEY_SESSION))
 
         if (sessionSign != null) {
             // renew session time
             sessionSign.time = now.getTime()
-            sessionStorage.setItem(this.SESSION_KEY, this.encryptDataGlobal(sessionSign))
+            sessionStorage.setItem(this.KEY_SESSION, this.encryptDataLocal(sessionSign))
         }
     }
 
     static sessionClose() {
-        sessionStorage.removeItem(this.SESSION_KEY)
+        sessionStorage.removeItem(this.KEY_SESSION)
     }
 
     static sessionObject(): any {
-        return this.decryptDataGlobal(sessionStorage.getItem(this.SESSION_KEY))
+        return this.decryptDataLocal(sessionStorage.getItem(this.KEY_SESSION))
     }
 
     static sessionIsSuperUser(): any {
         let isSuper: boolean = false
-        const sessionSign: any = this.decryptDataGlobal(sessionStorage.getItem(this.SESSION_KEY))
+        const sessionSign: any = this.decryptDataLocal(sessionStorage.getItem(this.KEY_SESSION))
 
         if (sessionSign != null && this.validField(sessionSign.customer.rol)) {
             isSuper = (sessionSign.customer.rol == this.USER_ROL_S_RW || sessionSign.customer.rol == this.USER_ROL_S_RWX)
@@ -352,7 +347,7 @@ export class Commons {
 
     static sessionRol(): string {
         let rol: string = this.USER_ROL_BASIC
-        const sessionSign: any = this.decryptDataGlobal(sessionStorage.getItem(this.SESSION_KEY))
+        const sessionSign: any = this.decryptDataLocal(sessionStorage.getItem(this.KEY_SESSION))
 
         if (sessionSign != null && this.validField(sessionSign.customer.rol)) {
             rol = sessionSign.customer.rol
@@ -362,7 +357,7 @@ export class Commons {
 
     static sessionCredentials(): string {
         let credentials: string = ''
-        const sessionSign: any = this.decryptDataGlobal(sessionStorage.getItem(this.SESSION_KEY))
+        const sessionSign: any = this.decryptDataLocal(sessionStorage.getItem(this.KEY_SESSION))
 
         if (sessionSign != null && this.validField(sessionSign.key)) {
             credentials = sessionSign.key
@@ -378,8 +373,8 @@ export class Commons {
         window.open(environment.coreFrontendEndpoint + path)
     }
 
-    static setOwnerConfig(ownerConfig: OwnerConfig) {
-        sessionStorage.setItem(this.OWNER_KEY, this.encryptDataGlobal(ownerConfig))
+    static setOwner(owner: any) {
+        sessionStorage.setItem(this.KEY_OWNER, this.encryptDataLocal(owner))
     }
 
     /**
@@ -387,7 +382,7 @@ export class Commons {
      * @returns 
      */
     static getOwnerConfig(): OwnerConfig | null {
-        const result = this.decryptDataGlobal(sessionStorage.getItem(this.OWNER_KEY))
+        const result = this.decryptDataLocal(sessionStorage.getItem(this.KEY_OWNER))
         if (result == null) {
             let ownerDetail: OwnerConfig = {
                 company_name: environment.dfConfigCompanyName,
@@ -426,7 +421,7 @@ export class Commons {
 
     }
 
-    static emptyOwnerConfig():OwnerConfig{
+    static emptyOwnerConfig(): OwnerConfig {
         return {
             company_name: '',
             slogan: '',
@@ -439,8 +434,8 @@ export class Commons {
             city: '',
             country: '',
             terms_filename: '',
-            lang: '',
-          }
+            lang: ''
+        }
     }
 
     /**
@@ -448,7 +443,7 @@ export class Commons {
      * @returns 
      */
     static getOwner(): any {
-        const result = this.decryptDataGlobal(sessionStorage.getItem(this.OWNER_KEY))
+        const result = this.decryptDataLocal(sessionStorage.getItem(this.KEY_OWNER))
         if (result == null) {
             if (environment.ownerId != 0) {
                 const customer = (Commons.sessionIsOpen()) ? Commons.sessionObject().customer : null
@@ -471,7 +466,7 @@ export class Commons {
 
     }
 
-    static getDefaultConfig(){
+    static getDefaultConfig() {
         let ownerDetail: OwnerConfig = {
             company_name: environment.dfConfigCompanyName,
             slogan: environment.dfConfigSlogan,
@@ -484,14 +479,14 @@ export class Commons {
             city: environment.dfConfigCity,
             country: environment.dfConfigCountry,
             terms_filename: environment.dfConfigTermsFilename,
-            lang: environment.dfConfigLang
+            lang: environment.dfConfigLang,
         }
         return ownerDetail
     }
 
-    static getPlan(){
+    static getPlan() {
         const owner = this.getOwner()
-        if(owner){
+        if (owner) {
             return owner.plan_category
         }
         return this.LICENCE_INACTIVE

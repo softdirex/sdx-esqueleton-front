@@ -11,8 +11,18 @@ export class CompaniesService {
 
     constructor(private http: HttpClient) { }
 
+    getOwner(identifier: string) {
+        // Cargar ownerId id con Commons
+        const url = this.myCompanyUrl + '/owner/' + identifier
+        const options = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            })
+        }
+        return this.http.get<any>(url, options)
+    }
 
-    updateConfig(request:any) {
+    updateConfig(request: any) {
         const url = this.myCompanyUrl + '/config'
         const options = {
             headers: new HttpHeaders({

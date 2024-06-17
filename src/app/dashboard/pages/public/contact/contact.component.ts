@@ -12,6 +12,8 @@ import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-mod
 import { NameFormatPipe } from 'src/app/shared/pipes/name-format.pipe';
 import { environment } from 'src/environments/environment';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
+import { CdkService } from 'src/app/services/cdk.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-contact',
@@ -25,18 +27,24 @@ export class ContactComponent implements OnInit {
 
   PATH_ABOUT = '/' + Commons.PATH_ABOUT;
   alertModal: MdbModalRef<AlertModalComponent> | null = null;
-  loading: boolean = false;
-  reCAPTCHAToken: string = '';
+  DF_LOGO = Commons.DF_PRODUCT_LOGO
+  logoUrl: any = this.DF_LOGO
+  loadingLogo: boolean = false
+  loading: boolean = false
+  reCAPTCHAToken: string = "";
 
   constructor(
     private ownerConfigService: OwnerConfigService,
     private nameFormat: NameFormatPipe,
     private modalService: MdbModalService,
-    private recaptchaV3Service: ReCaptchaV3Service
-  ) {}
+    private recaptchaV3Service: ReCaptchaV3Service,
+    private cdkService: CdkService,
+    private sanitizer: DomSanitizer,
+  ) { }
 
   ngOnInit(): void {
-    this.loadOwnerConfig();
+    this.ownerDetail = Commons.getDefaultConfig()
+    this.logoUrl = this.sanitizer.bypassSecurityTrustUrl(this.DF_LOGO)
     this.loadForm();
   }
 
@@ -88,27 +96,6 @@ export class ContactComponent implements OnInit {
   }
   /* --END-- Get Controls */
 
-  loadOwnerConfig() {
-    const validated = Commons.getOwnerConfig();
-    if (validated == null) {
-      //load from endpoint
-      this.loading = true;
-      this.ownerConfigService.getConfig().subscribe({
-        next: (v) => {
-          this.loading = false;
-          this.ownerDetail = v;
-          Commons.setOwnerConfig(v);
-        },
-        error: (e) => {
-          this.loading = false;
-        },
-        complete: () => {},
-      });
-    } else {
-      this.ownerDetail = validated;
-    }
-  }
-
   getErrorMessage(field: any) {
     if (field.hasError('required')) {
       return 'validations.required-field';
@@ -148,43 +135,46 @@ export class ContactComponent implements OnInit {
   send() {
     this.recaptchaV3Service
       .execute('esqueleton_contact')
-      .subscribe((token: string) => {
+      .subscribe(async (token: string) => {
         this.reCAPTCHAToken = token;
         let names = this.nameFormat.transform(this.first_name.value);
         if (Commons.validField(this.last_name.value)) {
           names = names + ' ' + this.nameFormat.transform(this.last_name.value);
         }
-        this.loading = true;
-        this.ownerConfigService
-          .sendContactMail(
-            this.ownerDetail.lang,
-            names,
-            this.phone.value,
-            this.email.value,
-            this.obs.value,
-            this.ownerDetail.contact_mail
-          )
-          .subscribe({
-            next: (v) => {
-              this.loading = false;
-              this.openModal(
-                'label.request-sended',
-                'label.contact-sended',
-                Commons.ICON_SUCCESS
-              );
-            },
-            error: (e) => {
-              this.loading = false;
-              this.openModal(
-                'label.unknown-error',
-                'label.unknown-error-contact-retry',
-                Commons.ICON_ERROR
-              );
-            },
-            complete: () => {
-              this.loadForm();
-            },
-          });
+        this.loading = true
+        const trxEnc = await this.cdkService.postTrxEnc(
+          {
+            host: 'https://' + window.location.hostname,
+            subject: names + ' (' + this.email.value + ')',
+            lang: this.ownerDetail.lang,
+            names: names,
+            phone: this.phone.value,
+            email: this.email.value,
+            obs: this.obs.value,
+            receiver: this.ownerDetail.contact_mail
+          })
+
+        this.ownerConfigService.sendContactMail(trxEnc).subscribe({
+          next: (v) => {
+            this.loading = false;
+            this.openModal(
+              'label.request-sended',
+              'label.contact-sended',
+              Commons.ICON_SUCCESS
+            );
+          },
+          error: (e) => {
+            this.loading = false;
+            this.openModal(
+              'label.unknown-error',
+              'label.unknown-error-contact-retry',
+              Commons.ICON_ERROR
+            );
+          },
+          complete: () => {
+            this.loadForm();
+          },
+        });
       });
   }
 
