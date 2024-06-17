@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { Observable } from 'rxjs';
 import { Commons } from '../Commons';
@@ -8,7 +8,7 @@ import { AlertModalComponent } from '../modals/alert-modal/alert-modal.component
 @Injectable({
   providedIn: 'root'
 })
-export class AdminRWXGuard implements CanActivate {
+export class AdminRWXGuard {
 
   sessionObject = Commons.sessionObject()
 
