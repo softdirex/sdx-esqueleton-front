@@ -7,11 +7,12 @@ import { Commons } from 'src/app/shared/Commons';
 import { environment } from 'src/environments/environment';
 import { lastValueFrom } from 'rxjs';
 import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-store-select-modal',
   standalone: true,
   imports: [
-    BrowserModule,
+    CommonModule,
     FormsModule,
     MdbModalModule
   ],

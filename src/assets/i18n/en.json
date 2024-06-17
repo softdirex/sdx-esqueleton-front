@@ -515,7 +515,8 @@
     "premium-licence": "Premium licence",
     "email-review-expired-token": "Token expired, check your last activation email",
     "image-wrong-size": "Image exceeds the size",
-    "inventory": "Inventory"
+    "inventory": "Inventory",
+    "inventory-desc": "Inventory manager for your organization"
   },
   "input": {
     "email": "Enter a email",

@@ -28,7 +28,6 @@ import { saveAs } from 'file-saver';
     MatFormFieldModule,
     ReactiveFormsModule,
     NgbTooltipModule,
-    BrowserModule,
     MatInputModule,
   ],
   templateUrl: './buy-order.component.html',

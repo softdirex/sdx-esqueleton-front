@@ -514,7 +514,8 @@
     "premium-licence": "Licenza premium",
     "email-review-expired-token": "Token scaduto, controlla la tua ultima email di attivazione",
     "image-wrong-size": "L'immagine supera le dimensioni",
-    "inventory": "Inventario"
+    "inventory": "Inventario",
+    "inventory-desc": "Gestore dell'inventario per la tua organizzazione"
   },
   "input": {
     "email": "Inserisci il tuo indirizzo email",
