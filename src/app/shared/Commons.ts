@@ -66,6 +66,8 @@ export class Commons {
     static readonly PATH_CART = 'cart'
     static readonly PATH_CHECKOUT = 'checkout'
     static readonly PATH_ADMIN_INVENTORY = 'inventory'
+    static readonly PATH_ADMIN_CLIENTS = 'clients'
+    static readonly PATH_ADMIN_ORDERS = 'orders'
 
     /* BEGIN - ENDPOINT NECESSARY FOR EMAIL DIRECT LINK */
     static readonly PATH_LOGIN = 'login'

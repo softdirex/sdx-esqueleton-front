@@ -11,6 +11,10 @@ import { PasswordRecoveryComponent } from '../../pages/public/user/password-reco
 import { ProfileComponent } from '../../pages/public/user/profile/profile.component';
 import { RegisterComponent } from '../../pages/public/user/register/register.component';
 import { VerifyEmailComponent } from '../../pages/public/user/register/verify-email/verify-email.component';
+import { CartComponent } from '../../pages/public/examples/productsingle/cart/cart.component';
+import { CheckoutComponent } from '../../pages/public/examples/productsingle/cart/checkout/checkout.component';
+import { OrdersComponent } from '../../pages/public/examples/orders/orders.component';
+import { FavoritesComponent } from '../../pages/public/examples/favorites/favorites.component';
 
 let owner = (Commons.getOwner()) ? Commons.getOwner().config : Commons.getDefaultConfig()
 let commonData = {
@@ -60,6 +64,22 @@ export const PublicLayoutRoutes: Routes = [
     },
     {
         path: Commons.PATH_MAIL_VER + '/:transientAuth/:lang', component: VerifyEmailComponent,
+        data: commonData
+    },
+    {
+        path: 'cart', component: CartComponent,
+        data: commonData
+    },
+    {
+        path: 'checkout', component: CheckoutComponent,
+        data: commonData
+    },
+    {
+        path: 'user/orders', component: OrdersComponent,
+        data: commonData
+    },
+    {
+        path: 'user/favorites', component: FavoritesComponent,
         data: commonData
     }
 ];

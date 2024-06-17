@@ -515,7 +515,8 @@
     "email-review-expired-token": "Token scaduto, controlla la tua ultima email di attivazione",
     "image-wrong-size": "L'immagine supera le dimensioni",
     "inventory": "Inventario",
-    "inventory-desc": "Gestore dell'inventario per la tua organizzazione"
+    "inventory-desc": "Gestore dell'inventario per la tua organizzazione",
+    "orders": "Ordini"
   },
   "input": {
     "email": "Inserisci il tuo indirizzo email",

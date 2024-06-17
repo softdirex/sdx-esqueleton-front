@@ -516,7 +516,8 @@
     "email-review-expired-token": "Token expired, check your last activation email",
     "image-wrong-size": "Image exceeds the size",
     "inventory": "Inventory",
-    "inventory-desc": "Inventory manager for your organization"
+    "inventory-desc": "Inventory manager for your organization",
+    "orders": "Orders"
   },
   "input": {
     "email": "Enter a email",

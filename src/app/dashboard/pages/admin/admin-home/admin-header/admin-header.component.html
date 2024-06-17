@@ -20,6 +20,14 @@
         <li *ngIf="getScreenWidth < mobileWidth && !withoutCompany" class="nav-item active">
           <a class="nav-link text-white" (click)="toMyCompany()">{{'label.my-organization'|transloco}}</a>
         </li>
+        
+        <li *ngIf="getScreenWidth < mobileWidth && !withoutCompany" class="nav-item active">
+          <a class="nav-link text-white" routerLink="{{PATH_ADMIN_ORDERS}}">{{'label.orders'|transloco}}</a>
+        </li>
+
+        <li *ngIf="getScreenWidth < mobileWidth && !withoutCompany" class="nav-item active">
+          <a class="nav-link text-white" routerLink="{{PATH_ADMIN_CLIENTS}}">{{'label.clients'|transloco}}</a>
+        </li>
 
         <li *ngIf="getScreenWidth < mobileWidth && !withoutCompany" class="nav-item active">
           <a class="nav-link text-white" routerLink="{{PATH_ADMIN_INVENTORY}}">{{'label.inventory'|transloco}}</a>
@@ -39,6 +47,14 @@
 
         <li *ngIf="getScreenWidth < mobileWidth" class="nav-item active">
           <a class="nav-link text-white" (click)="openLanguageModal()">{{'language.title'|transloco}}</a>
+        </li>
+
+        <li *ngIf="getScreenWidth >= mobileWidth" class="nav-item dropdown dropdown-slide">
+          <a *ngIf="sessionIsOpen && !withoutCompany" class="nav-link text-white" routerLink="{{PATH_ADMIN_ORDERS}}">{{'label.orders'|transloco}}</a>
+        </li>
+
+        <li *ngIf="getScreenWidth >= mobileWidth" class="nav-item dropdown dropdown-slide">
+          <a *ngIf="sessionIsOpen && !withoutCompany" class="nav-link text-white" routerLink="{{PATH_ADMIN_CLIENTS}}">{{'label.clients'|transloco}}</a>
         </li>
 
         <li *ngIf="getScreenWidth >= mobileWidth" class="nav-item dropdown dropdown-slide">

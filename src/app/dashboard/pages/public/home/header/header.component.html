@@ -55,7 +55,7 @@
 
     <ul class="top-menu list-inline mb-0 d-none d-lg-block" id="top-menu">
 
-      <!--li class="dropdown cart-nav dropdown-slide list-inline-item">
+      <li class="dropdown cart-nav dropdown-slide list-inline-item">
         <a href="#" class="dropdown-toggle cart-icon" data-toggle="dropdown" data-hover="dropdown">
           <i class="tf-ion-android-cart"></i>
         </a>
@@ -98,7 +98,7 @@
             </div>
           </div>
         </div>
-      </li-->
+      </li>
       <li class="list-inline-item"><a href="#"></a></li>
       <li class="dropdown cart-nav dropdown-slide list-inline-item">
         <a href="#" (click)="openLanguageModal()" class="dropdown-toggle cart-icon" data-toggle="dropdown" data-hover="dropdown">
@@ -115,8 +115,8 @@
             <h3>{{getCustomerName()}}</h3>
           </li>
           <li *ngIf="sessionIsOpen"><a routerLink="{{PATH_MY_CUSTOMER}}">{{'label.profile'|transloco}}</a></li>
-          <!--li *ngIf="sessionIsOpen"><a href="user/orders">Orders</a></li>
-          <li *ngIf="sessionIsOpen"><a href="user/favorites">My favorites</a></li-->
+          <li *ngIf="sessionIsOpen"><a routerLink="user/orders">Orders</a></li>
+          <li *ngIf="sessionIsOpen"><a routerLink="user/favorites">My favorites</a></li>
           <li *ngIf="sessionIsOpen"><a routerLink="{{PATH_PRODUCT}}" class="btn btn-small btn-transparent">{{'label.dashboard'|transloco}}</a></li>
           <div *ngIf="!sessionIsOpen" class="text-center cart-buttons mt-3">
             <a routerLink="{{PATH_LOGIN}}" class="btn btn-small btn-main btn-block">{{'login.title'|transloco}}</a>

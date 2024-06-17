@@ -515,7 +515,8 @@
     "email-review-expired-token": "Token abgelaufen, überprüfen Sie Ihre letzte Aktivierungs-E-Mail",
     "image-wrong-size": "Bild überschreitet die Größe",
     "inventory": "Inventar",
-    "inventory-desc": "Bestandsmanager für Ihr Unternehmen"
+    "inventory-desc": "Bestandsmanager für Ihr Unternehmen",
+    "orders": "Aufträge"
   },
   "input": {
     "email": "Geben sie ihre E-Mail Adresse ein",
