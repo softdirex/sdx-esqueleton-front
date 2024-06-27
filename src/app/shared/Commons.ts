@@ -371,6 +371,11 @@ export class Commons {
         return rol
     }
 
+    static isInvViewer(): boolean {
+        const rol = this.sessionRol()
+        return rol !== 'RWX'
+    }
+
     static sessionCredentials(): string {
         let credentials: string = ''
         const sessionSign: any = this.decryptDataLocal(sessionStorage.getItem(this.KEY_SESSION))
