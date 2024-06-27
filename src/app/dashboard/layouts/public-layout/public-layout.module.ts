@@ -28,6 +28,9 @@ import { VerifyEmailComponent } from '../../pages/public/user/register/verify-em
 import { RegisterComponent } from '../../pages/public/user/register/register.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ProductsingleComponent } from '../../pages/public/productsingle/productsingle.component';
+import { CartComponent } from '../../pages/public/productsingle/cart/cart.component';
+import { CheckoutComponent } from '../../pages/public/productsingle/cart/checkout/checkout.component';
 
 @NgModule({
   imports: [
@@ -56,6 +59,9 @@ import { MatInputModule } from '@angular/material/input';
     FavoritesComponent,
     LoginComponent,
     OrdersComponent,
+    ProductsingleComponent,
+    CheckoutComponent,
+    CartComponent,
     HeaderComponent,
     FooterComponent,
     PasswordRecoveryComponent,

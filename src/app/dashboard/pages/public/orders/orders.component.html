@@ -4,7 +4,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <div class="content text-center">
-                    <h1 class="mb-3">Orders</h1>
+                    <h1 class="mb-3">{{'label.orders'|transloco}}</h1>
                     <p>Hath after appear tree great fruitful green dominion moveth sixth abundantly image that midst of
                         god day multiply you’ll which</p>
 
@@ -29,16 +29,16 @@
                         <div class="row">
 
                             <div class="col-lg-8">
-                                <h4 class="mb-4">Orders</h4>
+                                <h4 class="mb-4">{{'label.orders'|transloco}}</h4>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group mb-4">
-                                    <label for="company_name">Status</label>
+                                    <label for="company_name">{{'label.status'|transloco}}</label>
                                     <select class="form-control">
-                                        <option value="">Select an Option</option>
-                                        <option value="January">Pending</option>
-                                        <option value="February">Shipping</option>
-                                        <option value="March">Receibed</option>
+                                        <option value="">{{'label.select-an-option'|transloco}}</option>
+                                        <option value="January">{{'label.pending'|transloco}}</option>
+                                        <option value="February">{{'label.shipping'|transloco}}</option>
+                                        <option value="March">{{'label.receibed'|transloco}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                                     <div class="product-info">
                                         <h2 class="product-title h5 mb-0"><a
                                                 href="/product-single/{{item.id}}">{{item.name}}</a></h2>
-                                            <span class="shipping-receibed">Pending</span>
+                                            <span class="shipping-receibed">{{'label.pending'|transloco}}</span>
                                             <!-- class="shipping-pending" -->
                                             <!-- class="shipping-checked" -->
                                             <!-- class="shipping-sended" -->
@@ -94,17 +94,16 @@
                                 like Aldus PageMaker including versions of Lorem Ipsum.</p>
                         </div>
                         <p>
-                            <a routerLink="/terms/privacy-policy" class="btn btn-main btn-small">Privacy Policy</a>
+                            <a routerLink="{{'/'+privacyPolicyPath}}" class="btn btn-main btn-small">{{'label.privacy-policy'|transloco}}</a>
                         </p>
                         <p>
-                            <a routerLink="/terms/conditions-terms" class="btn btn-main btn-small">Terms &
-                                Conditions</a>
+                            <a routerLink="{{'/'+termConditionsPath}}" class="btn btn-main btn-small">{{'label.terms-conditions'|transloco}}</a>
                         </p>
                         <p>
-                            <a routerLink="/terms/cookie-policy" class="btn btn-main btn-small">Cookie Policy</a>
+                            <a routerLink="{{'/'+cookiePolicyPath}}" class="btn btn-main btn-small">{{'label.cookie-policy'|transloco}}</a>
                         </p>
                         <p>
-                            <a routerLink="/terms/sales-terms" class="btn btn-main btn-small">Terms of Sale</a>
+                            <a routerLink="{{'/'+termSalesPath}}" class="btn btn-main btn-small">{{'label.terms-sales'|transloco}}</a>
                         </p>
                     </div>
                 </div>

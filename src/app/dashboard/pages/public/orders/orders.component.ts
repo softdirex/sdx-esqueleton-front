@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Commons } from 'src/app/shared/Commons';
 import { Items } from 'src/app/shared/models/Items';
 
 @Component({
@@ -7,7 +8,10 @@ import { Items } from 'src/app/shared/models/Items';
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
-
+  privacyPolicyPath: string = Commons.PATH_TERMS + '/' + Commons.TERM_CODES[0].code
+  termConditionsPath: string = Commons.PATH_TERMS + '/' + Commons.TERM_CODES[1].code
+  termSalesPath: string = Commons.PATH_TERMS + '/' + Commons.TERM_CODES[2].code
+  cookiePolicyPath: string = Commons.PATH_TERMS + '/' + Commons.TERM_CODES[3].code
   itemstosale: Items[] = []
 
   constructor() { }

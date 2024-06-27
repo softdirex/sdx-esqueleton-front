@@ -35,10 +35,10 @@
               </a>
             </div>
   
-            <span *ngIf="item.deal" class="onsale">Sale</span>
+            <span *ngIf="item.deal" class="onsale">{{'label.offer'|transloco}}</span>
             <div class="product-hover-overlay">
-              <a href="#"><i class="tf-ion-android-cart"></i></a>
-              <a href="#"><i class="tf-ion-ios-heart"></i></a>
+              <a href="cart"><i class="tf-ion-android-cart"></i></a>
+              <a href="user/favorites"><i class="tf-ion-ios-heart"></i></a>
             </div>
   
             <div class="product-info">
