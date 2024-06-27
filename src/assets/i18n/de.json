@@ -516,7 +516,11 @@
     "image-wrong-size": "Bild überschreitet die Größe",
     "inventory": "Inventar",
     "inventory-desc": "Bestandsmanager für Ihr Unternehmen",
-    "orders": "Aufträge"
+    "orders": "Aufträge",
+    "market": "Markt",
+    "market-desc": "Verwalten Sie Angebote und Verkäufe",
+    "clients-desc": "Kundenverwaltung",
+    "admin-orders-desc": "Auftragsverwaltung"
   },
   "input": {
     "email": "Geben sie ihre E-Mail Adresse ein",

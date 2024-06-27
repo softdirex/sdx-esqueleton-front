@@ -517,7 +517,11 @@
     "image-wrong-size": "Image exceeds the size",
     "inventory": "Inventory",
     "inventory-desc": "Inventory manager for your organization",
-    "orders": "Orders"
+    "orders": "Orders",
+    "market": "Market",
+    "market-desc": "Manage offers and sales",
+    "clients-desc": "Customer administration",
+    "admin-orders-desc": "Order administration"
   },
   "input": {
     "email": "Enter a email",

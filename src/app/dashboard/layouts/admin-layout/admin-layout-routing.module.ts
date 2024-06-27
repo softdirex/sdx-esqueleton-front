@@ -8,6 +8,7 @@ import { CustomerRWXGuard } from 'src/app/shared/guards/customer-rwx.guard';
 import { InventoryComponent } from '../../pages/admin/inventory/inventory.component';
 import { ClientsComponent } from '../../pages/admin/clients/clients.component';
 import { OrdersComponent } from '../../pages/admin/orders/orders.component';
+import { MarketComponent } from '../../pages/admin/market/market.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: Commons.PATH_PRODUCT, component: AdminHomeComponent, canActivate: [CustomerGuard] },
@@ -15,6 +16,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: Commons.PATH_ADMIN_INVENTORY, component: InventoryComponent, canActivate: [CustomerRWXGuard] },
     { path: Commons.PATH_ADMIN_CLIENTS, component: ClientsComponent, canActivate: [CustomerRWXGuard] },
     { path: Commons.PATH_ADMIN_ORDERS, component: OrdersComponent, canActivate: [CustomerRWXGuard] },
+    { path: Commons.PATH_ADMIN_MARKET, component: MarketComponent, canActivate: [CustomerRWXGuard] },
 ];
 
 @NgModule({

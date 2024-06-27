@@ -516,7 +516,11 @@
     "image-wrong-size": "A imagem excede o tamanho",
     "inventory": "Inventário",
     "inventory-desc": "Gerente de estoque para sua organização",
-    "orders": "Pedidos"
+    "orders": "Pedidos",
+    "market": "Mercado",
+    "market-desc": "Gerenciar ofertas e vendas",
+    "clients-desc": "Administração de clientes",
+    "admin-orders-desc": "Administração de pedidos"
   },
   "input": {
     "email": "Digite seu e-mail",

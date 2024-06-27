@@ -516,7 +516,11 @@
     "image-wrong-size": "L'immagine supera le dimensioni",
     "inventory": "Inventario",
     "inventory-desc": "Gestore dell'inventario per la tua organizzazione",
-    "orders": "Ordini"
+    "orders": "Ordini",
+    "market": "Mercato",
+    "market-desc": "Gestire offerte e vendite",
+    "clients-desc": "Amministrazione del cliente",
+    "admin-orders-desc": "Amministrazione degli ordini"
   },
   "input": {
     "email": "Inserisci il tuo indirizzo email",

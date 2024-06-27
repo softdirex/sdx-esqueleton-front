@@ -1,1 +1,56 @@
-<p>clients works!</p>
+<section class="page-header-inventory">
+    <div class="overly"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="content text-center">
+                    <h1 class="mb-3">{{ 'label.clients' | transloco | titlecase }}</h1>
+                    <p>{{ 'label.clients-desc' | transloco }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="col-12" *ngIf="!loading">
+    <div class="row">
+        <div class="col-12">
+            <h5 class="text-center">{{ 'label.clients-desc' | transloco }}</h5>
+        </div>
+        <div class="col-12">
+            <table class="table shop_table shop_table_responsive cart mt-3">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>ROL</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="users.length > 0">
+                    <tr *ngFor="let user of users">
+                        <hr *ngIf="isMobile" class="card-header border-0" />
+                        <td data-title="Usuario">{{user.name}}</td>
+                        <td data-title="Email">{{user.email}}</td>
+                        <td data-title="Rol">{{user.role}}</td>
+                        <td data-title="Acción"><a class="btn btn-info btn-extra-small"
+                                (click)="showHistory(user)">Ver</a></td>
+                        <td data-title="Acción"><a class="btn btn-danger btn-extra-small"
+                                (click)="delete(user)">Bloquear</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div *ngIf="users.length == 0">
+                <h5 class="text-center">No hay registros para mostrar</h5>
+            </div>
+        </div>
+        <div class="col-12 mt-2" *ngIf="users && users.length > 0">
+            <ngb-pagination [collectionSize]="totalItems" [pageSize]="limit" [(page)]="page" [maxSize]="5"
+                [boundaryLinks]="true" (pageChange)="loadUsers()" aria-label="Default pagination" />
+        </div>
+    </div>
+</div>
+
+<div *ngIf="loading" class="row">
+    <img class="img-loading" src="./assets/img/gif/loading.gif">
+</div>
