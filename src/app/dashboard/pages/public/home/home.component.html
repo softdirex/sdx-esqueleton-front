@@ -1,7 +1,7 @@
 <ngx-slick-carousel *ngIf="!loading" class="main-slider slider" [config]="slideConfig">
 
   <div ngxSlickItem class="slider-item" *ngFor="let slider of sliders"
-    style="background-image:url({{slider.background}})">
+    style="background-image:url('{{slider.background}}')">
     <div class="container">
       <div class="row">
         <div class="col-lg-6 col-12 offset-lg-6 offset-md-6">
@@ -105,7 +105,7 @@
 </section>
 <!-- /portfolio -->
 
-<section *ngIf="!loading && footerdeal != null" class="ads section" style="background-image:url({{footerdeal.background}})">
+<section *ngIf="!loading && footerdeal != null" class="ads section" style="background-image:url('{{footerdeal.background}}')">
   <div class="container">
     <div class="row align-items-center">
       <div class="col-lg-6 offset-lg-6">

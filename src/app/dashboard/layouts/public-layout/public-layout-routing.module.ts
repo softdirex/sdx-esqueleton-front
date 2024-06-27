@@ -11,12 +11,12 @@ import { PasswordRecoveryComponent } from '../../pages/public/user/password-reco
 import { ProfileComponent } from '../../pages/public/user/profile/profile.component';
 import { RegisterComponent } from '../../pages/public/user/register/register.component';
 import { VerifyEmailComponent } from '../../pages/public/user/register/verify-email/verify-email.component';
-import { CartComponent } from '../../pages/public/examples/productsingle/cart/cart.component';
-import { CheckoutComponent } from '../../pages/public/examples/productsingle/cart/checkout/checkout.component';
-import { OrdersComponent } from '../../pages/public/examples/orders/orders.component';
-import { FavoritesComponent } from '../../pages/public/examples/favorites/favorites.component';
+import { CartComponent } from '../../pages/public/productsingle/cart/cart.component';
+import { CheckoutComponent } from '../../pages/public/productsingle/cart/checkout/checkout.component';
+import { OrdersComponent } from '../../pages/public/orders/orders.component';
+import { FavoritesComponent } from '../../pages/public/favorites/favorites.component';
 import { StoreComponent } from '../../pages/public/store/store.component';
-import { ProductsingleComponent } from '../../pages/public/examples/productsingle/productsingle.component';
+import { ProductsingleComponent } from '../../pages/public/productsingle/productsingle.component';
 
 let owner = (Commons.getOwner()) ? Commons.getOwner().config : Commons.getDefaultConfig()
 let commonData = {
