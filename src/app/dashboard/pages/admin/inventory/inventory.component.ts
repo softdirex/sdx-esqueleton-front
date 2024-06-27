@@ -36,12 +36,14 @@ export class InventoryComponent implements OnInit {
   selectedStore: any = null
   selectedOption: any = null
   options: any[] = []
+  isViewer: boolean = true
 
   constructor(
   ) {
   }
 
   async ngOnInit(): Promise<void> {
+    this.isViewer = Commons.isInvViewer()
     this.options = this.optionsMenu
     this.getScreenWidth = window.innerWidth
   }
@@ -72,9 +74,9 @@ export class InventoryComponent implements OnInit {
       { menu: "Escanear producto", icon: "tf-ion-ios-barcode", router: "scan", enabled: true },
       { menu: "Productos", icon: "tf-ion-ios-pricetag", router: "products", enabled: true },
       { menu: "Administrar bodegas", icon: "tf-ion-ios-settings-strong", router: "stores", enabled: true },
-      { menu: "Cotizacion", icon: "tf-ion-ios-list", router: "buy-order", enabled: true },
-      { menu: "Reporte", icon: "tf-ion-monitor", router: "reports", enabled: false },
-      { menu: "Historial de acciones", icon: "tf-ion-ios-stopwatch", router: "action-history", enabled: true },
+      { menu: "Cotizacion", icon: "tf-ion-ios-list", router: "buy-order", enabled: this.isViewer ? false : true },
+      { menu: "Reporte", icon: "tf-ion-monitor", router: "reports", enabled: true },
+      { menu: "Historial de acciones", icon: "tf-ion-ios-stopwatch", router: "action-history", enabled: this.isViewer ? false : true },
       { menu: "Proveedores", icon: "tf-ion-help-buoy", router: "providers", enabled: true },
     ]
   }

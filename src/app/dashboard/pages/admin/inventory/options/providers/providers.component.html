@@ -13,7 +13,7 @@
                 (paginatorChange)="onFilterSelected($event)"></app-common-filter>
 
             <hr *ngIf="!isMobile" class="card-header">
-            <div *ngIf="isMobile" class="card-header text-center">
+            <div *ngIf="isMobile && !isViewer" class="card-header text-center">
                 <a class="btn btn-success btn-small">Agregar</a>
             </div>
 
@@ -24,8 +24,8 @@
                         <th>Nombre</th>
                         <th>Email</th>
                         <th>Teléfono</th>
-                        <th><a class="btn btn-success btn-extra-small" (click)="add()" placement="bottom"
-                                ngbTooltip="Agregar Proveedor">Agregar</a></th>
+                        <th><a *ngIf="!isViewer" class="btn btn-success btn-extra-small" (click)="add()"
+                                placement="bottom" ngbTooltip="Agregar Proveedor">Agregar</a></th>
                     </tr>
                 </thead>
                 <tbody *ngIf="!loading">
@@ -35,9 +35,10 @@
                         <td data-title="Nombre">{{item.name}}</td>
                         <td data-title="Email">{{item.email}}</td>
                         <td data-title="Teléfono">{{item.phone}}</td>
-                        <td data-title="Acción"><a class="btn btn-info btn-extra-small" (click)="openProvider(item)">Ver</a>
-                            <button class="btn btn-default btn-extra-small text-right" (click)="remove(item,providers)"
-                                placement="bottom" ngbTooltip="Eliminar {{item.name}}">
+                        <td data-title="Acción"><a class="btn btn-info btn-extra-small"
+                                (click)="openProvider(item)">Ver</a>
+                            <button *ngIf="!isViewer" class="btn btn-default btn-extra-small text-right"
+                                (click)="remove(item,providers)" placement="bottom" ngbTooltip="Eliminar {{item.name}}">
                                 <i class="tf-ion-ios-trash active-red"></i>
                             </button>
                         </td>
@@ -46,14 +47,8 @@
             </table>
         </div>
         <div class="col-12 mt-2" *ngIf="providers && providers.length > 0">
-            <ngb-pagination 
-            [collectionSize]="totalItems" 
-            [pageSize]="limit" 
-            [(page)]="page" 
-            [maxSize]="5" 
-            [boundaryLinks]="true"
-            (pageChange)="loadProviders()" 
-            aria-label="Default pagination" />
+            <ngb-pagination [collectionSize]="totalItems" [pageSize]="limit" [(page)]="page" [maxSize]="5"
+                [boundaryLinks]="true" (pageChange)="loadProviders()" aria-label="Default pagination" />
         </div>
     </div>
 </div>

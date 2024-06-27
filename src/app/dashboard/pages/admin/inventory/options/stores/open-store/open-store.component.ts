@@ -55,6 +55,7 @@ export class OpenStoreComponent implements OnChanges, OnInit {
   itemsToLoad: Items[] = []
   metaToLoad: any = null
   loadingItems: boolean = false
+  isViewer: boolean = true
 
   constructor(
     private modalService: MdbModalService,
@@ -64,6 +65,7 @@ export class OpenStoreComponent implements OnChanges, OnInit {
   }
   async ngOnInit(): Promise<void> {
     this.getScreenWidth = window.innerWidth
+    this.isViewer = Commons.isInvViewer()
   }
 
   @HostListener('window:resize', ['$event'])

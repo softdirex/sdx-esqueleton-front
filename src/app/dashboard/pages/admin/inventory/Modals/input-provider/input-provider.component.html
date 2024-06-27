@@ -49,9 +49,10 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button *ngIf="option!=RESTORE" type="submit" class="btn btn-success btn-extra-small">Guardar</button>
+            <button *ngIf="option!=RESTORE" type="submit" class="btn btn-success btn-extra-small"
+                [disabled]="isViewer">Guardar</button>
             <button *ngIf="option==RESTORE" type="button" ngbAutofocus class="btn btn-warning btn-extra-small"
-                (click)="restore()">
+                (click)="restore()" [disabled]="isViewer">
                 {{ 'label.restore' | transloco }}
             </button>
             <button type="button" ngbAutofocus class="btn btn-danger btn-extra-small" (click)="cancel()">

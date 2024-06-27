@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { AlertTypeEnum } from '../../Enums/Alerts';
 import { Commons } from 'src/app/shared/Commons';
 import { CommonModule } from '@angular/common';
@@ -51,6 +51,7 @@ export class StoresComponent implements OnInit {
   totalItems: number = 0
   limit: number = 4
   inputSearch = new UntypedFormControl('', [Validators.required, Validators.pattern(environment.aboutRegex), Validators.maxLength(200), Validators.minLength(2)]);
+  isViewer: boolean = true
 
   constructor(
     private modalService: MdbModalService,
@@ -61,6 +62,7 @@ export class StoresComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.loading = true
     await this.loadStores()
+    this.isViewer = Commons.isInvViewer()
     this.getScreenWidth = window.innerWidth
     this.checkStores()
   }

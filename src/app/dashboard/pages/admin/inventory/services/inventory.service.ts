@@ -115,7 +115,7 @@ export class InventoryService {
         let params = (status != null) ? `?status=${status}` : ''
         params = (filters) ? ((params === '') ? `?filters=${filters}` : params + `&filters=${filters}`) : params
         params = (limit) ? ((params === '') ? `?limit=${limit}` : params + `&limit=${limit}`) : params
-        params = (page) ? ((params === '') ? `?page=${filters}` : params + `&page=${page}`) : params
+        params = (page) ? ((params === '') ? `?page=${page}` : params + `&page=${page}`) : params
         const options = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
@@ -353,5 +353,51 @@ export class InventoryService {
         });
 
         return this.http.post(`${this.urlItems}/quote/download/${type}`, request, { headers, responseType: 'blob' });
+    }
+
+    getStoreReport(credentials: string, storeId: number) {
+        const options = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                Authorization: 'Basic ' + credentials,
+            })
+        }
+        return this.http.get<any>(`${this.urlItems}/reports/${storeId}`, options);
+    }
+
+    getAllStoresReport(credentials: string,limit: number | null, page: number | null) {
+        let params = (limit != null) ? `?limit=${limit}` : ''
+        params = (page) ? ((params === '') ? `?page=${page}` : params + `&page=${page}`) : params
+        const options = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                Authorization: 'Basic ' + credentials,
+            })
+        }
+        return this.http.get<any>(`${this.urlItems}/allreports${params}`, options);
+    }
+
+    exportReport(storeId:number,request: any, type: string,date:string, credentials: string): Observable<Blob> {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': 'Basic ' + credentials
+        });
+
+        return this.http.post(`${this.urlItems}/reports/${storeId}/export/${type}?date=${date}`, request, { headers, responseType: 'blob' });
+    }
+
+    printBarcode(credentials:string,size:string,product_name:string,bar_code:string){
+        const request = {
+            size: size,
+            bar_code: bar_code,
+            product_name: product_name
+        }
+        const options = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                Authorization: 'Basic ' + credentials,
+            })
+        }
+        return this.http.post<any>(`${this.urlItems}/print`, request,options);
     }
 }

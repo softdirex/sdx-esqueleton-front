@@ -40,6 +40,7 @@ export class InputProductComponent implements OnInit {
   loading: boolean = false
   codeMode: string = 'AUTO';
   noCode: boolean = false
+  isViewer: boolean = true
 
   constructor(
     public modalRef: MdbModalRef<InputProductComponent>,
@@ -48,6 +49,7 @@ export class InputProductComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this.isViewer = Commons.isInvViewer()
     if (this.product.name != '') {
       this.option = this.EDIT
       this.showImage = true

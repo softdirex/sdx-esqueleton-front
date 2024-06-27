@@ -7,12 +7,17 @@ import { Commons } from 'src/app/shared/Commons';
 import { environment } from 'src/environments/environment';
 import { lastValueFrom } from 'rxjs';
 import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
-import { CommonModule } from '@angular/common';
+
+export enum StoreSelectTypeEnum {
+  DOWNLOAD_EXCEL = 'DOWNLOAD_EXCEL',
+  SELECT = 'SELECT'
+}
+
 @Component({
   selector: 'app-store-select-modal',
   standalone: true,
   imports: [
-    CommonModule,
+    BrowserModule,
     FormsModule,
     MdbModalModule
   ],
@@ -20,8 +25,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './store-select-modal.component.css'
 })
 export class StoreSelectModalComponent implements OnInit {
-  @Output() storeSelected = new EventEmitter<string>(); // Emitirá la tienda seleccionada
-  selectedStore: number | null = null;
+  selectedStoreId: number | null = null;
   page: number = 1
   totalItems: number = 0
   limit: number = 4
@@ -34,15 +38,13 @@ export class StoreSelectModalComponent implements OnInit {
   alertModal: MdbModalRef<AlertModalComponent> | null = null;
   errorMessage: string = ""
   selectedStoreName: string | null = null;
-  
+  option:StoreSelectTypeEnum = StoreSelectTypeEnum.SELECT
 
   constructor(public modalRef: MdbModalRef<StoreSelectModalComponent>,
     private inventoryService: InventoryService,
     private modalService: MdbModalService
   ) {
   }
-
-
 
   async ngOnInit(): Promise<void> {
     this.loading = true
@@ -75,15 +77,24 @@ export class StoreSelectModalComponent implements OnInit {
     }
   }
 
+  onSelect(){
+    if (this.selectedStoreId === null) {
+      this.errorMessage = 'Seleccione una bodega'
+      return
+    }else{
+      this.modalRef.close(this.selectedStoreId)
+    }
+  }
+
   download() {
     const fileNameToDownload = `Template_store`;
-    if (this.selectedStore === null) {
+    if (this.selectedStoreId === null) {
       // Manejar el caso donde no se ha seleccionado ninguna tienda
       this.errorMessage = 'El campo es obligatorio'
       return
     }
     this.loading = true
-    this.inventoryService.bulkloadDownload(this.selectedStore, Commons.sessionCredentials()).subscribe({
+    this.inventoryService.bulkloadDownload(this.selectedStoreId, Commons.sessionCredentials()).subscribe({
       next: (v) => {
         const response: Blob = v
         const url = window.URL.createObjectURL(response);
@@ -135,6 +146,13 @@ export class StoreSelectModalComponent implements OnInit {
     })
   }
 
+  get showDownloadButton(){
+    return this.option === StoreSelectTypeEnum.DOWNLOAD_EXCEL
+  }
+
+  get showSelectStoreButton(){
+    return this.option === StoreSelectTypeEnum.SELECT
+  }
 
   get isMobile() {
     return this.getScreenWidth < Commons.MOBILE_WIDTH

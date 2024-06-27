@@ -52,8 +52,6 @@ export class InputAreaComponent implements OnInit {
     if (this.modalOption == ModalOptionEnum.OPTION_EDIT) {
       this.inputName.setValue(this.area.name)
     }
-    
-
   }
 
   async add() {

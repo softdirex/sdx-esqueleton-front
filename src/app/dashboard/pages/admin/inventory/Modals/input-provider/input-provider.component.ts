@@ -35,6 +35,7 @@ export class InputProviderComponent implements OnInit {
   fProvider: Provider = new Provider({});
   loading = false
   errorMessage = ''
+  isViewer: boolean = true
 
   constructor(
     public inventoryService: InventoryService,
@@ -44,6 +45,7 @@ export class InputProviderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isViewer = Commons.isInvViewer()
     if (this.provider.name != '') {
       this.option = this.EDIT
       this.fProvider = { ...this.provider }
@@ -103,7 +105,7 @@ export class InputProviderComponent implements OnInit {
           this.errorMessage = 'El Documento es obligatorio'
           return
         }
-        if(this.fProvider.doc_number.length > 40){
+        if (this.fProvider.doc_number.length > 40) {
           this.errorMessage = 'Formato de documento incorrecto'
           return
         }

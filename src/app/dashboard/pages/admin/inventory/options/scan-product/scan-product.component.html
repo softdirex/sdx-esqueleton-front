@@ -15,7 +15,8 @@
                             </div>
                             <div class="col-2 mt-2">
                                 <button class="btn btn-success btn-extra-small" (click)="gbc()" placement="bottom"
-                                    ngbTooltip="Escanear" [disabled]="!barcode"><i class="tf-ion-ios-barcode"></i></button>
+                                    ngbTooltip="Escanear" [disabled]="!barcode"><i
+                                        class="tf-ion-ios-barcode"></i></button>
                             </div>
                             <div class="col-2 mt-2">
                                 <button class="btn btn-danger btn-extra-small" (click)="cbc()" placement="bottom"
@@ -29,7 +30,7 @@
             <div *ngIf="loading" class="row mt-2">
                 <img class="img-loading" src="./assets/img/gif/loading.gif">
             </div>
-            <div *ngIf="product && !loading" class="col-12 mb-2 mt-2">
+            <div *ngIf="product && !loading && !isViewer" class="col-12 mb-2 mt-2">
                 <h6 class="text-center">Acción rápida</h6>
                 <div class="row justify-content-center">
                     <button class="card col-{{isMobile ? '4 ml-2 mb-2':'1'}} btn-border" *ngFor="let option of options"
@@ -58,16 +59,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                                <tr *ngFor="let item of itemsToSelect">
-                                    <td>
-                                        {{ item.name }}
-                                    </td>
-                                    <td>{{ item.category }}</td>
-                                    <td>{{ item.location_desc  }}</td>
-                                    <td>
-                                        <button class="btn btn-primary btn-extra-small" (click)="select(item)">Seleccionar</button>
-                                    </td>
-                                </tr>
+                            <tr *ngFor="let item of itemsToSelect">
+                                <td>
+                                    {{ item.name }}
+                                </td>
+                                <td>{{ item.category }}</td>
+                                <td>{{ item.location_desc }}</td>
+                                <td>
+                                    <button class="btn btn-primary btn-extra-small"
+                                        (click)="select(item)">Seleccionar</button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

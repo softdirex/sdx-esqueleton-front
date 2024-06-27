@@ -1,14 +1,15 @@
 <div *ngIf="!loading" class="col-12">
     <div class="row">
         <div class="col-12 mt-2 text-right">
-            <button class="btn btn-warning btn-extra-small ml-2" (click)="close()" placement="bottom" ngbTooltip="Cerrar menú">Cerrar</button>
+            <button class="btn btn-warning btn-extra-small ml-2" (click)="close()" placement="bottom"
+                ngbTooltip="Cerrar menú">Cerrar</button>
         </div>
         <div class="col-12">
             <h5 class="text-center">Control de bodegas</h5>
         </div>
     </div>
-    
-    
+
+
     <app-open-store [store]="store" (closed)="onChangedStore($event)"></app-open-store>
     <hr>
     <div class="text-center mb-2">
@@ -18,16 +19,18 @@
                 class="tf-ion-android-arrow-dropup"></i></button>
     </div>
 
-    <div  *ngIf="showMore" class="row justify-content-center" >
+    <div *ngIf="showMore" class="row justify-content-center">
         <div *ngIf="isMobile" class="col-12 mb-2 mt-2 text-right">
-            <button class="btn btn-success btn-extra-small ml-2" (click)="add()" placement="bottom" ngbTooltip="Agregar bodega">Agregar</button>
+            <button class="btn btn-success btn-extra-small ml-2" (click)="add()" placement="bottom"
+                ngbTooltip="Agregar bodega" [disabled]="isViewer">Agregar</button>
         </div>
         <div class="col-{{isMobile ? '12':'8'}} mb-2 text-right">
             <input type="search" class="form-control" (search)="loadStores()" [formControl]="inputSearch"
                 [attr.placeholder]="'label.search-by-name' | transloco" />
         </div>
         <div *ngIf="!isMobile" class="col-2 mb-2 mt-2 text-right">
-            <button class="btn btn-success btn-extra-small ml-2" (click)="add()" placement="bottom" ngbTooltip="Agregar bodega">Agregar</button>
+            <button class="btn btn-success btn-extra-small ml-2" (click)="add()" placement="bottom"
+                ngbTooltip="Agregar bodega" [disabled]="isViewer">Agregar</button>
         </div>
         <div class="card col-{{(isMobile) ? '12 mb-2':((isSmallScreen)?'4':'2 ml-2')}}" *ngFor="let store of stores">
             <div class="mt-3">
@@ -46,7 +49,7 @@
                 <p>Monto:</p>
                 <p class="text-right"><b>{{((store.summary) ? store.summary.total_price:0) | currency: 'CLP'}}</b></p>
             </div>
-            <button class="btn btn-default btn-extra-small text-right" (click)="remove(store,stores)"
+            <button *ngIf="!isViewer" class="btn btn-default btn-extra-small text-right" (click)="remove(store,stores)"
                 placement="bottom" ngbTooltip="Eliminar {{store.name}}">
                 <i class="tf-ion-ios-trash active-red"></i>
             </button>
@@ -70,14 +73,8 @@
         <h6 *ngIf="!stores || (stores && stores.length == 0)" class="alert-warning">No existen bodegas para mostrar</h6>
 
         <div class="col-12 mt-2" *ngIf="stores && stores.length > 0">
-            <ngb-pagination 
-            [collectionSize]="totalItems" 
-            [pageSize]="limit" 
-            [(page)]="page" 
-            [maxSize]="5" 
-            [boundaryLinks]="true"
-            (pageChange)="loadStores()" 
-            aria-label="Default pagination" />
+            <ngb-pagination [collectionSize]="totalItems" [pageSize]="limit" [(page)]="page" [maxSize]="5"
+                [boundaryLinks]="true" (pageChange)="loadStores()" aria-label="Default pagination" />
         </div>
     </div>
 </div>

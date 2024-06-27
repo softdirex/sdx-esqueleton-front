@@ -50,9 +50,7 @@ export class ListItemsComponent implements OnInit {
   confirmModal: MdbModalRef<ConfirmModalComponent> | null = null;
   modalTitle = 'Eliminando '
   alertModal: MdbModalRef<AlertModalComponent> | null = null;
-
-
-
+  isViewer: boolean = true
 
   constructor(
     private modalService: MdbModalService,
@@ -69,6 +67,7 @@ export class ListItemsComponent implements OnInit {
   ngOnInit(): void {
     this.getScreenWidth = window.innerWidth
     this.loadMeta()
+    this.isViewer = Commons.isInvViewer()
   }
 
   openItem(item: any) {

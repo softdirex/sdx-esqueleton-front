@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbPagination, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { Commons, FILTER, FilterType } from 'src/app/shared/Commons';
@@ -9,7 +9,7 @@ import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { InputProductComponent } from '../../Modals/input-product/input-product.component';
 import { lastValueFrom } from 'rxjs';
 import { InventoryService } from '../../services/inventory.service';
-import { StoreSelectModalComponent } from '../../Modals/store-select-modal/store-select-modal.component';
+import { StoreSelectModalComponent, StoreSelectTypeEnum } from '../../Modals/store-select-modal/store-select-modal.component';
 import { ConfirmModalComponent } from 'src/app/shared/modals/confirm-modal/confirm-modal.component';
 import * as XLSX from 'xlsx';
 import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
@@ -63,6 +63,7 @@ export class ProductsComponent implements OnInit {
   storeId: number = 0;
   modalTitle = 'Producto'
   alertModal: MdbModalRef<AlertModalComponent> | null = null;
+  isViewer: boolean = true
 
   constructor(
     private modalService: MdbModalService,
@@ -76,6 +77,7 @@ export class ProductsComponent implements OnInit {
     this.paginator.page = 1
     this.paginator.status = this.paginator.statusActive
     this.getScreenWidth = window.innerWidth
+    this.isViewer = Commons.isInvViewer()
   }
 
   @HostListener('window:resize', ['$event'])
@@ -110,12 +112,11 @@ export class ProductsComponent implements OnInit {
   }
 
   openModalExcel() {
-    this.storeSelectModal = this.modalService.open(StoreSelectModalComponent)
+    this.storeSelectModal = this.modalService.open(StoreSelectModalComponent, { data: { option: StoreSelectTypeEnum.DOWNLOAD_EXCEL } })
   }
 
   onFilterSelected(paginator: PaginatorConfig) {
     this.paginator = paginator
-    //this.loadData()
   }
 
   async loadItems() {
@@ -160,7 +161,7 @@ export class ProductsComponent implements OnInit {
     if (this.selectedFile && this.storeId !== 0) { // Asegurarse de que storeId no sea el valor predeterminado
       this.loading = true
       this.inventoryService.importExcel(this.storeId, this.selectedFile, Commons.sessionCredentials()).subscribe(
-      
+
         response => {
           this.importResults = response;
           this.loadItems();

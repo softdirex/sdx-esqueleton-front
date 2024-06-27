@@ -75,8 +75,7 @@
                 <div class="col-6">
                     <div class="form-group">
                         <label for="code">Código inicial {{(codeMode == 'AUTO') ? '(opcional)':'(requerido)'}}:</label>
-                        <input type="text" id="code" name="code" [(ngModel)]="fProduct.code"
-                            class="form-control">
+                        <input type="text" id="code" name="code" [(ngModel)]="fProduct.code" class="form-control">
                     </div>
                 </div>
                 <div class="col-6 mt-4 text-center" *ngIf="option == ADD">
@@ -84,7 +83,7 @@
                         <mat-button-toggle-group [(ngModel)]="codeMode" appearance="legacy">
                             <mat-button-toggle value="MANUAL"><small>Manual</small></mat-button-toggle>
                             <mat-button-toggle value="AUTO"><small>Automático</small></mat-button-toggle>
-                          </mat-button-toggle-group>
+                        </mat-button-toggle-group>
                     </div>
                 </div>
                 <div class="col-6">
@@ -122,7 +121,7 @@
                             <label>{{fProduct.location_desc}}</label>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -130,7 +129,8 @@
             <div *ngIf="errorMessage" class="col-12">
                 <h6 class="alert-warning text-center">{{errorMessage}}</h6>
             </div>
-            <button type="button" class="btn btn-success btn-extra-small" (click)="onSubmit()">Guardar</button>
+            <button type="button" class="btn btn-success btn-extra-small" (click)="onSubmit()"
+                [disabled]="isViewer">Guardar</button>
             <button type="button" ngbAutofocus class="btn btn-danger btn-extra-small" (click)="cancel()">
                 {{ 'label.cancel' | transloco }}
             </button>

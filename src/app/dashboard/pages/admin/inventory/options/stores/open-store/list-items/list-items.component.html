@@ -10,10 +10,12 @@
     </div>
     <div class="card col-{{isMobile?'12 mb-2':'4'}}" *ngFor="let item of items">
         <div class="card-header border-0">
-            <h6>{{item.name}}<a class="btn btn-default btn-extra-small text-right" (click)="openItem(item)"
-                    placement="bottom" ngbTooltip="Editar {{item.name}}"><i class="tf-ion-edit active-blue"></i></a>
-                <a class="btn btn-default btn-extra-small text-right" (click)="delete(item,items)" placement="bottom"
-                    ngbTooltip="Eliminar {{item.name}}"><i class="tf-ion-ios-trash active-red"></i></a>
+            <h6>{{item.name}}<a *ngIf="!isViewer" class="btn btn-default btn-extra-small text-right"
+                    (click)="openItem(item)" placement="bottom" ngbTooltip="Editar {{item.name}}"><i
+                        class="tf-ion-edit active-blue"></i></a>
+                <a *ngIf="!isViewer" class="btn btn-default btn-extra-small text-right" (click)="delete(item,items)"
+                    placement="bottom" ngbTooltip="Eliminar {{item.name}}"><i
+                        class="tf-ion-ios-trash active-red"></i></a>
             </h6>
             <h6><small>cod: {{item.bar_code}}</small></h6>
             <h6><small><b>ubicación: {{item.location_desc}}</b></small></h6>
@@ -38,13 +40,7 @@
         </div>
     </div>
     <div class="col-12 mt-3" *ngIf="items && items.length > 0">
-        <ngb-pagination 
-        [collectionSize]="totalItems" 
-        [pageSize]="limit" 
-        [(page)]="page"
-        [maxSize]="5" 
-        [boundaryLinks]="true" 
-        (pageChange)="onPageChange()" 
-        aria-label="Default pagination" />
+        <ngb-pagination [collectionSize]="totalItems" [pageSize]="limit" [(page)]="page" [maxSize]="5"
+            [boundaryLinks]="true" (pageChange)="onPageChange()" aria-label="Default pagination" />
     </div>
 </div>

@@ -9,6 +9,7 @@ import { InventoryService } from '../../services/inventory.service';
 import { lastValueFrom } from 'rxjs';
 import { Product } from '../../Models/Product';
 import { InputStockComponent } from '../../Modals/input-stock/input-stock.component';
+import { PrintBarCodeComponent } from '../../Modals/print-bar-code/print-bar-code.component';
 
 @Component({
   selector: 'app-scan-product',
@@ -45,6 +46,8 @@ export class ScanProductComponent implements OnInit {
   errorMessage: string = ''
   loading: boolean = false
   itemsToSelect: any[] = []
+  storeSelectModal: MdbModalRef<PrintBarCodeComponent> | null = null;
+  isViewer: boolean = true
 
   constructor(
     private modalService: MdbModalService,
@@ -56,6 +59,7 @@ export class ScanProductComponent implements OnInit {
   ngOnInit(): void {
     this.options = this.optionsMenu
     this.getScreenWidth = window.innerWidth
+    this.isViewer = Commons.isInvViewer()
   }
 
   @HostListener('window:resize', ['$event'])
@@ -77,6 +81,9 @@ export class ScanProductComponent implements OnInit {
         break;
       case 'product-discount':
         this.decreaseStock();
+        break;
+      case 'product-print':
+        this.openPrintOptions(this.product)
         break;
       default:
         console.warn(`No action defined for router: ${option.router}`);
@@ -194,5 +201,9 @@ export class ScanProductComponent implements OnInit {
         this.product = data
       }
     });
+  }
+
+  openPrintOptions(product: any) {
+    this.storeSelectModal = this.modalService.open(PrintBarCodeComponent, { data: { product: product } })
   }
 }

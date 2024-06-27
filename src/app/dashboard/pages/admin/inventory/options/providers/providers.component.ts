@@ -48,7 +48,7 @@ export class ProvidersComponent implements OnInit {
   confirmModal: MdbModalRef<ConfirmModalComponent> | null = null;
   modalTitle = 'Proveedor '
   alertModal: MdbModalRef<AlertModalComponent> | null = null;
-
+  isViewer: boolean = true
 
   constructor(
     private modalService: MdbModalService,
@@ -61,6 +61,7 @@ export class ProvidersComponent implements OnInit {
     this.paginator.page = 1
     this.paginator.status = this.paginator.statusActive
     this.getScreenWidth = window.innerWidth
+    this.isViewer = Commons.isInvViewer()
   }
 
   @HostListener('window:resize', ['$event'])
