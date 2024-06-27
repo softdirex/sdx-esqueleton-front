@@ -1,12 +1,12 @@
-import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormsModule, UntypedFormControl, Validators } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { InventoryService } from '../../services/inventory.service';
 import { Commons } from 'src/app/shared/Commons';
 import { environment } from 'src/environments/environment';
 import { lastValueFrom } from 'rxjs';
 import { AlertModalComponent } from 'src/app/shared/modals/alert-modal/alert-modal.component';
+import { CommonModule } from '@angular/common';
 
 export enum StoreSelectTypeEnum {
   DOWNLOAD_EXCEL = 'DOWNLOAD_EXCEL',
@@ -17,9 +17,9 @@ export enum StoreSelectTypeEnum {
   selector: 'app-store-select-modal',
   standalone: true,
   imports: [
-    BrowserModule,
     FormsModule,
-    MdbModalModule
+    MdbModalModule,
+    CommonModule
   ],
   templateUrl: './store-select-modal.component.html',
   styleUrl: './store-select-modal.component.css'
