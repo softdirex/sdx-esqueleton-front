@@ -520,7 +520,8 @@
     "market": "Markt",
     "market-desc": "Verwalten Sie Angebote und Verkäufe",
     "clients-desc": "Kundenverwaltung",
-    "admin-orders-desc": "Auftragsverwaltung"
+    "admin-orders-desc": "Auftragsverwaltung",
+    "select-an-option": "Wähle eine Option"
   },
   "input": {
     "email": "Geben sie ihre E-Mail Adresse ein",

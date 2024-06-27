@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ItemsCategoriesService } from 'src/app/services/items-categories.service';
 import { BestDeals } from 'src/app/shared/models/BestDeals';
 import { FooterDeal } from 'src/app/shared/models/FooterDeal';
 import { Items } from 'src/app/shared/models/Items';
@@ -22,12 +23,13 @@ export class HomeComponent implements OnInit {
   descriptionpage: string = ''
   footerdeal: FooterDeal | null = null
   loading:boolean=false
+  categories = ItemsCategoriesService.getCategories()
 
   constructor() { }
 
   ngOnInit(): void {
-    this.titlepage = 'New Arrivals'
-    this.descriptionpage = 'The best Online sales to shop these weekend'
+    this.titlepage = 'Nuevos productos'
+    this.descriptionpage = 'Las mejores rebajas online para comprar este fin de semana'
     this.sliders = [
       {
         background: 'assets/images/slideshow1-2.jpg',

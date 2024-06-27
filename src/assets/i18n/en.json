@@ -521,7 +521,8 @@
     "market": "Market",
     "market-desc": "Manage offers and sales",
     "clients-desc": "Customer administration",
-    "admin-orders-desc": "Order administration"
+    "admin-orders-desc": "Order administration",
+    "select-an-option": "Select an option"
   },
   "input": {
     "email": "Enter a email",

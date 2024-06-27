@@ -15,6 +15,8 @@ import { CartComponent } from '../../pages/public/examples/productsingle/cart/ca
 import { CheckoutComponent } from '../../pages/public/examples/productsingle/cart/checkout/checkout.component';
 import { OrdersComponent } from '../../pages/public/examples/orders/orders.component';
 import { FavoritesComponent } from '../../pages/public/examples/favorites/favorites.component';
+import { StoreComponent } from '../../pages/public/store/store.component';
+import { ProductsingleComponent } from '../../pages/public/examples/productsingle/productsingle.component';
 
 let owner = (Commons.getOwner()) ? Commons.getOwner().config : Commons.getDefaultConfig()
 let commonData = {
@@ -28,6 +30,14 @@ let commonData = {
 export const PublicLayoutRoutes: Routes = [
     {
         path: Commons.PATH_MAIN, component: HomeComponent,
+        data: commonData
+    },
+    {
+        path: Commons.PATH_STORE, component: StoreComponent,
+        data: commonData
+    },
+    {
+        path: 'product-single/:item-id', component: ProductsingleComponent,
         data: commonData
     },
     {

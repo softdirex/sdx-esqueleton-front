@@ -1,0 +1,69 @@
+<section *ngIf="!loading" class="section products-main">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-4">
+          <div class="title text-left">
+            <h2>{{titlepage}}</h2>
+            <p>{{descriptionpage}}</p>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="title text-left">
+            <label for="search">{{'label.search'|transloco}}</label>
+             <input class="form-control" type="search" [(ngModel)]="inputSearch" (keyup.enter)="search()">
+          </div>
+        </div>
+        <div class="col-lg-2">
+          <div class="form-group mb-4">
+            <label for="company_name">{{'label.category'|transloco}}</label>
+             <select class="form-control">
+               <option value="" >{{'label.select-an-option'|transloco}}</option>
+               <option value="cat.name" *ngFor="let cat of categories">{{cat.name+' - '+cat.subcategory}}</option>
+            </select>
+         </div>
+      </div>
+  
+      </div>
+  
+  
+      <div class="row">
+        <div class="col-lg-3 col-12 col-md-6 col-sm-6 mb-5" *ngFor="let item of itemstosale">
+          <div class="product">
+            <div class="product-wrap">
+              <a *ngFor="let image of item.images" href="/product-single/{{item.id}}">
+                <img class="img-fluid w-100 mb-3 {{image.tag}}" src="{{image.image}}" alt="product-img" />
+              </a>
+            </div>
+  
+            <span *ngIf="item.deal" class="onsale">Sale</span>
+            <div class="product-hover-overlay">
+              <a href="#"><i class="tf-ion-android-cart"></i></a>
+              <a href="#"><i class="tf-ion-ios-heart"></i></a>
+            </div>
+  
+            <div class="product-info">
+              <h2 class="product-title h5 mb-0"><a href="/product-single/{{item.id}}">{{item.name}}</a></h2>
+              <span *ngIf="!item.deal" class="price">
+                {{item.currency}}{{item.price}}
+              </span>
+              <span *ngIf="item.deal" class="price">
+                <del>{{item.price}}</del>{{item.currency}}{{item.dealprice}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="pagination">
+        <a class="page-item page-link" href="#">&laquo;</a>
+        <a class="page-item page-link" href="#">1</a>
+        <a class="page-item page-link" href="#">2</a>
+        <a class="page-item page-link" href="#">3</a>
+        <a class="page-item page-link" href="#">4</a>
+        <a class="page-item page-link" href="#">5</a>
+        <a class="page-item page-link" href="#">6</a>
+        <a class="page-item page-link" href="#">&raquo;</a>
+      </div>
+  
+    </div>
+  </section>
